@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   class Message extends Model {
     static associate(models) {
       // define association here
+      this.belongsTo(models.Chats,{
+        foreignKey:"ChatId"}
+        );
     }
   }
   Message.init({

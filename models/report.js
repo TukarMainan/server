@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
   class Report extends Model {
     static associate(models) {
       // define association here
+      this.belongsTo(models.Users,{
+        foreignKey:"UserId"}
+        );
+	    this.belongsTo(models.Posts,{
+        foreignKey:"PostId"}
+        );
     }
   }
   Report.init({

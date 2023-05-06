@@ -7,6 +7,24 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
       // define association here
+      this.belongsTo(models.Users,{
+        foreignKey:"UserId"
+      })
+      this.hasOne(models.Reviews,{
+        foreignKey:"PostId"
+      })
+	    this.hasMany(models.Comments,{
+        foreignKey:"PostId"
+      })
+	    this.hasMany(models.Reviews,{
+        foreignKey:"SenderId"
+      })
+	    this.hasMany(models.Reports,{
+        foreignKey:"PostId"
+      })
+	    this.hasMany(models.Comments,{
+        foreignKey:"UserId"
+      })
     }
   }
   Post.init({

@@ -8,6 +8,30 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
+      this.hasMany(models.Chats,{
+        foreignKey:"SenderId"
+      })
+      this.hasMany(models.Chats,{
+        foreignKey:"ReceiverId"
+      })
+	    this.hasMany(models.Reviews,{
+        foreignKey:"UserId"
+      })
+	    this.hasMany(models.Reviews,{
+        foreignKey:"SenderId"
+      })
+	    this.hasMany(models.Notifications,{
+        foreignKey:"UserId"
+      })
+	    this.hasMany(models.Comments,{
+        foreignKey:"UserId"
+      })
+	    this.hasMany(models.Reports,{
+        foreignKey:"UserId"
+      })
+	    this.hasMany(models.Posts,{
+        foreignKey:"UserId"
+      })
     }
   }
   User.init({

@@ -6,6 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   class Chat extends Model {
     static associate(models) {
       // define association here
+      this.belongsTo(models.Users,{
+        foreignKey:"SenderId"}
+        );
+      this.belongsTo(models.Users,{
+        foreignKey:"ReveiverId"}
+        );
+	    this.hasMany(models.Messages,{
+        foreignKey:"ChatId"
+      })
     }
   }
   Chat.init({
