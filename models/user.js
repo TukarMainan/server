@@ -7,31 +7,30 @@ const { hashPassword } = require('../helpers');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
-      this.hasMany(models.Chats,{
-        foreignKey:"SenderId"
-      })
-      this.hasMany(models.Chats,{
-        foreignKey:"ReceiverId"
-      })
-	    this.hasMany(models.Reviews,{
-        foreignKey:"UserId"
-      })
-	    this.hasMany(models.Reviews,{
-        foreignKey:"SenderId"
-      })
-	    this.hasMany(models.Notifications,{
-        foreignKey:"UserId"
-      })
-	    this.hasMany(models.Comments,{
-        foreignKey:"UserId"
-      })
-	    this.hasMany(models.Reports,{
-        foreignKey:"UserId"
-      })
-	    this.hasMany(models.Posts,{
-        foreignKey:"UserId"
-      })
+      this.hasMany(models.Chat, {
+        foreignKey: "SenderId"
+      });
+      this.hasMany(models.Chat, {
+        foreignKey: "ReceiverId"
+      });
+      this.hasMany(models.Review, {
+        foreignKey: "UserId"
+      });
+      this.hasMany(models.Review, {
+        foreignKey: "SenderId"
+      });
+      this.hasMany(models.Notification, {
+        foreignKey: "UserId"
+      });
+      this.hasMany(models.Comment, {
+        foreignKey: "UserId"
+      });
+      this.hasMany(models.Report, {
+        foreignKey: "UserId"
+      });
+      this.hasMany(models.Post, {
+        foreignKey: "UserId"
+      });
     }
   }
   User.init({

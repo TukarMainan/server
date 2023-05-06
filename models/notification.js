@@ -5,10 +5,9 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Notification extends Model {
     static associate(models) {
-      this.belongsTo(models.Users, {
+      this.belongsTo(models.User, {
         foreignKey: "UserId"
-      }
-      );
+      });
     }
   }
   Notification.init({
