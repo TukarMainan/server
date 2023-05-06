@@ -67,6 +67,51 @@ class UserController {
       err.ERROR_FROM_CONTROLLER = "UserController: login";
       next(err);
     }
+
+  }
+  static async getAllUser(req,res,next){
+    try {
+      const users = await User.findAll();
+      res.status(200).json(users);
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: getAllUser";
+      next(err);
+    }
+  }
+  
+  static async getUserById(req,res,next){
+    try {
+      const { id } = req.params;
+      const userById = await User.findByPk(id);
+      if (!userById) throw ({ name: "UserNotFound" });
+      res.status(200).json(userById);
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: getUserById";
+      next(err);
+    }
+  }
+
+  static async userUpdateStatus(req,res,next){
+    try {
+      const { status } = req.body;
+      const { id } = req.params;
+      const findUser = await User.findByPk(id);
+      if (!findUser) throw({ name: "UserNotFound" });
+      const updatedUser = await User.update(
+        {
+          status
+        },
+        {
+          where: { id },
+        }
+      );
+      res
+        .status(200)
+        .json({ message: `Successfully updated status User with id ${id}` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: userUpdateStatus";
+      next(err);
+    }
   }
 }
 
