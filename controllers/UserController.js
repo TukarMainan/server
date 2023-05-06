@@ -1,45 +1,70 @@
+const { Op } = require("sequelize");
 const { User } = require("../models");
-const { verifyPassword } = require("../helpers/argon2");
-const { signToken } = require("../helpers/jwt");
+const { verifyPassword, signToken } = require("../helpers");
 
 class UserController {
-  static async registerAdmin(req, res, next) {
+  static async register(req, res, next) {
     try {
-      const { username,email,password,name,city} = req.body;
-      if (!email) return next({ name: "EmailRequired" });
-      if (!password) return next({ name: "PasswordRequired" });
-      if (!name) return next({ name: "NameRequired" });
-      if (!city) return next({ name: "CityRequired" });
+      const { username, email, password, city } = req.body;
+
+      // NotNull and NotEmpty already handled by SequelizeValidationError
+      // if (!email) return next({ name: "EmailRequired" });
+      // if (!password) return next({ name: "PasswordRequired" });
+      // if (!name) return next({ name: "NameRequired" });
+      // if (!city) return next({ name: "CityRequired" });
       const newUser = await User.create({
+        username,
         email,
         password,
-        name,
         city
       });
+
       res.status(201).json({ message: "Success creating new user" });
     } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: register";
       next(err);
     }
   }
+
   static async login(req, res, next) {
     try {
-      const { email, password } = req.body;
-      if (!email) return next({ name: "EmailRequired" });
-      if (!password) return next({ name: "PasswordRequired" });
-      const user = await User.findOne({
-        where: { email },
-      });
-      if (!user) next({ name: "UserNotFound" });
-      if (!verifyPassword(password, user.password)) {
-        next({ name: "UserNotFound" });
+      // Key username value can be < username > || < email >
+      const { username, password } = req.body;
+
+      // Handle both validation in one error name
+      // if (!email) return next({ name: "EmailRequired" });
+      // if (!password) return next({ name: "PasswordRequired" });
+      if (!username || !password) throw { name: "BadRequest" };
+
+      // Login with username or email, client send as key username
+      const searchOptions = {
+        where: {
+          [Op.or]: [
+            { username: username },
+            { email: username }
+          ]
+        }
       }
-      const token = signToken({
-        id: user.id,
-        email: user.email,
+
+      const user = await User.findOne(searchOptions);
+
+      if (!user) throw { name: "Unauthorized" };
+
+      // Argon2 can only use promise, must await
+      const isValid = await verifyPassword(user.password, password);
+      if (!isValid) throw { name: "Unauthorized" };
+      // if (!verifyPassword(password, user.password)) {
+      //   next({ name: "UserNotFound" });
+      // }
+
+      // Access token payload with only id is enough
+      const access_token = signToken({
+        id: user.id
       });
-      res.status(200).json({ access_token: token });
+
+      res.status(200).json({ access_token });
     } catch (err) {
-      console.log(err);
+      err.ERROR_FROM_CONTROLLER = "UserController: login";
       next(err);
     }
   }
