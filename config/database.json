@@ -1,0 +1,171 @@
+{
+    "admins": [
+        {
+        "id": "05ef6fb8-be74-4904-99b8-8fd0c84ddf78",
+        "email": "admin1@gmail.com",
+        "password": "admin1",
+        "username": "admin 1"
+        },
+        {
+        "id": "097d9c2e-c914-436b-9445-7894511463bc",
+        "email": "admin2@gmail.com",
+        "password": "admin2",
+        "username": "admin 2"
+        },
+        {
+        "id": "76848f29-55b4-474a-8fc3-f958997d2d04",
+        "email": "admin3@gmail.com",
+        "password": "admin3",
+        "username": "admin 3"
+        }
+      ],
+    "users": [
+        {
+        "id": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+        "email": "alice@gmail.com",
+        "username": "Alice",
+        "password": "alice123",
+        "profileImg":"https://akcdn.detik.net.id/community/media/visual/2020/02/21/91662e7e-2966-404f-a628-495a8c12c7b8_43.jpeg?w=250&q=",
+        "name":"Alice Wonderland",
+        "notes":"i am a verified user",
+        "phoneNumber":"082110981550",
+        "status":"verified",
+        "city":"Jakarta",
+        "ratings":0
+        },
+        {
+        "id": "3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+        "email": "jhon@gmail.com",
+        "username": "Jhonny",
+        "password": "jhonny123",
+        "profileImg":"https://assets.ayobandung.com/crop/0x19:688x405/750x500/webp/photo/2023/01/10/3822375222.jpeg",
+        "name":"Jhon D Monkey",
+        "notes":"i am a unverified user",
+        "phoneNumber":"088213221081",
+        "status":"unverified",
+        "city":"Bekasi",
+        "ratings":3
+        },
+        {
+        "id": "9ec9f3ad-79ff-4463-bb36-49a5a8a0d0a6",
+        "email": "july@gmail.com",
+        "username": "Julie",
+        "password": "julie123",
+        "profileImg":"https://akcdn.detik.net.id/community/media/visual/2022/10/26/andina-julie-2.jpeg?w=640",
+        "name":"Julie Rosefield",
+        "notes":"i am a suspended user",
+        "phoneNumber":"082119651580",
+        "status":"suspend",
+        "city":"Balikpapan",
+        "ratings":5
+        }
+      ],
+    "categories":[
+        {
+            "id":"e759b264-980a-4d0a-90a4-cd484beffe49",
+            "name":"Boys"
+        },
+        {
+            "id":"8741881b-59ce-4d9e-b8e0-07d037511022",
+            "name":"Girls"
+        },
+        {
+            "id":"a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "name":"Neutral"
+        }
+    ],
+    "post":[
+        {
+            "id":"b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
+            "title":"Figure Avengers ZD Toys Iron Man",
+            "UserId":"c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description":"The toy figure is made of plastic and has a blue and green face with a white beard and mustache. There is also a clear plastic container in the box, as well as two red gloves on the surface below it.",
+            "condition":"like new",
+            "CategoryId":"e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status":"active",
+            "meetingPoint":{
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images":[
+                "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/1/24/80aa5781-cb34-4af9-a8f2-483dee85a6dc.jpg.webp?ect=4g",
+                "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/1/24/9c975403-fa61-4fd5-8d76-9f3926bed5a3.jpg.webp?ect=4g",
+                "https://images.tokopedia.net/img/cache/100-square/VqbcmM/2023/1/24/38a3cc55-3faa-4a11-b425-ee34a47d3952.jpg.webp?ect=4g"
+            ],
+            "price":100000
+        },
+        {
+            "id":"9a7dc419-730f-4a7a-a741-e7ad2d2b7187",
+            "title":"Mainan perosotan slide parklon pink foldable lipat",
+            "UserId":"c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description":"mainan perosotan parklon warna pink, tanpa bola ,kondisi oke, hanya sticker sudah agak lepas",
+            "condition":"lightly used",
+            "CategoryId":"8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status":"complete",
+            "meetingPoint":{
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images":[
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/10/0bdf1b8d-6ddd-4e8b-ad1a-3068cc884346.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/10/03c584ab-f083-4f18-99c9-0dc366ccb9f9.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/4/10/e98b4d9c-44c1-42e2-85da-3c239050300a.jpg"
+            ],
+            "price":150000
+        },
+        {
+            "id":"1028784b-1391-4b57-9bbb-f6752006d3f3",
+            "title":"wooden toys pretend play",
+            "UserId":"9ec9f3ad-79ff-4463-bb36-49a5a8a0d0a6",
+            "description":"The toy consists of several wooden sticks arranged in an interesting pattern.",
+            "condition":"heavily used",
+            "CategoryId":"a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status":"suspend",
+            "meetingPoint":{
+                "latitude": -1.2675,
+                "longitude": 116.8289
+            },
+            "images":["https://images.tokopedia.net/img/cache/900/VqbcmM/2022/10/21/0438544b-5d08-4f52-921e-efbf8dd22156.jpg"],
+            "price":50000
+        },
+        {
+            "id":"1590e5ca-bbca-46ff-be71-a7ec95e6379f",
+            "title":"kalender kayu montessori edukasi mainan",
+            "UserId":"3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+            "description":"wooden calendar with numbers and a box. The calendar has various colors, including brown, grey, purple and pink.",
+            "condition":"lightly used",
+            "CategoryId":"a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status":"active",
+            "meetingPoint":{
+                "latitude": -6.2383,
+                "longitude": 106.9756
+            },
+            "images":[
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/9/28/8eba1920-f0ff-407a-9ad5-58444cb8a2bf.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/9/28/22ad2f03-a9f3-44f3-9288-335ece4c1236.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/9/28/4eda8e7d-e512-4ac0-8eb7-c435f56dbc5c.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/9/28/010dc42d-b6d7-4e2a-87bf-31d8a2915142.jpg"
+            ],
+            "price":200000
+        },
+        {
+            "id":"49e0900b-15cf-4558-a5bb-92eaa18117ec",
+            "title":"Dickie tow truck",
+            "UserId":"3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+            "description":"The truck is yellow and blue with black text, and it has a tow truck attached to the back",
+            "condition":"well used",
+            "CategoryId":"e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status":"active",
+            "meetingPoint":{
+                "latitude": -6.2615,
+                "longitude": 106.8106
+            },
+            "images":[
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/12/4/c1f5028c-98d4-45c9-b555-126aee9653ee.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/12/4/04c10bbb-0cdb-442c-b772-41dac5fb684e.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/12/4/85c4f943-b01d-474e-aa4a-6816cff2e722.jpg"
+            ],
+            "price":250000
+        }
+    ]
+  }
