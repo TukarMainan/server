@@ -120,6 +120,10 @@ module.exports = (sequelize, DataTypes) => {
     ratings: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    warningCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   }, {
     sequelize,
