@@ -33,6 +33,10 @@ module.exports = (err, req, res, next) => {
             status = 404;
             message = `Post not found`;
             break;
+        case "UserNotFound":
+            status = 404;
+            message = `User not found`;
+            break;
     }
 
     res.status(status).json({ message });
