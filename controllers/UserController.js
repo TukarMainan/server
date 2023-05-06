@@ -96,7 +96,7 @@ class UserController {
       const { status } = req.body;
       const { id } = req.params;
       const findUser = await User.findByPk(id);
-      if (!findUser) return next({ name: "UserNotFound" });
+      if (!findUser) throw({ name: "UserNotFound" });
       const updatedUser = await User.update(
         {
           status
@@ -106,7 +106,7 @@ class UserController {
         }
       );
       res
-        .status(201)
+        .status(200)
         .json({ message: `Successfully updated status User with id ${id}` });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "UserController: userUpdateStatus";
