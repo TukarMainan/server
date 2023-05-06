@@ -5,13 +5,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
     static associate(models) {
-      // define association here
-      this.belongsTo(models.Users,{
-        foreignKey:"UserId"}
-        );
-	    this.belongsTo(models.Posts,{
-        foreignKey:"PostId"}
-        );
+      this.belongsTo(models.User, {
+        foreignKey: "UserId"
+      });
+      this.belongsTo(models.Post, {
+        foreignKey: "PostId"
+      });
     }
   }
   Comment.init({
