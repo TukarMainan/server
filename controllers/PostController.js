@@ -4,7 +4,7 @@ const { Post,User,Chat, } = require("../models");
 
 class PostController{
 
-    static async getPost(req,res,next){
+    static async getPosts(req,res,next){
         try {
             const { CategoryId, sortby,search,city } = req.query
             const options = {
@@ -23,7 +23,7 @@ class PostController{
             if (search) {
             options.where = {
               ...options.where,
-              search: { [Op.iLike]: `%${search}%` }
+              title: { [Op.iLike]: `%${search}%` }
             }
             }
             if(city){
@@ -35,7 +35,7 @@ class PostController{
             const posts = await Post.findAll(options);
             res.status(200).json(posts);
         } catch (error) {
-            err.ERROR_FROM_CONTROLLER = "PostController: getPost";
+            err.ERROR_FROM_CONTROLLER = "PostController: getPosts";
             next(err);
         }
     }
@@ -49,7 +49,7 @@ class PostController{
           if (!postById) throw ({ name: "PostNotFound" });
           res.status(200).json(postById);
         } catch (err) {
-          err.ERROR_FROM_CONTROLLER = "PostController: postUserById";
+          err.ERROR_FROM_CONTROLLER = "PostController: getPostById";
           next(err);
         }
       }
@@ -58,9 +58,7 @@ class PostController{
         try {
           const { status } = req.body;
           const { id } = req.params;
-          const findPost = await Post.findByPk(id,{
-            include:[User,Category]
-          });
+          const findPost = await Post.findByPk(id);
           if (!findPost) throw({ name: "PostNotFound" });
           const updatedPost = await Post.update(
             {
