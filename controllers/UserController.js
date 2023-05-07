@@ -113,6 +113,33 @@ class UserController {
       next(err);
     }
   }
+
+  static async userUpdateProfile(req,res,next){
+    try {
+      const { name,profileImg,notes,phoneNumber,city } = req.body;
+      const { id } = req.params;
+      const findUser = await User.findByPk(id);
+      if (!findUser) throw({ name: "UserNotFound" });
+      const updatedUser = await User.update(
+        {
+          name,
+          profileImg,
+          notes,
+          phoneNumber,
+          city
+        },
+        {
+          where: { id },
+        }
+      );
+      res
+        .status(200)
+        .json({ message: `Successfully updated profile` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: userUpdateProfile";
+      next(err);
+    }
+  }
 }
 
 module.exports = UserController;
