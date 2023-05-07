@@ -65,7 +65,10 @@ _200 - OK_
 -   Body
     ```json
     {
-        "access_token": String
+        "access_token": String,
+        "id": UUID,
+        "username": String,
+        "email": String
     }
     ```
 
@@ -145,7 +148,7 @@ _409 - Conflict_
 -   Headers
     ```json
     {
-      "access_token": < jwt_token: String >
+      "access_token": < user_jwt_token: String >
     }
     ```
 -   Body
@@ -217,7 +220,10 @@ _200 - OK_
 -   Body
     ```json
     {
-        "access_token": String
+        "access_token": String,
+        "id": UUID,
+        "username": String,
+        "email": String
     }
     ```
 
@@ -250,7 +256,7 @@ _401 - Unauthorized_
 -   Headers
     ```json
     {
-      "access_token": < jwt_token: String >
+      "access_token": < admin_jwt_token: String >
     }
     ```
 -   Body
@@ -302,7 +308,7 @@ _409 - Conflict_
 -   Headers
     ```json
     {
-      "access_token": < jwt_token: String >
+      "access_token": < admin_jwt_token: String >
     }
     ```
 -   Body
@@ -362,7 +368,7 @@ _404 - NotFound_
 -   Headers
     ```json
     {
-      "access_token": < jwt_token: String >
+      "access_token": < admin_jwt_token: String >
     }
     ```
 
@@ -426,7 +432,7 @@ _200 - OK_
                     "id": UUID,
                     "title": String,
                     "condition": Enum(["brand new", "like new", "lightly used", "well used", "heavily used"]),
-                    "status": Enum(["active", "complete", "suspend"]),
+                    "status": Enum(["active", "inactive", "complete", "suspend"]),
                     "images": [ String ],
                     "price": Integer,
                     "createdAt": Date,
