@@ -4,12 +4,19 @@
 
 List of Available Endpoints:
 
-No Authentication and Authorization
+### Auth
+
+#### User
 
 -   `POST /auth/users/login`
 -   `POST /auth/users/register`
+-   `PATCH /auth/users/updatePassword`
+
+#### Admin
+
 -   `POST /auth/admins/login`
 -   `POST /auth/admins/register`
+-   `PATCH /auth/admins/updatePassword`
 
 ### POST /auth/users/login
 
@@ -100,6 +107,66 @@ _409 - Conflict_
     ```json
     {
         "message": < sequelize_validation_error: String >
+    }
+    ```
+
+### POST /auth/users/updatePassword
+
+#### Description
+
+-   Update an existing user password
+
+#### Request
+
+-   Headers
+    ```json
+    {
+      "access_token": < jwt_token: String >
+    }
+    ```
+-   Body
+    ```json
+    {
+        "newPassword": String,
+        "oldPassword": String
+    }
+    ```
+
+#### Response
+
+_200 - OK_
+
+-   Body
+    ```json
+    {
+        "message": String
+    }
+    ```
+
+_400 - Bad Request_
+
+-   Body
+    ```json
+    {
+        "message": < sequelize_validation_error: String >
+    }
+    ```
+
+_401 - Unauthorized_
+
+-   Body
+    ```json
+    {
+        "message": "Unauthorized"
+    }
+    ```
+
+_404 - NotFound_
+
+-   Body
+    ```json
+    {
+        "message": String
     }
     ```
 
@@ -197,6 +264,66 @@ _409 - Conflict_
     ```json
     {
         "message": < sequelize_validation_error: String >
+    }
+    ```
+
+### POST /auth/admins/updatePassword
+
+#### Description
+
+-   Update an existing admin password
+
+#### Request
+
+-   Headers
+    ```json
+    {
+      "access_token": < jwt_token: String >
+    }
+    ```
+-   Body
+    ```json
+    {
+        "newPassword": String,
+        "oldPassword": String
+    }
+    ```
+
+#### Response
+
+_200 - OK_
+
+-   Body
+    ```json
+    {
+        "message": String
+    }
+    ```
+
+_400 - Bad Request_
+
+-   Body
+    ```json
+    {
+        "message": < sequelize_validation_error: String >
+    }
+    ```
+
+_401 - Unauthorized_
+
+-   Body
+    ```json
+    {
+        "message": "Unauthorized"
+    }
+    ```
+
+_404 - NotFound_
+
+-   Body
+    ```json
+    {
+        "message": String
     }
     ```
 
