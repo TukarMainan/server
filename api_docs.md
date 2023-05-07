@@ -4,19 +4,22 @@
 
 List of Available Endpoints:
 
-### Auth
+### Admin CMS Endpoints
 
-#### User
+-   `GET /users` ✔
+-   `POST /auth/admins/login` ✔
+-   `POST /auth/admins/register` ✔
+-   `PATCH /auth/admins/updatePassword` ✔
 
--   `POST /auth/users/login`
--   `POST /auth/users/register`
--   `PATCH /auth/users/updatePassword`
+### Authorize User Endpoints
 
-#### Admin
+-   `PATCH /auth/users/updatePassword` ✔
 
--   `POST /auth/admins/login`
--   `POST /auth/admins/register`
--   `PATCH /auth/admins/updatePassword`
+### Public Endpoints
+
+-   `GET /public/users/:id` ✔
+-   `POST /auth/users/login` ✔
+-   `POST /auth/users/register` ✔
 
 ### POST /auth/users/login
 
@@ -325,6 +328,112 @@ _404 - NotFound_
     {
         "message": String
     }
+    ```
+
+### GET /users
+
+#### Description
+
+-   Get all users
+
+#### Request
+
+-   Headers
+    ```json
+    {
+      "access_token": < jwt_token: String >
+    }
+    ```
+
+#### Response
+
+_200 - OK_
+
+-   Body
+    ```json
+    [
+        {
+            "id": UUID,
+            "email": String,
+            "username": String,
+            "profileImg": String,
+            "name": String,
+            "notes": String,
+            "phoneNumber": String,
+            "status": Enum(["unverified", "verified", "suspend", "premium"]),
+            "city": String,
+            "ratings": Integer,
+            "warningCount": Integer,
+            "createdAt": Date,
+            "updatedAt": Date
+        },
+        ...
+    ]
+    ```
+
+### GET /public/users/:id
+
+#### Description
+
+-   Get an user profile data based on given id
+
+#### Request
+
+#### Response
+
+_200 - OK_
+
+-   Body
+
+    ```json
+    [
+        {
+            "id": UUID,
+            "email": String,
+            "username": String,
+            "profileImg": String,
+            "name": String,
+            "notes": String,
+            "phoneNumber": String,
+            "status": Enum(["unverified", "verified", "suspend", "premium"]),
+            "city": String,
+            "ratings": Integer,
+            "createdAt": Date,
+            "updatedAt": Date,
+            "Posts": [
+                {
+                    "id": UUID,
+                    "title": String,
+                    "condition": Enum(["brand new", "like new", "lightly used", "well used", "heavily used"]),
+                    "status": Enum(["active", "complete", "suspend"]),
+                    "images": [ String ],
+                    "price": Integer,
+                    "createdAt": Date,
+                    "updatedAt": Date,
+                    "Category": {
+                        "id": UUID,
+                        "name": String
+                    }
+                },
+                ...
+            ],
+            "Reviews": [
+                {
+                    "id": UUID,
+                    "message": String,
+                    "createdAt": Date,
+                    "updatedAt": Date,
+                    "Sender": {
+                        "id": UUID,
+                        "username": String,
+                        "profileImg": String
+                    }
+                },
+                ...
+            ]
+        },
+        ...
+    ]
     ```
 
 ### Middlewares Authentication and Authorization Error
