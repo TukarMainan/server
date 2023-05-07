@@ -6,20 +6,41 @@ List of Available Endpoints:
 
 ### Admin CMS Endpoints
 
--   `GET /users` ✔
--   `POST /auth/admins/login` ✔
--   `POST /auth/admins/register` ✔
 -   `PATCH /auth/admins/updatePassword` ✔
+-   `GET /users` ✔
+-   `PATCH /users/:id/suspend` ❌
+-   `PATCH /posts/:id/suspend` ❌
+-   `GET /reports` ❌
+-   `GET /adminlogs` ❌
+-   `POST /categories` ❌
+-   `PUT /categories` ❌
 
 ### Authorize User Endpoints
 
 -   `PATCH /auth/users/updatePassword` ✔
+-   `PUT /users/:id` ❌
+-   `POST /posts` ❌
+-   `PUT /posts/:id` ❌
+-   `PATCH /posts/:id` ❌
+-   `GET /notifications` ❌
+-   `GET /chats` ❌
+-   `POST /chats` ❌
+-   `POST /messages` ❌
+-   `POST /comments` ❌
+-   `POST /reports` ❌
 
 ### Public Endpoints
 
--   `GET /public/users/:id` ✔
+-   `POST /auth/admins/login` ✔
+-   `POST /auth/admins/register` ✔
 -   `POST /auth/users/login` ✔
+-   `POST /auth/users/login/google` ❌
 -   `POST /auth/users/register` ✔
+-   `GET /public/users/:id` ✔
+-   `GET /public/posts` ❌
+-   `GET /public/posts/:id` ❌
+-   `GET /public/posts/recommendations` ❌
+-   `GET /public/categories` ❌
 
 ### POST /auth/users/login
 
