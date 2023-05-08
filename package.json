@@ -4,7 +4,7 @@
   "description": "TukarMainan backend server",
   "main": "app.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit --verbose",
+    "test": "jest --detectOpenHandles --forceExit --verbose --coverage",
     "start": "node bin/www",
     "dev": "nodemon bin/www"
   },

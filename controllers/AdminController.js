@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Admin,AdminLog,Report,User,Post } = require("../models");
+const { Admin, AdminLog, Report, User, Post } = require("../models");
 const { verifyPassword, signToken } = require("../helpers");
 
 class AdminController {
@@ -12,7 +12,7 @@ class AdminController {
       const newAdmin = await Admin.create({
         username,
         email,
-        password
+        password,
       });
 
       res.status(201).json({ message: "Success creating new admin" });
@@ -33,12 +33,9 @@ class AdminController {
       // Login with username or email, client send as key username
       const searchOptions = {
         where: {
-          [Op.or]: [
-            { username: username },
-            { email: username }
-          ]
-        }
-      }
+          [Op.or]: [{ username: username }, { email: username }],
+        },
+      };
 
       const admin = await Admin.findOne(searchOptions);
       if (!admin) throw { name: "Unauthorized" };
@@ -49,10 +46,10 @@ class AdminController {
 
       // Access token payload with only id is enough
       const access_token = signToken({
-        id: admin.id
+        id: admin.id,
       });
 
-      res.status(200).json({ access_token });
+      res.status(200).json({ access_token, id: admin.id, username: admin.username, email: admin.email });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "AdminController: login";
       next(err);
