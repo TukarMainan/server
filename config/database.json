@@ -31,7 +31,7 @@
             "phoneNumber": "082110981550",
             "status": "verified",
             "city": "Jakarta",
-            "ratings": 0
+            "ratings": [0]
         },
         {
             "id": "3d131ee0-6f16-4fc7-a033-fa8e06acd172",
@@ -44,7 +44,7 @@
             "phoneNumber": "088213221081",
             "status": "unverified",
             "city": "Bekasi",
-            "ratings": 3
+            "ratings": [0]
         },
         {
             "id": "9ec9f3ad-79ff-4463-bb36-49a5a8a0d0a6",
@@ -57,7 +57,7 @@
             "phoneNumber": "082119651580",
             "status": "suspend",
             "city": "Balikpapan",
-            "ratings": 5
+            "ratings": [0]
         }
     ],
     "categories": [
@@ -120,7 +120,7 @@
             "description": "The toy consists of several wooden sticks arranged in an interesting pattern.",
             "condition": "heavily used",
             "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
-            "status": "suspend",
+            "status": "archived",
             "meetingPoint": {
                 "latitude": -1.2675,
                 "longitude": 116.8289

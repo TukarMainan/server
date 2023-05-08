@@ -4,13 +4,6 @@ const router = require("express").Router();
 router.route("/")
     .get(UserController.getAllUser)
 
-router.route("/:id")
-    .put(UserController.userUpdateProfile)
-    .patch(UserController.userUpdateStatus)
-
-// router.route("/:id/suspend")
-//     .patch(UserController.userSuspend)
-
 router.route("/login")
     .post(UserController.login)
 
@@ -22,5 +15,12 @@ router.route("/register")
 
 // router.route("/update-password")
 //     .patch(UserController.updatePassword)
+
+router.route("/:id/suspend")
+    .patch(UserController.userSuspend)
+
+router.route("/:id")
+    .put(UserController.userUpdateProfile)
+    .patch(UserController.userUpdateStatus)
 
 module.exports = router;

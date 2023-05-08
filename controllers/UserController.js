@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { User } = require("../models");
 const { verifyPassword, signToken } = require("../helpers");
+const { validate: uuidValidate } = require('uuid');
 
 class UserController {
   static async register(req, res, next) {
@@ -82,6 +83,7 @@ class UserController {
   static async getUserById(req, res, next) {
     try {
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "UserNotFound" };
       const userById = await User.findByPk(id);
       if (!userById) throw ({ name: "UserNotFound" });
       res.status(200).json(userById);
@@ -110,6 +112,24 @@ class UserController {
         .json({ message: `Successfully updated status User with id ${id}` });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "UserController: userUpdateStatus";
+      next(err);
+    }
+  }
+
+  static async userSuspend(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await User.findByPk(id);
+      if (!user) throw { name: "UserNotFound" };
+
+      user.status = "suspend";
+      await user.save();
+
+      res
+        .status(200)
+        .json({ message: `Successfully suspend User with id ${id}` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: userSuspend";
       next(err);
     }
   }
