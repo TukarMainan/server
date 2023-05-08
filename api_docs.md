@@ -40,7 +40,7 @@ List of Available Endpoints:
 -   `GET /public/users/:id` ✔
 -   `GET /public/posts` ❌
 -   `GET /public/posts/:id` ❌
--   `GET /public/posts/recommendations` ❌
+-   `GET /public/posts/nearby` ❌
 -   `GET /public/categories` ❌
 -   `GET /public/categories/:id` ❌
 
