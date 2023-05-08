@@ -1,14 +1,16 @@
 const { PostController } = require("../controllers");
 const router = require("express").Router();
 
+const { authenticationUser, authorizeUserPost, authenticationAdmin } = require("../middlewares");
+
 router.route("/")
-    .post(PostController.create)
+    .post(authenticationUser, PostController.create)
 
 router.route("/:id/archive")
-    .patch(PostController.postArchive)
+    .patch(authenticationAdmin, PostController.postArchive)
 
 router.route("/:id")
-    .put(PostController.updatePost)
-    .patch(PostController.postUpdateStatus)
+    .put(authenticationUser, authorizeUserPost, PostController.updatePost)
+    .patch(authenticationUser, authorizeUserPost, PostController.postUpdateStatus)
 
 module.exports = router;

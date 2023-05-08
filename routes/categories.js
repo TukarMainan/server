@@ -1,8 +1,10 @@
 const { CategoryController } = require("../controllers");
 const router = require("express").Router();
 
-router.route("/").post(CategoryController.create);
+const { authenticationAdmin } = require("../middlewares");
 
-router.route("/:id").patch(CategoryController.updateName);
+router.route("/").post(authenticationAdmin, CategoryController.create);
+
+router.route("/:id").patch(authenticationAdmin, CategoryController.updateName);
 
 module.exports = router;
