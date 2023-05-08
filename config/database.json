@@ -146,7 +146,7 @@
             "description": "The toy consists of several wooden sticks arranged in an interesting pattern.",
             "condition": "heavily used",
             "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
-            "status": "suspend",
+            "status": "archived",
             "meetingPoint": {
                 "latitude": -1.2675,
                 "longitude": 116.8289
@@ -508,7 +508,7 @@
             "description": "Fitur : Rumah - rumahan anak dengan perosotan, meja makan sertw kursi dan ring basket.",
             "condition": "lightly used",
             "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
-            "status": "suspend",
+            "status": "archived",
             "meetingPoint": {
                 "latitude": -6.2342,
                 "longitude": 106.8770
