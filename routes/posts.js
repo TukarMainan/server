@@ -6,6 +6,9 @@ const { authenticationUser, authorizeUserPost, authenticationAdmin } = require("
 router.route("/")
     .post(authenticationUser, PostController.create)
 
+router.route("/posts-by-average-profile-price")
+    .get(authenticationUser, PostController.recommendPostBasedOnProfileItemPrice)
+
 router.route("/:id/archive")
     .patch(authenticationAdmin, PostController.postArchive)
 

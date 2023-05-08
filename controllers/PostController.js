@@ -93,6 +93,38 @@ class PostController {
     }
   }
 
+  static async recommendPostBasedOnProfileItemPrice(req, res, next) {
+    try {
+      const { id: UserId } = req.user;
+
+      const posts = await Post.findAll({
+        where: { UserId }
+      });
+
+      const validPrices = posts.map(el => {
+        if (el.price !== null) return el.price;
+      })
+      const sum = validPrices.reduce((acc, val) => acc + val, 0);
+      const average = sum / validPrices.length;
+
+      const recommendedPost = await Post.findAll({
+        where: {
+          price: {
+            [Op.and]: {
+              [Op.between]: [average - 100000, average + 100000]
+            }
+          },
+          status: "active"
+        }
+      });
+
+      res.status(200).json(recommendedPost);
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "PostController: recommendPostBasedOnProfileItemPrice";
+      next(err);
+    }
+  }
+
   static async getPostById(req, res, next) {
     try {
       const { id } = req.params;
