@@ -58,29 +58,6 @@ class AdminController {
       next(err);
     }
   }
-
-  static async getAdminLogs(req,res,next){
-    try {
-      const logs = await AdminLog.findAll({
-        include:[Admin]
-      });
-      res.status(200).json(logs);
-    } catch (err) {
-      err.ERROR_FROM_CONTROLLER = "AdminController: getAdminLogs";
-      next(err);
-    }
-  }
-  static async getReports(req,res,next){
-    try {
-      const reports = await Report.findAll({
-        include:[User,Post]
-      });
-      res.status(200).json(reports);
-    } catch (err) {
-      err.ERROR_FROM_CONTROLLER = "AdminController: getReports";
-      next(err);
-    }
-  }
 }
 
 module.exports = AdminController;
