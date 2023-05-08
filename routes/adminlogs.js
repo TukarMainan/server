@@ -1,7 +1,7 @@
-// const { AdminLogController } = require("../controllers");
+const { AdminController } = require("../controllers");
 const router = require("express").Router();
 
-// router.route("/")
-//     .get(AdminLogController.readAll)
+router.route("/")
+    .get(AdminController.getAdminLogs)
 
 module.exports = router;
