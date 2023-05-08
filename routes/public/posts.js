@@ -4,10 +4,11 @@ const router = require("express").Router();
 router.route("/")
     .get(PostController.getPosts)
 
+router.route("/nearby")
+    .get(PostController.nearbyPost)
+
 router.route("/:id")
     .get(PostController.getPostById)
 
-// router.route("/recommendations")
-//     .get(PostController.recommendations)
 
 module.exports = router;

@@ -98,6 +98,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    backgroundImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isUrl: {
+          msg: "Invalid background image url"
+        }
+      }
+    },
     name: DataTypes.STRING,
     notes: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
@@ -118,8 +127,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     ratings: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
+      type: DataTypes.ARRAY(DataTypes.INTEGER)
     },
     warningCount: {
       type: DataTypes.INTEGER,

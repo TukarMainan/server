@@ -31,7 +31,7 @@
             "phoneNumber": "082110981550",
             "status": "verified",
             "city": "Jakarta",
-            "ratings": 4
+            "ratings": [0]
         },
         {
             "id": "3d131ee0-6f16-4fc7-a033-fa8e06acd172",
@@ -44,7 +44,7 @@
             "phoneNumber": "088213221081",
             "status": "unverified",
             "city": "Bekasi",
-            "ratings": 3
+            "ratings": [0]
         },
         {
             "id": "9ec9f3ad-79ff-4463-bb36-49a5a8a0d0a6",
@@ -57,7 +57,7 @@
             "phoneNumber": "082119651580",
             "status": "suspend",
             "city": "Balikpapan",
-            "ratings": 5
+            "ratings": [0]
         },
         {
             "id": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
@@ -70,7 +70,7 @@
             "phoneNumber": "082132981130",
             "status": "verified",
             "city": "Jakarta",
-            "ratings": 5
+            "ratings": [0]
         },
         {
             "id": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
@@ -83,7 +83,7 @@
             "phoneNumber": "082219851880",
             "status": "verified",
             "city": "Surabaya",
-            "ratings": 4
+            "ratings": [0]
         }
     ],
     "categories": [
