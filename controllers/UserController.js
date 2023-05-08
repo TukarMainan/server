@@ -176,8 +176,7 @@ class UserController {
       const user = await User.findByPk(id);
 
       if (!user) throw { name: "Unauthorized" };
-      if (user.status == "suspend") throw { name: "UserSuspended" };
-
+      
       const isValid = await verifyPassword(user.password, oldPassword);
       if (!isValid) throw { name: "Unauthorized" };
 
@@ -191,7 +190,8 @@ class UserController {
       );
 
 
-      res.status(200).json({ access_token, id: user.id, username: user.username, email: user.email });
+      res.status(200)
+      .json({ message: `Successfully updated Password` })
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "UserController: updatePassword";
       next(err);

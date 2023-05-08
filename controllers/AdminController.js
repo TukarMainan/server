@@ -55,6 +55,38 @@ class AdminController {
       next(err);
     }
   }
+  static async updatePassword(req, res, next) {
+    try {
+
+      const {id} = req.admin
+      const { oldPassword, NewPassword } = req.body;
+
+      if (!oldPassword || !NewPassword) throw { name: "BadRequest" };
+
+      const admin = await Admin.findByPk(id);
+
+      if (!admin) throw { name: "Unauthorized" };
+
+      const isValid = await verifyPassword(admin.password, oldPassword);
+      if (!isValid) throw { name: "Unauthorized" };
+
+      const updatedAdmin = await Admin.update(
+        {
+          password:NewPassword
+        },
+        {
+          where: { id },
+        }
+      );
+
+      res.status(200)
+      .json({ message: `Successfully updated Password` })
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "AdminController: updatePassword";
+      next(err);
+    }
+
+  }
 }
 
 module.exports = AdminController;

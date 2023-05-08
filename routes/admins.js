@@ -7,7 +7,7 @@ router.route("/login")
 router.route("/register")
     .post(AdminController.register)
 
-// router.route("/update-password")
-//     .patch(AdminController.updatePassword)
+router.route("/update-password")
+    .patch(AdminController.updatePassword)
 
 module.exports = router;
