@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Chat uuid is required"
         },
         isUUID: {
+          args: [4],
           msg: "Invalid chat uuid format"
         }
       }

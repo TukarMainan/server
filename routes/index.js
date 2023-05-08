@@ -6,7 +6,6 @@ const adminsRouter = require("./admins");
 const categoriesRouter = require("./categories");
 const chatsRouter = require("./chats");
 const commentsRouter = require("./comments");
-const messagesRouter = require("./messages");
 const notificationsRouter = require("./notifications");
 const postsRouter = require("./posts");
 const reportsRouter = require("./reports");

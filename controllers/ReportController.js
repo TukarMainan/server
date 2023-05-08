@@ -1,4 +1,5 @@
 const { Report, User, Post } = require("../models");
+const { validate: uuidValidate } = require('uuid');
 
 class ReportController {
     static async getReports(req, res, next) {
@@ -15,14 +16,17 @@ class ReportController {
 
     static async create(req, res, next) {
         try {
-            const { UserId, PostId, message } = req.body;
+            const { id: UserId } = req.user;
+            const { PostId, message } = req.body;
+
+            if (!uuidValidate(PostId)) throw { name: "PostNotFound" };
 
             const newReports = await Report.create({
                 UserId,
                 PostId,
                 message
             });
-            res.status(200).json({ message: "Report successfully created" });
+            res.status(201).json({ message: "Report successfully created" });
         } catch (err) {
             err.ERROR_FROM_CONTROLLER = "ReportController: create";
             next(err);

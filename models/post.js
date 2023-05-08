@@ -53,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "User uuid is required"
         },
         isUUID: {
+          args: [4],
           msg: "Invalid user uuid format"
         }
       }
@@ -92,6 +93,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Category is required"
         },
         isUUID: {
+          args: [4],
           msg: "Invalid category uuid format"
         }
       }
@@ -101,7 +103,37 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "active"
     },
     meetingPoint: DataTypes.GEOMETRY("POINT"),
-    images: DataTypes.ARRAY(DataTypes.STRING),
+    images: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Images is required"
+        },
+        notEmpty: {
+          msg: "Images is required"
+        },
+        isValidArray(value) {
+          if (!Array.isArray(value)) {
+            throw new Error('Invalid images data structure');
+          }
+
+          if (value.length < 1 && value.length > 5) {
+            throw new Error('Images must contain 1 to 5 image url');
+          }
+        },
+        isValidUrlArray(value) {
+          console.log(value);
+          const isValid = value.every((url) => {
+            const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
+            return urlRegex.test(url);
+          });
+          if (!isValid) {
+            throw new Error('Invalid image url format');
+          }
+        },
+      }
+    },
     price: DataTypes.INTEGER
   }, {
     sequelize,

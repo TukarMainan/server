@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Admin uuid is required"
         },
         isUUID: {
+          args: [4],
           msg: "Invalid admin uuid format"
         }
       }

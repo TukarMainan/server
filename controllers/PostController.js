@@ -97,9 +97,14 @@ class PostController {
     try {
       const { status } = req.body;
       const { id } = req.params;
+      if (!status) throw { name: "BadRequest" };
       if (!uuidValidate(id)) throw { name: "PostNotFound" };
+
       const findPost = await Post.findByPk(id);
       if (!findPost) throw ({ name: "PostNotFound" });
+
+      if (findPost.status === "archived") throw { name: "Forbidden" };
+
       const updatedPost = await Post.update(
         {
           status
@@ -146,22 +151,29 @@ class PostController {
     try {
       const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
       const { id } = req.params;
+
       if (!uuidValidate(id)) throw { name: "PostNotFound" };
+      if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
+      const category = await Category.findByPk(CategoryId);
+      if (!category) throw { name: "CategoryNotFound" };
+
       const foundPost = await Post.findByPk(id);
       if (!foundPost) throw ({ name: "PostNotFound" });
+
+      const { longitude, latitude } = JSON.parse(meetingPoint);
       const updatedPost = await Post.update(
         {
           title,
           description,
           condition,
           CategoryId,
-          meetingPoint: Sequelize.fn(
+          meetingPoint: longitude && latitude ? Sequelize.fn(
             'ST_GeomFromText',
-            Sequelize.literal(`'POINT(${meetingPoint.longitude} ${meetingPoint.latitude})'`),
+            Sequelize.literal(`'POINT(${longitude} ${latitude})'`),
             '4326'
-          ),
-          images,
-          price
+          ) : null,
+          images: JSON.parse(images),
+          price: price || null
         },
         {
           where: { id },
@@ -181,6 +193,12 @@ class PostController {
       const { id: UserId } = req.user;
       const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
 
+      if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
+      const category = await Category.findByPk(CategoryId);
+      if (!category) throw { name: "CategoryNotFound" };
+
+      const { longitude, latitude } = JSON.parse(meetingPoint);
+
       const newPost = await Post.create(
         {
           title,
@@ -189,13 +207,13 @@ class PostController {
           condition,
           CategoryId,
           status: "active",
-          meetingPoint: Sequelize.fn(
+          meetingPoint: longitude && latitude ? Sequelize.fn(
             'ST_GeomFromText',
-            Sequelize.literal(`'POINT(${meetingPoint.longitude} ${meetingPoint.latitude})'`),
+            Sequelize.literal(`'POINT(${longitude} ${latitude})'`),
             '4326'
-          ),
-          images,
-          price
+          ) : null,
+          images: JSON.parse(images),
+          price: price || null
         }
       );
 

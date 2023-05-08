@@ -74,7 +74,11 @@ class UserController {
   }
   static async getAllUser(req, res, next) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({
+        attributes: {
+          exclude: ["password"]
+        }
+      });
       res.status(200).json(users);
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "UserController: getAllUser";
@@ -86,7 +90,11 @@ class UserController {
     try {
       const { id } = req.params;
       if (!uuidValidate(id)) throw { name: "UserNotFound" };
-      const userById = await User.findByPk(id);
+      const userById = await User.findByPk(id, {
+        attributes: {
+          exclude: ["password"]
+        }
+      });
       if (!userById) throw ({ name: "UserNotFound" });
       res.status(200).json(userById);
     } catch (err) {
@@ -140,17 +148,21 @@ class UserController {
 
   static async userUpdateProfile(req, res, next) {
     try {
-      const { name, profileImg, notes, phoneNumber, city } = req.body;
+      const { name, profileImg, backgroundImg, notes, phoneNumber, city } = req.body;
+
+      if (!city) throw { name: "BadRequest" };
+
       const { id } = req.params;
       if (!uuidValidate(id)) throw { name: "UserNotFound" };
       const findUser = await User.findByPk(id);
       if (!findUser) throw ({ name: "UserNotFound" });
+
       const updatedUser = await User.update(
         {
-          name,
-          profileImg,
-          notes,
-          phoneNumber,
+          name: name || null,
+          profileImg: name || null,
+          notes: notes || null,
+          phoneNumber: phoneNumber || null,
           city
         },
         {

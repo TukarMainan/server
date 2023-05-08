@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: "User uuid is required"
         },
         isUUID: {
-          msg: "Invalid user uuid format"
+          args: [4],
+          msg: "Invalid sender uuid format"
         }
       }
     },
@@ -49,7 +50,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: "User uuid is required"
         },
         isUUID: {
-          msg: "Invalid user uuid format"
+          args: [4],
+          msg: "Invalid receiver uuid format"
         }
       }
     }
