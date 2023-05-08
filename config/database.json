@@ -58,6 +58,32 @@
             "status": "suspend",
             "city": "Balikpapan",
             "ratings": [0]
+        },
+        {
+            "id": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "email": "andre@gmail.com",
+            "username": "Andre",
+            "password": "andre123",
+            "profileImg": "https://i1.sndcdn.com/avatars-000663090812-9eadk8-t500x500.jpg",
+            "name": "Andre wonderwall",
+            "notes": "i am a verified user form east jakarta",
+            "phoneNumber": "082132981130",
+            "status": "verified",
+            "city": "Jakarta",
+            "ratings": [0]
+        },
+        {
+            "id": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "email": "bella@gmail.com",
+            "username": "Bella",
+            "password": "bella123",
+            "profileImg": "https://www.kanal247.com/images/media/photo/2020/03/20/0000050173.jpg",
+            "name": "bella roselia",
+            "notes": "i am a verified user form surabaya",
+            "phoneNumber": "082219851880",
+            "status": "verified",
+            "city": "Surabaya",
+            "ratings": [0]
         }
     ],
     "categories": [
@@ -120,7 +146,7 @@
             "description": "The toy consists of several wooden sticks arranged in an interesting pattern.",
             "condition": "heavily used",
             "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
-            "status": "archived",
+            "status": "suspend",
             "meetingPoint": {
                 "latitude": -1.2675,
                 "longitude": 116.8289
@@ -168,6 +194,536 @@
                 "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/12/4/85c4f943-b01d-474e-aa4a-6816cff2e722.jpg"
             ],
             "price": 250000
+        },
+        {
+            "id": "1763ef48-38d5-4a43-9f59-f3b52889d1c4",
+            "title": "VTECH ROLL DRUM",
+            "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description": "With sound effects encourage crawling, counting and banging on the drum! Colorful lights, phrases and melodies motivate movement, drumming, introduce rhythms and reinforce the numbers 1, 2, and 3.",
+            "condition": "lightly used",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "complete",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/1/9/acad7c89-7195-41c6-a52b-061f9e8fec4b.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/1/9/f08be597-17ec-4915-9b94-82d79242156d.jpg"
+            ],
+            "price":175000
+        },
+        {
+            "id": "32d55956-10c4-4e0d-9e07-fa9a6d6a3509",
+            "title": "wooden train garage sale preloved",
+            "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description": "",
+            "condition": "like new",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/3/18/809b9541-271c-4a1c-8801-c3cc51d0aea0.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/3/18/d3387aab-d842-404c-bac6-dbda38157c22.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/3/18/5a70f2f8-ce5e-45c5-9658-1315eb9eaa9d.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/3/18/21fecd71-44e3-4843-8622-1d34d4c64478.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/3/18/03346b85-a09e-4589-bc88-28330fe2245c.jpg"
+            ],
+            "price":150000
+        },
+        {
+            "id": "ac8f30d4-36b3-4e49-8e91-91fbd0861158",
+            "title": "motor aki minion motor change remote aki mainan aki",
+            "UserId": "3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+            "description": "Mainan motor minion dengan remote kondisi cukup bagus",
+            "condition": "heavily used",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/11/17/0d4325ef-ceb0-46cf-b1a1-f4a992947ac3.jpg"
+            ],
+            "price":300000
+        },
+        {
+            "id": "c8ac0591-d4f3-4a9e-997f-f11d6d3d81cb",
+            "title": "Happyland Station ELC Toys Train",
+            "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description": "Kereta masih bersuara tetapi sudah tidak bisa jalan keliling rel sediri ya, harus dimainkan manual. Kondisi barang sesuai dengan di foto, jika ada perbedaan warna dipengaruhi dari warna pencahayaan saat foto dan warna hp masing2.",
+            "condition": "well used",
+            "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/7/a6ebecb0-ef72-45a3-88ea-85ec4d34e57f.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/7/72f811f1-6596-4804-bda5-fa4beabbcaa2.jpg"
+            ],
+            "price":450000
+        },
+        {
+            "id": "f231f668-2a4d-4031-b709-f28f7246add1",
+            "title": "Elc happyland cottage",
+            "UserId": "9ec9f3ad-79ff-4463-bb36-49a5a8a0d0a6",
+            "description": "minus pintu ga ada, figur dapat sesuai foto. bel ga bisa bunyi tapi bagian dalam nya bisa bunyi semua",
+            "condition": "well used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/4/35414cbc-8c79-4ea5-94fe-314e2a3adc0c.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/4/7db7c54c-19ad-4a92-bf0a-fa5b6e5a7b89.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/4/2cf8ca4d-9128-48e7-8479-a7cc17855835.jpg"
+            ],
+            "price":250000
+        },
+        {
+            "id": "d5d01b24-1799-4e9e-9dbd-aaa02be9bf70",
+            "title": "Doraemon Bandai 2002",
+            "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description": "mainan koleksi bagi penggemar Doraemon",
+            "condition": "lightly used",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/10/19/4bc4379e-5528-4444-8bcd-b431c7c2378d.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/10/19/c71d1926-0006-41f8-945d-daee593dc455.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/10/19/efe84129-7301-479c-bad5-d99143d05983.jpg"
+            ],
+            "price":50000
+        },
+        {
+            "id": "74d45eee-cc94-4677-bb4d-14b10bcbf642",
+            "title": "mainan anak handy manny tool set",
+            "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description": "handy manny original, tool set bukan bawaannya tp bahan kayu baguuss. dapat sesuai gambar. utk handy manny sudah tidak bisa bersuara",
+            "condition": "well used",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/6/26/8e8230e5-dfe5-4fe9-818e-03c68fcc99a0.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/6/26/617022c4-7b98-4c8a-a1a4-7b67d23130ea.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/6/26/0c5ad724-a2b6-4dcd-b65f-e5b4cfd41a5d.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/6/26/86455e08-c702-47d7-9191-d8ffa6416453.jpg"
+            ],
+            "price":100000
+        },
+        {
+            "id": "941dd6be-f907-40f7-992a-f5ad52ecb505",
+            "title": "ELC Buggy Driver Merah Mainan stroler setir",
+            "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description": "ELC Mothercare buggy driver multicolor",
+            "condition": "like new",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/product-1/2017/12/2/238916389/238916389_ca42e45c-b3f2-4fa3-8724-31713a0cda9b_640_640.jpg",
+                "https://images.tokopedia.net/img/cache/900/product-1/2017/12/2/13970604/13970604_17b5ec70-3291-4d38-83be-ef1ab3bb8f10_850_530.jpg",
+                "https://images.tokopedia.net/img/cache/900/product-1/2017/12/2/13970604/13970604_bdce8bd7-881e-4057-a63e-cc448b76b137_2000_1125.jpg",
+                "https://images.tokopedia.net/img/cache/900/product-1/2017/12/2/238916389/238916389_dc3e534c-27a7-4887-ad2d-274777782ed6_816_459.jpg"
+            ],
+            "price":300000
+        },
+        {
+            "id": "927d3fdf-494f-4c0f-96db-4af533eed9f9",
+            "title": "Figure Mainan Anak Snow White Barbie Mini",
+            "UserId": "9ec9f3ad-79ff-4463-bb36-49a5a8a0d0a6",
+            "description": "Figure Mainan Anak Snow White Barbie Mini. Tinggi : 10cm  Merk : Disney Tomy, Artikulasi Kepala, Lengan",
+            "condition": "well used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/3/28/418539c2-094f-4c16-a860-d32a6cc0c971.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/3/28/4a904743-8036-436d-a4d8-275c06a0d340.jpg"
+            ],
+            "price":25000
+        },
+        {
+            "id": "9f435e61-b39f-43a4-96bb-e266ee51f970",
+            "title": "Mainan Dorong Anak Bayi Fisher Price Smart Stage Vacuum Learn",
+            "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+            "description": "Kondisi bagus semua tombol,suara berfungsi normal harga beli 500 rb ",
+            "condition": "lightly used",
+            "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2146,
+                "longitude": 106.8451
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/12/9d639239-5721-4c6d-abb3-32bc91ff03a9.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/16/f8d383e6-ac1a-48b1-bfbe-9bc1f7dcac64.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/16/9b2f3725-f3a6-4f88-954c-4c2d7f70a655.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/12/da9cb494-c254-46e7-81d0-1554e0c2304f.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/12/4f221f2e-b226-474c-9e4a-1d9422623da2.jpg"
+            ],
+            "price":165000
+        },
+        {
+            "id": "39e1b212-a6ed-452e-868b-ffc5c6997eb1",
+            "title": "mobil remote anak aki Toys Kingdom",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Mobil Remote Anak Toys Kingdom Masih Bagus Masih Bisa Jalan Lancar",
+            "condition": "lightly used",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/18/82a955f7-2a03-46ca-9ac5-5ceb36da4930.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/18/00291cd8-51f5-408f-b22c-f873a44fb268.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/18/bb325c0e-e5eb-42ab-ae2e-1a8b5c2748b3.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/18/414bba1e-95cc-4ea3-b8b5-7fa28888eccb.jpg"
+            ],
+            "price":800000
+        },
+        {
+            "id": "5e535959-3d31-4065-8681-51c1b218e083",
+            "title": "truk beco YTX 649",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Item Code : YTX 649, Colour : Yellow, Size of Unit : 51 x 34 x 64 cm, Material : Plastik Murni.",
+            "condition": "like new",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "inactive",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/1/31/e596dce5-2c95-4eec-96d4-dff7cbacc495.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/1/31/959e436d-f3d7-4ab3-9d7f-6e590f8b0b26.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/1/31/b46699f6-1e0d-486e-87e7-d12facba0301.jpg"
+            ],
+            "price":100000
+        },
+        {
+            "id": "9679b532-e38a-46de-aecd-ffca0a4f7b04",
+            "title": "Zombie war whack a mole toy",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Zombie war whack a mole toy, Kondisi mulus seperti baru elektrik normal, Sesuai picture",
+            "condition": "like new",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/26/50704558-dba1-4a25-9881-3f2d37637042.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/26/94f895aa-892c-4bb7-afa1-76830dad8f32.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/26/20f145bb-e3c8-490d-a993-d4a6f264b85f.jpg"
+            ],
+            "price":350000
+        },
+        {
+            "id": "436270ce-2f35-41f9-9b3a-990108af9377",
+            "title": "Happy Meal Toys Tarzan 1 Set 8pcs Tahun 1999",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "kondisi 90%, plastik sdh tdk ada dan minus pedang clayton, sedikit berdebu bekas display, jika dicuci akan spt baru",
+            "condition": "like new",
+            "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/6/24/e6fb1255-80cf-4833-9b96-fbb595e51e20.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/6/24/1c087aa2-b480-4c1b-b901-7f066c3d67ea.jpg"
+            ],
+            "price":650000
+        },
+        {
+            "id": "c877f0b1-3f6f-46cc-8ce2-b23ca6b8ea1e",
+            "title": "Figure Woody Toy Story 3 naik kereta train dari shell",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Figure mainan Woody Toy story 3 naik kereta train, dari shell bukan dari happy meal. masih bagus utuh",
+            "condition": "lightly used",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "complete",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/25/2e015481-890f-4e92-9546-2ec204e38b69.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/25/d4e7a3e7-d5e6-4fdc-a233-5f2df545fac1.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/25/ee8852b8-0a63-4b3a-b660-55850892a0ca.jpg"
+            ],
+            "price":30000
+        },
+        {
+            "id": "ca458ff6-aec4-49ec-a364-452fdb4bda02",
+            "title": "excavator bongkar pasang",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "ini mainan long lasting dan sangat berguna untuk menambah rasa percaya diri anak dalam bongkar pasang mainan kesukaannya. bisa di gunakan untuk memperkenalkan profesi mekanik atau engineer kepada anak anak.",
+            "condition": "lightly used",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/6/4/58ff0c0f-1232-4d56-a4a5-464a107a5a9b.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/6/4/58ff0c0f-1232-4d56-a4a5-464a107a5a9b.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/6/4/58ff0c0f-1232-4d56-a4a5-464a107a5a9b.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/6/4/b9dab655-74e1-419a-a2cd-ce58e03b9bad.jpg"
+            ],
+            "price":130000
+        },
+        {
+            "id": "5ca4c8cf-4d19-4e6b-9b20-e04d05fea5d8",
+            "title": "Haenim Fun Park Kids Playhouse",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Fitur : Rumah - rumahan anak dengan perosotan, meja makan sertw kursi dan ring basket.",
+            "condition": "lightly used",
+            "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status": "suspend",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/11/26/54220611-65cb-46ed-950c-bf4d4dad7bd0.jpg"
+            ],
+            "price":800000
+        },
+        {
+            "id": "f09fa0b5-b88e-494d-b7e8-d4edcb5e6963",
+            "title": "Mainan seluncuran dan ayunan anak",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Mainan seluncuran dan ayunan anak besar cocok mulai dari anak usia 1 tahun ke atas. Masih dalam kondisi ya g baik meski bekas. Bahannya kokoh dan tidak ringkih. ",
+            "condition": "lightly used",
+            "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/13/59b6220e-34d2-40ae-945a-3c8f39574ad0.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/13/cf40d1b1-8b1b-4d73-8fe5-11e8dbfd4e28.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/13/788fe3c8-a961-47cb-83c4-fe290ed8a182.jpg"
+            ],
+            "price":1000000
+        },
+        {
+            "id": "0515f2f8-3e9f-47bd-ab9b-35632da7c0e7",
+            "title": "mainan pedang thundercats original",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Pedang mainan untuk anak kondisi bagus dari singapura",
+            "condition": "like new",
+            "CategoryId": "e759b264-980a-4d0a-90a4-cd484beffe49",
+            "status": "complete",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/17/8dedf9aa-6523-4057-97a0-d936475a2561.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/2/17/e6692316-5bd2-4368-9185-470b6eed0a4e.jpg"
+            ],
+            "price":100000
+        },
+        {
+            "id": "6fd0c2e4-b7ba-4515-b538-a165d9e3727a",
+            "title": "Takara Tomy Plarail Tunnel Terowongan Kereta Api",
+            "UserId": "19f21832-96fd-4bfd-8260-c00a5f3a33ed",
+            "description": "Tunnel di ambil dari set thomas and friends, used and loose item, kondisi masih bagus sesuai foto, what you see is what you get.",
+            "condition": "lightly used",
+            "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+            "status": "inactive",
+            "meetingPoint": {
+                "latitude": -6.2342,
+                "longitude": 106.8770
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/product-1/2017/9/17/3763590/3763590_efc11f76-ac58-48f2-808b-3cf103bdc3db_2048_0.jpg"
+            ],
+            "price":75000
+        },
+        {
+            "id": "86c8b025-6e30-4f0d-9d6a-ee106f62fa11",
+            "title": "ELC Rosie's World MK-L-902",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "Mainan anak ELC rosie's world untuk anak cewel",
+            "condition": "lightly used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/14/72f2c406-7934-4a1f-8d91-8ed35c784de1.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/14/53ba24b9-f43f-4961-b1f5-e68bca303f58.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/14/13bb6e5f-1dc1-4bb0-842c-1a4558523a11.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/14/d9fc2fe5-5edc-43d0-8228-5c02a19c013e.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/14/ee10a56c-3164-46f2-a3b4-353cf7f19d97.jpg"
+            ],
+            "price":350000
+        },
+        {
+            "id": "877a394b-6e65-4f3d-97c9-ff55848a536f",
+            "title": "mainan rumah Moose tingkat",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "mainan rumah Moose tingkat untuk melatih imajinasi anak perempuan",
+            "condition": "well used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/11/3/0bcf7d06-4118-49ef-ac61-e363787a4eff.jpg"
+            ],
+            "price":75000
+        },
+        {
+            "id": "a32572ed-56c8-4aa2-aef3-ae41fd5c865d",
+            "title": "Musician living room wooden toy mainan diy rumah",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "mainan ini dapat melatih motorik anak saat membuat furniture nya sendiri. ",
+            "condition": "brand new",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/27/3c80135f-46db-47cc-b2c1-a7806120f239.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/27/f2fb58bc-c8cf-49f9-924a-4bd90ebfa546.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/27/8fe27847-16cb-49bb-ab8e-55566c150a64.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/1/3/9f7251a1-dd3c-40c6-a369-737b6cb4cc2c.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/1/3/2df0faca-6fc6-4704-b19f-ca6884b8dd3c.jpg"
+            ],
+            "price":120000
+        },
+        {
+            "id": "882a92ea-0057-4943-a57c-7f5135dbdb63",
+            "title": "Mainan Vintage Polly Pocket Bluebird",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "Mainan Vintage Polly Pocket Bluebird Polly in Paris Kondisi : masih bagus sesuai di foto aslinya",
+            "condition": "lightly used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/20/6b7ebe51-1592-4b46-858f-60e57107a2fb.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/20/6b7ebe51-1592-4b46-858f-60e57107a2fb.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/8/20/2e660354-e3c6-4c04-99ab-f72f637a13f0.jpg"
+            ],
+            "price":750000
+        },
+        {
+            "id": "71ab1704-2826-4837-8e1a-7a4e41b97137",
+            "title": "mainan masakan anak perempuan kitchen bunyi",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "mainan masakan untuk anak perempuan dengan kondisi bagus",
+            "condition": "lightly used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/11/15/665f0fa4-b622-4c4c-91af-559097f28a49.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/11/15/2c662e76-39a2-4b2c-b525-8b2dacad6c02.jpg"
+            ],
+            "price":45000
+        },
+        {
+            "id": "7f823e1a-3ef5-4c32-82b3-357794231561",
+            "title": "Mainan Rumah Rumahan Anak Perempuan",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "Mainan rumah cocok bget buat anak perempuan. Manjakan anak dengan mainan rumah rumahan yang asyik .. dan sudah dilengkapi dengan perabot dan karakter mainan, anak akan betah dan jauh dari HP.",
+            "condition": "like new",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "complete",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/14/07fa69d4-4ac5-4403-8761-1b5c615abf70.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/14/e4fb1438-f806-4edb-ab7c-229bb3d93da7.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/7/14/cc42e272-c442-4ff8-9a99-dda0ee8cbc42.jpg"
+            ],
+            "price":150000
+        },
+        {
+            "id": "8099af9a-595f-45ce-8b12-b9cb35942b70",
+            "title": "Mainan anak perempuan Keranjang",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "Mainan anak perempuan Keranjang besar isi buahan Isi 23 pcs buah - buah-buahan plastik Kondisi sesuai dengan foto, mainan baru, riject kejemur matahari warna memudar",
+            "condition": "lightly used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "complete",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/7/5/8eba75ad-1ccb-47f7-9bb6-10d744c95dad.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/7/5/8eba75ad-1ccb-47f7-9bb6-10d744c95dad.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/7/5/ebd22561-29e3-4844-92ff-bc9472d4d088.jpg"
+            ],
+            "price":40000
+        },
+        {
+            "id": "a5968f51-2f41-4f46-90fb-b97f27077166",
+            "title": "kitchen set ELC Mothercare",
+            "UserId": "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+            "description": "mainan anak perempuan set kitchenware pink kompor baterai berfungsi dgn baik suara kompor memasak",
+            "condition": "lightly used",
+            "CategoryId": "8741881b-59ce-4d9e-b8e0-07d037511022",
+            "status": "active",
+            "meetingPoint": {
+                "latitude": -7.2575,
+                "longitude": 112.7521
+            },
+            "images": [
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/1/23/5908be11-ac8c-4b38-a7ef-82f13d97adbb.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/1/23/0faf9e90-db77-4094-b710-f2c6b11a5cbd.jpg",
+                "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/1/23/d65825e7-8dcc-4cdd-a2f8-a63f9b6e92c6.jpg"
+            ],
+            "price":500000
         }
     ]
 }

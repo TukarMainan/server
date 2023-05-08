@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Admin } = require("../models");
+const { Admin,AdminLog,Report,User,Post } = require("../models");
 const { verifyPassword, signToken } = require("../helpers");
 
 class AdminController {
@@ -55,6 +55,29 @@ class AdminController {
       res.status(200).json({ access_token, id: admin.id, username: admin.username, email: admin.email });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "AdminController: login";
+      next(err);
+    }
+  }
+
+  static async getAdminLogs(req,req,next){
+    try {
+      const logs = await Report.findAll({
+        include:[Admin]
+      });
+      res.status(200).json(logs);
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "AdminController: getAdminLogs";
+      next(err);
+    }
+  }
+  static async getReports(req,req,next){
+    try {
+      const reports = await AdminLog.findAll({
+        include:[User,Post]
+      });
+      res.status(200).json(reports);
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "AdminController: getReports";
       next(err);
     }
   }
