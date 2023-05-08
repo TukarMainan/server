@@ -114,6 +114,24 @@ class UserController {
     }
   }
 
+  static async userSuspend(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await User.findByPk(id);
+      if (!user) throw { name: "UserNotFound" };
+
+      user.status = "suspend";
+      await user.save();
+
+      res
+        .status(200)
+        .json({ message: `Successfully suspend User with id ${id}` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: userSuspend";
+      next(err);
+    }
+  }
+
   static async userUpdateProfile(req, res, next) {
     try {
       const { name, profileImg, notes, phoneNumber, city } = req.body;

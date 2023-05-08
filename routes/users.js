@@ -8,8 +8,8 @@ router.route("/:id")
     .put(UserController.userUpdateProfile)
     .patch(UserController.userUpdateStatus)
 
-// router.route("/:id/suspend")
-//     .patch(UserController.userSuspend)
+router.route("/:id/suspend")
+    .patch(UserController.userSuspend)
 
 router.route("/login")
     .post(UserController.login)
