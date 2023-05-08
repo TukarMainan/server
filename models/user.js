@@ -138,6 +138,12 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
   });
 
+  User.beforeBulkCreate(async (users) => {
+    for (let i = 0; i < users.length; i++) {
+      users[i].password = await hashPassword(users[i].password);
+    }
+  })
+
   User.beforeCreate(async (user) => {
     user.password = await hashPassword(user.password);
   })
