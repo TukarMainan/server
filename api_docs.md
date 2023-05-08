@@ -8,8 +8,8 @@ List of Available Endpoints:
 
 -   `PATCH /admins/update-password` ✔
 -   `GET /users` ✔
--   `PATCH /users/:id` ❌
--   `PATCH /posts/:id` ❌
+-   `PATCH /users/:id/suspend` ❌
+-   `PATCH /posts/:id/archive` ❌
 -   `GET /reports` ❌
 -   `GET /adminlogs` ❌
 -   `POST /categories` ❌
