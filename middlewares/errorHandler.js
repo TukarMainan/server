@@ -25,6 +25,10 @@ module.exports = (err, req, res, next) => {
             status = 401;
             message = `Unauthorized`;
             break;
+        case "UserSuspended":
+            status = 401;
+            message = `Your account is Suspended`;
+            break;
         case "Forbidden":
             status = 403;
             message = `Forbidden access`;

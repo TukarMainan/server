@@ -50,6 +50,7 @@ class UserController {
       const user = await User.findOne(searchOptions);
 
       if (!user) throw { name: "Unauthorized" };
+      if (user.status == "suspend") throw { name: "UserSuspended" };
 
       // Argon2 can only use promise, must await
       const isValid = await verifyPassword(user.password, password);
