@@ -1,8 +1,10 @@
 const { UserController } = require("../controllers");
 const router = require("express").Router();
 
+const { authenticationUser, authenticationAdmin } = require("../middlewares");
+
 router.route("/")
-    .get(UserController.getAllUser)
+    .get(authenticationAdmin, UserController.getAllUser)
 
 router.route("/login")
     .post(UserController.login)
@@ -17,10 +19,9 @@ router.route("/register")
 //     .patch(UserController.updatePassword)
 
 router.route("/:id/suspend")
-    .patch(UserController.userSuspend)
+    .patch(authenticationAdmin, UserController.userSuspend)
 
 router.route("/:id")
-    .put(UserController.userUpdateProfile)
-    .patch(UserController.userUpdateStatus)
+    .put(authenticationUser, UserController.userUpdateProfile)
 
 module.exports = router;

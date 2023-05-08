@@ -1,6 +1,8 @@
 const { CommentController } = require("../controllers");
 const router = require("express").Router();
 
-router.route("/").post(CommentController.createByUserId);
+const { authenticationUser } = require("../middlewares");
+
+router.route("/").post(authenticationUser, CommentController.createByUserId);
 
 module.exports = router;

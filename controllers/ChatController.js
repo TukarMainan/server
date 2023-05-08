@@ -19,7 +19,8 @@ class ChatController {
 
     static async createByUserId(req, res, next) {
         try {
-            const { SenderId, ReceiverId } = req.body;
+            const { id: SenderId } = req.user;
+            const { ReceiverId } = req.body;
             if (!SenderId || !ReceiverId) throw { name: "BadRequest" };
 
             await Chat.create({
