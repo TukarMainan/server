@@ -55,43 +55,6 @@ class AdminController {
       next(err);
     }
   }
-
-<<<<<<<<< Temporary merge branch 1
-  static async getAdminLogs(req, res, next) {
-    try {
-      const logs = await Report.findAll({
-        include: [Admin],
-=========
-  static async getAdminLogs(req,res,next){
-    try {
-      const logs = await AdminLog.findAll({
-        include:[Admin]
->>>>>>>>> Temporary merge branch 2
-      });
-      res.status(200).json(logs);
-    } catch (err) {
-      err.ERROR_FROM_CONTROLLER = "AdminController: getAdminLogs";
-      next(err);
-    }
-  }
-<<<<<<<<< Temporary merge branch 1
-  static async getReports(req, res, next) {
-    try {
-      const reports = await AdminLog.findAll({
-        include: [User, Post],
-=========
-  static async getReports(req,res,next){
-    try {
-      const reports = await Report.findAll({
-        include:[User,Post]
->>>>>>>>> Temporary merge branch 2
-      });
-      res.status(200).json(reports);
-    } catch (err) {
-      err.ERROR_FROM_CONTROLLER = "AdminController: getReports";
-      next(err);
-    }
-  }
 }
 
 module.exports = AdminController;
