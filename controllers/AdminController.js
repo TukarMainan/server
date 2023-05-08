@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
-const { Admin, AdminLog, Report, User, Post } = require("../models");
-const { verifyPassword, signToken } = require("../helpers");
+const { Admin } = require("../models");
+const { verifyPassword, signToken, hashPassword } = require("../helpers");
 
 class AdminController {
   static async register(req, res, next) {
@@ -58,7 +58,7 @@ class AdminController {
   static async updatePassword(req, res, next) {
     try {
 
-      const {id} = req.admin
+      const { id } = req.admin;
       const { oldPassword, NewPassword } = req.body;
 
       if (!oldPassword || !NewPassword) throw { name: "BadRequest" };
@@ -70,9 +70,10 @@ class AdminController {
       const isValid = await verifyPassword(admin.password, oldPassword);
       if (!isValid) throw { name: "Unauthorized" };
 
+      const hashedNewPassword = await hashPassword(NewPassword);
       const updatedAdmin = await Admin.update(
         {
-          password:NewPassword
+          password: hashedNewPassword
         },
         {
           where: { id },
@@ -80,7 +81,7 @@ class AdminController {
       );
 
       res.status(200)
-      .json({ message: `Successfully updated Password` })
+        .json({ message: `Successfully updated Password` })
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "AdminController: updatePassword";
       next(err);

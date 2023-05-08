@@ -8,7 +8,6 @@ class CategoryController {
 
       res.status(200).json(categories);
     } catch (err) {
-      console.log("err :", err);
       err.ERROR_FROM_CONTROLLER = "CategoryController: readAll";
       next(err);
     }
@@ -17,12 +16,12 @@ class CategoryController {
   static async readById(req, res, next) {
     try {
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "CategoryNotFound" };
 
       const category = await Category.findByPk(id);
 
       res.status(200).json(category);
     } catch (err) {
-      console.log("err :", err);
       err.ERROR_FROM_CONTROLLER = "CategoryController: readById";
       next(err);
     }
@@ -41,7 +40,6 @@ class CategoryController {
 
       res.status(201).json({ message: " Success creating new category" });
     } catch (err) {
-      console.log("err :", err);
       err.ERROR_FROM_CONTROLLER = "CategoryController: create";
       next(err);
     }
@@ -66,7 +64,6 @@ class CategoryController {
 
       res.status(200).json({ message: " Success updating category name" });
     } catch (err) {
-      console.log("err :", err);
       err.ERROR_FROM_CONTROLLER = "CategoryController: updateName";
       next(err);
     }
