@@ -1,9 +1,8 @@
 const { Op } = require("sequelize");
-const { Post, User, Chat } = require("../models");
+const { Post, User } = require("../models");
 const { Sequelize } = require("sequelize");
 
 class PostController {
-
   static async getPosts(req, res, next) {
     try {
       const { CategoryId, sortby, search, city } = req.query
@@ -77,6 +76,31 @@ class PostController {
     }
   }
 
+  static async postArchive(req, res, next) {
+    try {
+      const { id } = req.params;
+      const post = await Post.findByPk(id);
+      if (!post) throw { name: "PostNotFound" };
+      const user = await User.findByPk(post.UserId);
+
+      user.warningCount = user.warningCount + 1;
+      if (user.warningCount > 5) {
+        user.status = "suspend"
+      }
+      await user.save();
+
+      post.status = "archive";
+      await post.save();
+
+      res
+        .status(200)
+        .json({ message: `Successfully archive Post with id ${id}` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "PostController: postArchive";
+      next(err);
+    }
+  }
+
   static async updatePost(req, res, next) {
     try {
       const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
@@ -110,5 +134,37 @@ class PostController {
     }
   }
 
+  static async create(req, res, next) {
+    try {
+      const { id: UserId } = req.user;
+      const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
+
+      const newPost = await Post.create(
+        {
+          title,
+          UserId,
+          description,
+          condition,
+          CategoryId,
+          status: "active",
+          meetingPoint: Sequelize.fn(
+            'ST_GeomFromText',
+            Sequelize.literal(`'POINT(${meetingPoint.longitude} ${meetingPoint.latitude})'`),
+            '4326'
+          ),
+          images,
+          price
+        }
+      );
+
+      res
+        .status(201)
+        .json({ message: `Successfully create post` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "PostController: create";
+      next(err);
+    }
+  }
 }
+
 module.exports = PostController;
