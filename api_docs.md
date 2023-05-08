@@ -6,18 +6,18 @@ List of Available Endpoints:
 
 ### Admin CMS Endpoints
 
--   `PATCH /auth/admins/updatePassword` ✔
+-   `PATCH /admins/update-password` ✔
 -   `GET /users` ✔
--   `PATCH /users/:id/suspend` ❌
--   `PATCH /posts/:id/suspend` ❌
+-   `PATCH /users/:id` ❌
+-   `PATCH /posts/:id` ❌
 -   `GET /reports` ❌
 -   `GET /adminlogs` ❌
 -   `POST /categories` ❌
--   `PUT /categories` ❌
+-   `PATCH /categories/:id` ❌
 
 ### Authorize User Endpoints
 
--   `PATCH /auth/users/updatePassword` ✔
+-   `PATCH /users/update-password` ✔
 -   `PUT /users/:id` ❌
 -   `POST /posts` ❌
 -   `PUT /posts/:id` ❌
@@ -25,22 +25,24 @@ List of Available Endpoints:
 -   `GET /notifications` ❌
 -   `GET /chats` ❌
 -   `POST /chats` ❌
+-   `GET /messages` ❌
 -   `POST /messages` ❌
 -   `POST /comments` ❌
 -   `POST /reports` ❌
 
 ### Public Endpoints
 
--   `POST /auth/admins/login` ✔
--   `POST /auth/admins/register` ✔
--   `POST /auth/users/login` ✔
--   `POST /auth/users/login/google` ❌
--   `POST /auth/users/register` ✔
+-   `POST /admins/login` ✔
+-   `POST /admins/register` ✔
+-   `POST /users/login` ✔
+-   `POST /users/login/google` ❌
+-   `POST /users/register` ✔
 -   `GET /public/users/:id` ✔
 -   `GET /public/posts` ❌
 -   `GET /public/posts/:id` ❌
 -   `GET /public/posts/recommendations` ❌
 -   `GET /public/categories` ❌
+-   `GET /public/categories/:id` ❌
 
 ### POST /auth/users/login
 
