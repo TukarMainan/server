@@ -65,6 +65,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Rating is required"
+        },
+        notEmpty: {
+          msg: "Rating is required"
+        }
+      }
+    },
     PostId: {
       type: DataTypes.UUID,
       allowNull: false,
