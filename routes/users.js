@@ -15,8 +15,8 @@ router.route("/login")
 router.route("/register")
     .post(UserController.register)
 
-// router.route("/update-password")
-//     .patch(UserController.updatePassword)
+router.route("/update-password")
+    .patch(UserController.updatePassword)
 
 router.route("/:id/suspend")
     .patch(authenticationAdmin, UserController.userSuspend)

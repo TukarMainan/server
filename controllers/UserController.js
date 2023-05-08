@@ -164,6 +164,40 @@ class UserController {
       next(err);
     }
   }
+
+  static async updatePassword(req, res, next) {
+    try {
+
+      const {id} = req.user
+      const { oldPassword, NewPassword } = req.body;
+
+      if (!oldPassword || !NewPassword) throw { name: "BadRequest" };
+
+      const user = await User.findByPk(id);
+
+      if (!user) throw { name: "Unauthorized" };
+      if (user.status == "suspend") throw { name: "UserSuspended" };
+
+      const isValid = await verifyPassword(user.password, oldPassword);
+      if (!isValid) throw { name: "Unauthorized" };
+
+      const updatedUser = await User.update(
+        {
+          password:NewPassword
+        },
+        {
+          where: { id },
+        }
+      );
+
+
+      res.status(200).json({ access_token, id: user.id, username: user.username, email: user.email });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: updatePassword";
+      next(err);
+    }
+
+  }
 }
 
 module.exports = UserController;
