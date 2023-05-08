@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const { User } = require("../models");
 const { verifyPassword, signToken } = require("../helpers");
 const { validate: uuidValidate } = require('uuid');
+const {OAuth2Client} = require('google-auth-library');
 
 class UserController {
   static async register(req, res, next) {
@@ -198,6 +199,39 @@ class UserController {
     }
 
   }
+
+  static async googleLogin(req,res,next){
+    // console.log(req.headers)
+    const googleToken=req.headers.google_access_token
+    // console.log(googleToken)
+    
+    const client = new OAuth2Client(process.env.CLIENT_ID);
+   
+    const ticket = await client.verifyIdToken({
+        idToken: googleToken,
+        audience: process.env.CLIENT_ID,
+         });
+        const payload = ticket.getPayload();
+        const {name,email} = payload
+        const [newUser,created] = await User.findOrCreate({
+            where: { email},
+            defaults:{
+              username:name,
+              email:email,
+              password:"default",
+              city:"Jakarta"
+            },
+            hooks:false,
+        })
+        const access_token=signToken({id: newUser.id})
+        res.status(created? 201 : 200).json({
+           access_token,
+           id: newUser.id,
+           username: newUser.username, 
+           email: newUser.email
+           })
+
+ }
 }
 
 module.exports = UserController;
