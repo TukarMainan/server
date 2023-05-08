@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { User } = require("../models");
 const { verifyPassword, signToken } = require("../helpers");
+const { validate: uuidValidate } = require('uuid');
 
 class UserController {
   static async register(req, res, next) {
@@ -82,6 +83,7 @@ class UserController {
   static async getUserById(req, res, next) {
     try {
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "UserNotFound" };
       const userById = await User.findByPk(id);
       if (!userById) throw ({ name: "UserNotFound" });
       res.status(200).json(userById);

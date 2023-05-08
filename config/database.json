@@ -120,7 +120,7 @@
             "description": "The toy consists of several wooden sticks arranged in an interesting pattern.",
             "condition": "heavily used",
             "CategoryId": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
-            "status": "suspend",
+            "status": "archived",
             "meetingPoint": {
                 "latitude": -1.2675,
                 "longitude": 116.8289

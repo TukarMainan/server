@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
-const { Post, User } = require("../models");
+const { Post, User, Category } = require("../models");
 const { Sequelize } = require("sequelize");
+const { validate: uuidValidate } = require('uuid');
 
 class PostController {
   static async getPosts(req, res, next) {
@@ -80,6 +81,7 @@ class PostController {
   static async getPostById(req, res, next) {
     try {
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "PostNotFound" };
       const postById = await Post.findByPk(id, {
         include: [User, Category]
       });
@@ -127,8 +129,7 @@ class PostController {
       }
       await user.save();
 
-      post.status = "archive";
-      await post.save();
+      await Post.update({ status: 'archived' }, { where: { id: post.id } });
 
       res
         .status(200)
