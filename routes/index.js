@@ -18,7 +18,6 @@ router.use("/admins", adminsRouter);
 router.use("/categories", categoriesRouter);
 router.use("/chats", chatsRouter);
 router.use("/comments", commentsRouter);
-router.use("/messages", messagesRouter);
 router.use("/notifications", notificationsRouter);
 router.use("/posts", postsRouter);
 router.use("/reports", reportsRouter);

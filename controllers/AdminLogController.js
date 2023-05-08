@@ -1,11 +1,11 @@
-const { Admin,AdminLog,} = require("../models");
+const { Admin, AdminLog } = require("../models");
 
 class AdminLogController {
-  
-    static async readAll(req,res,next){
+
+  static async readAll(req, res, next) {
     try {
       const logs = await AdminLog.findAll({
-        include:[Admin]
+        include: [Admin]
       });
       res.status(200).json(logs);
     } catch (err) {
