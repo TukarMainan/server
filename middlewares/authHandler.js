@@ -26,6 +26,7 @@ const authenticationAdmin = async (req, res, next) => {
         const { access_token } = req.headers;
         if (!access_token) throw { name: "Unauthorized" };
 
+        console.log(access_token);
         const { id: AdminId } = verifyToken(access_token);
         const admin = await Admin.findByPk(AdminId);
         if (!admin) throw { name: "Unauthorized" };
@@ -36,7 +37,7 @@ const authenticationAdmin = async (req, res, next) => {
 
         next();
     } catch (error) {
-        error.ERROR_FROM_FUNCTION = "Middlewares: authenticationUser";
+        error.ERROR_FROM_FUNCTION = "Middlewares: authenticationAdmin";
         next(error);
     }
 }
