@@ -59,7 +59,7 @@ class AdminController {
     }
   }
 
-  static async getAdminLogs(req,req,next){
+  static async getAdminLogs(req,res,next){
     try {
       const logs = await Report.findAll({
         include:[Admin]
@@ -70,7 +70,7 @@ class AdminController {
       next(err);
     }
   }
-  static async getReports(req,req,next){
+  static async getReports(req,res,next){
     try {
       const reports = await AdminLog.findAll({
         include:[User,Post]
