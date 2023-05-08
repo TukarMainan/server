@@ -63,7 +63,7 @@ class UserController {
         id: user.id
       });
 
-      res.status(200).json({ access_token });
+      res.status(200).json({ access_token, id: user.id, username: user.username, email: user.email });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "UserController: login";
       next(err);
@@ -97,6 +97,7 @@ class UserController {
     try {
       const { status } = req.body;
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "UserNotFound" };
       const findUser = await User.findByPk(id);
       if (!findUser) throw ({ name: "UserNotFound" });
       const updatedUser = await User.update(
@@ -119,6 +120,7 @@ class UserController {
   static async userSuspend(req, res, next) {
     try {
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "UserNotFound" };
       const user = await User.findByPk(id);
       if (!user) throw { name: "UserNotFound" };
 
@@ -138,6 +140,7 @@ class UserController {
     try {
       const { name, profileImg, notes, phoneNumber, city } = req.body;
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "UserNotFound" };
       const findUser = await User.findByPk(id);
       if (!findUser) throw ({ name: "UserNotFound" });
       const updatedUser = await User.update(

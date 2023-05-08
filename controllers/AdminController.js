@@ -52,7 +52,7 @@ class AdminController {
         id: admin.id
       });
 
-      res.status(200).json({ access_token });
+      res.status(200).json({ access_token, id: admin.id, username: admin.username, email: admin.email });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "AdminController: login";
       next(err);
