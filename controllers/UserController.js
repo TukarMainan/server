@@ -146,17 +146,21 @@ class UserController {
 
   static async userUpdateProfile(req, res, next) {
     try {
-      const { name, profileImg, notes, phoneNumber, city } = req.body;
+      const { name, profileImg, backgroundImg, notes, phoneNumber, city } = req.body;
+
+      if (!city) throw { name: "BadRequest" };
+
       const { id } = req.params;
       if (!uuidValidate(id)) throw { name: "UserNotFound" };
       const findUser = await User.findByPk(id);
       if (!findUser) throw ({ name: "UserNotFound" });
+
       const updatedUser = await User.update(
         {
-          name,
-          profileImg,
-          notes,
-          phoneNumber,
+          name: name || null,
+          profileImg: name || null,
+          notes: notes || null,
+          phoneNumber: phoneNumber || null,
           city
         },
         {

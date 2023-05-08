@@ -47,6 +47,7 @@ const authorizeUserPost = async (req, res, next) => {
         const { id: UserId } = req.user;
         const { id: PostId } = req.params;
         if (!UserId) throw { name: "Unauthorized" };
+        if (!PostId) throw { name: "BadRequest" };
 
         const user = await User.findByPk(UserId);
         if (!user) throw { name: "Unauthorized" };
@@ -63,8 +64,25 @@ const authorizeUserPost = async (req, res, next) => {
     }
 }
 
+const authorizeUser = async (req, res, next) => {
+    try {
+        const { id: UserIdToken } = req.user;
+        const { id: UserIdParams } = req.params;
+        if (!UserIdToken) throw { name: "Unauthorized" };
+        if (!UserIdParams) throw { name: "BadRequest" };
+
+        if (UserIdToken !== UserIdParams) throw { name: "Forbidden" };
+
+        next();
+    } catch (error) {
+        error.ERROR_FROM_FUNCTION = "Middlewares: authorizeUser";
+        next(error);
+    }
+}
+
 module.exports = {
     authenticationAdmin,
     authenticationUser,
     authorizeUserPost,
+    authorizeUser,
 }

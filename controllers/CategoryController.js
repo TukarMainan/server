@@ -1,4 +1,5 @@
 const { Category } = require("../models");
+const { validate: uuidValidate } = require('uuid');
 
 class CategoryController {
   static async readAll(req, res, next) {
@@ -15,7 +16,7 @@ class CategoryController {
 
   static async readById(req, res, next) {
     try {
-      const { id } = req.user;
+      const { id } = req.params;
 
       const category = await Category.findByPk(id);
 
@@ -49,9 +50,10 @@ class CategoryController {
   static async updateName(req, res, next) {
     try {
       const { name } = req.body;
-      const { id } = req.user;
-
+      const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "CategoryNotFound" };
       if (!name) throw { name: "BadRequest" };
+
 
       await Category.update(
         { name },

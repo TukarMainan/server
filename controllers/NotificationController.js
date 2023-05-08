@@ -8,7 +8,6 @@ class NotificationController {
 
       res.status(200).json(notifications);
     } catch (err) {
-      console.log("err :", err);
       err.ERROR_FROM_CONTROLLER = "NotificationController: readAllByUserId";
       next(err);
     }

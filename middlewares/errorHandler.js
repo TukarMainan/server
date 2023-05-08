@@ -15,6 +15,10 @@ module.exports = (err, req, res, next) => {
             status = 400;
             message = err.errors[0].message;
             break;
+        case "SequelizeDatabaseError":
+            status = 400;
+            message = err.message;
+            break;
         case "BadRequest":
             status = 400;
             message = `Input is required`;
@@ -36,6 +40,10 @@ module.exports = (err, req, res, next) => {
         case "UserNotFound":
             status = 404;
             message = `User not found`;
+            break;
+        case "CategoryNotFound":
+            status = 404;
+            message = `Category not found`;
             break;
     }
 
