@@ -67,17 +67,6 @@ class AdminController {
       next(err);
     }
   }
-  static async getReports(req, res, next) {
-    try {
-      const reports = await AdminLog.findAll({
-        include: [User, Post],
-      });
-      res.status(200).json(reports);
-    } catch (err) {
-      err.ERROR_FROM_CONTROLLER = "AdminController: getReports";
-      next(err);
-    }
-  }
 }
 
 module.exports = AdminController;
