@@ -104,6 +104,8 @@ class PostController {
       const validPrices = posts.map(el => {
         if (el.price !== null) return el.price;
       })
+      if (!validPrices.length) throw { name: "PostNotFound" };
+
       const sum = validPrices.reduce((acc, val) => acc + val, 0);
       const average = sum / validPrices.length;
 
