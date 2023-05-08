@@ -69,7 +69,7 @@ class UserController {
     }
 
   }
-  static async getAllUser(req,res,next){
+  static async getAllUser(req, res, next) {
     try {
       const users = await User.findAll();
       res.status(200).json(users);
@@ -78,8 +78,8 @@ class UserController {
       next(err);
     }
   }
-  
-  static async getUserById(req,res,next){
+
+  static async getUserById(req, res, next) {
     try {
       const { id } = req.params;
       const userById = await User.findByPk(id);
@@ -91,12 +91,12 @@ class UserController {
     }
   }
 
-  static async userUpdateStatus(req,res,next){
+  static async userUpdateStatus(req, res, next) {
     try {
       const { status } = req.body;
       const { id } = req.params;
       const findUser = await User.findByPk(id);
-      if (!findUser) throw({ name: "UserNotFound" });
+      if (!findUser) throw ({ name: "UserNotFound" });
       const updatedUser = await User.update(
         {
           status
@@ -114,12 +114,12 @@ class UserController {
     }
   }
 
-  static async userUpdateProfile(req,res,next){
+  static async userUpdateProfile(req, res, next) {
     try {
-      const { name,profileImg,notes,phoneNumber,city } = req.body;
+      const { name, profileImg, notes, phoneNumber, city } = req.body;
       const { id } = req.params;
       const findUser = await User.findByPk(id);
-      if (!findUser) throw({ name: "UserNotFound" });
+      if (!findUser) throw ({ name: "UserNotFound" });
       const updatedUser = await User.update(
         {
           name,
