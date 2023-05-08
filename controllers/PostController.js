@@ -97,6 +97,7 @@ class PostController {
     try {
       const { status } = req.body;
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "PostNotFound" };
       const findPost = await Post.findByPk(id);
       if (!findPost) throw ({ name: "PostNotFound" });
       const updatedPost = await Post.update(
@@ -119,6 +120,7 @@ class PostController {
   static async postArchive(req, res, next) {
     try {
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "PostNotFound" };
       const post = await Post.findByPk(id);
       if (!post) throw { name: "PostNotFound" };
       const user = await User.findByPk(post.UserId);
@@ -144,6 +146,7 @@ class PostController {
     try {
       const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
       const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "PostNotFound" };
       const foundPost = await Post.findByPk(id);
       if (!foundPost) throw ({ name: "PostNotFound" });
       const updatedPost = await Post.update(
