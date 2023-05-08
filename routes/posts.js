@@ -8,4 +8,7 @@ router.route("/:id")
     .put(PostController.updatePost)
     .patch(PostController.postUpdateStatus)
 
+// router.route("/:id/archive")
+//     .patch(PostController.postSuspend)
+
 module.exports = router;
