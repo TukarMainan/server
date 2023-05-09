@@ -11,6 +11,7 @@ const postsRouter = require("./posts");
 const reportsRouter = require("./reports");
 const usersRouter = require("./users");
 const reviewsRouter = require("./reviews");
+const tradesRouter = require ("./trades")
 
 router.use("/public", publicRouter);
 router.use("/adminlogs", adminLogsRouter);
@@ -23,5 +24,6 @@ router.use("/posts", postsRouter);
 router.use("/reports", reportsRouter);
 router.use("/users", usersRouter);
 router.use("/reviews", reviewsRouter);
+router.use("/trades", tradesRouter);
 
 module.exports = router;
