@@ -2,11 +2,13 @@ const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
 const app = require("../app");
 const { User } = require("../models");
+const crypto = require('crypto');
 
 const currentDate = new Date();
 const users = require("../config/database.json").users
     .map(el => {
         el.createdAt = el.updatedAt = currentDate;
+        el.token = crypto.randomBytes(32).toString('hex');
         return el;
     })
 
