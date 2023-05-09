@@ -41,6 +41,7 @@ const admins = [
 beforeAll(async () => {
     try {
        await Admin.bulkCreate(admins)
+       await Category.bulkCreate(categories)
       const { status, body } = await request(app)
             .post("/admins/login")
             .send({
