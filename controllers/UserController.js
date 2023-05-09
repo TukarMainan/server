@@ -100,10 +100,11 @@ class UserController {
         include: [
           {
             model: Review,
+            as: "UserReviews",
             include: [
               {
                 model: User,
-                as: "SenderReview"
+                as: "SenderReviewer"
               },
               {
                 model: Post

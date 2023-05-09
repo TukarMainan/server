@@ -8,4 +8,5 @@ module.exports = {
     NotificationController: require("./NotificationController"),
     ChatController: require("./ChatController"),
     ReportController: require("./ReportController"),
+    ReviewController: require("./ReviewController"),
 }

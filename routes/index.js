@@ -10,6 +10,7 @@ const notificationsRouter = require("./notifications");
 const postsRouter = require("./posts");
 const reportsRouter = require("./reports");
 const usersRouter = require("./users");
+const reviewsRouter = require("./reviews");
 
 router.use("/public", publicRouter);
 router.use("/adminlogs", adminLogsRouter);
@@ -21,5 +22,6 @@ router.use("/notifications", notificationsRouter);
 router.use("/posts", postsRouter);
 router.use("/reports", reportsRouter);
 router.use("/users", usersRouter);
+router.use("/reviews", reviewsRouter);
 
 module.exports = router;

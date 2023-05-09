@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.User, {
         foreignKey: "SenderId",
-        as: "SenderChat"
+        as: "SenderUser"
       });
       this.belongsTo(models.User, {
         foreignKey: "ReceiverId",
-        as: "ReceiverChat"
+        as: "ReceiverUser"
       });
       this.hasMany(models.Message, {
         foreignKey: "ChatId"

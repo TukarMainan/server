@@ -10,7 +10,7 @@ class ChatController {
                 where: { SenderId: UserId },
                 include: {
                     model: User,
-                    as: "SenderChat"
+                    as: "SenderUser"
                 }
             });
 

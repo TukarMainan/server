@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.User, {
         foreignKey: "UserId",
-        as: "UserReview"
+        as: "UserReviewer"
       });
       this.belongsTo(models.User, {
         foreignKey: "SenderId",
-        as: "SenderReview"
+        as: "SenderReviewer"
       });
       this.belongsTo(models.Post, {
         foreignKey: "PostId"
@@ -78,7 +78,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: "Rating is required"
-        }
+        },
+        min: 0,
+        max: 5
       }
     },
     PostId: {
