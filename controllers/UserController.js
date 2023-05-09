@@ -3,22 +3,84 @@ const { User, Review, Post, Category } = require("../models");
 const { verifyPassword, signToken, hashPassword } = require("../helpers");
 const { validate: uuidValidate } = require('uuid');
 const { OAuth2Client } = require('google-auth-library');
+const nodemailer = require('nodemailer');
+const axios = require("axios");
+const crypto = require('crypto');
+const api_key = process.env.APIKEY_EMAIL_VALIDATION_ABSTRACTAPI;
+const ourEmail = process.env.NODEMAILER_EMAIL;
+const ourEmailPassword = process.env.NODEMAILER_EMAIL_PASSWORD;
 
 class UserController {
   static async register(req, res, next) {
     try {
       const { username, email, password, city } = req.body;
 
-      // NotNull and NotEmpty already handled by SequelizeValidationError
-      // if (!email) return next({ name: "EmailRequired" });
-      // if (!password) return next({ name: "PasswordRequired" });
-      // if (!name) return next({ name: "NameRequired" });
-      // if (!city) return next({ name: "CityRequired" });
+      const isValid = await axios({
+        url: `https://emailvalidation.abstractapi.com/v1/?api_key=${api_key}&email=${email}`,
+        method: "GET",
+      });
+
+      if (isValid.data.deliverability != "DELIVERABLE") {
+        throw { name: "InactiveEmail" };
+      }
+
+      const token = crypto.randomBytes(32).toString('hex');
+      console.log(token);
       const newUser = await User.create({
         username,
         email,
         password,
-        city
+        city,
+        token
+      });
+
+      const transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+          user: ourEmail,
+          pass: ourEmailPassword
+        }
+      });
+
+      const mailOptions = {
+        from: ourEmail,
+        to: email,
+        subject: 'Verifikasi Alamat Email - TukarMainan',
+        html: `
+<h1>
+Salam ${username},
+</h1>
+</br>
+<p>
+Terima kasih telah mendaftar dalam aplikasi TukarMainan! Kami senang memiliki Anda sebagai pelanggan dan berharap dapat menyediakan pilihan mainan anak terbaik yang tersedia di pasaran.
+
+Untuk memastikan bahwa akun Anda aman dan kami dapat berkomunikasi dengan efektif, kami memerlukan semua pelanggan untuk memverifikasi alamat email mereka. Silakan klik tautan di bawah ini untuk memverifikasi alamat email Anda dan menyelesaikan proses pendaftaran:
+</p>
+</br>
+<a href="http://localhost:3000/public/users/verify/${newUser.id}?token=${newUser.token}">Klik di sini untuk memverifikasi email</a>
+</br>
+<p>
+Setelah Anda memverifikasi email, Anda akan dapat mengakses semua fitur aplikasi TukarMainan.
+
+Jika Anda memiliki pertanyaan atau kekhawatiran, jangan ragu untuk menghubungi kami melalui tukarmainan@outlook.com.
+</p>
+</br>
+<p>
+Terima kasih telah memilih TukarMainan!
+</br>
+Salam hormat,
+</br>
+</br>
+<strong>TukarMainan</strong>
+</p>
+`};
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          throw { name: "NodeMailerError" };
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
       });
 
       res.status(201).json({ message: "Success creating new user" });
@@ -145,6 +207,28 @@ class UserController {
         .json({ message: `Successfully updated status User with id ${id}` });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "UserController: userUpdateStatus";
+      next(err);
+    }
+  }
+
+  static async verifyEmail(req, res, next) {
+    try {
+      const { token } = req.query;
+      const { id } = req.params;
+      if (!token || !id) throw { name: "BadRequest" };
+      if (!uuidValidate(id)) throw { name: "UserNotFound" };
+      const user = await User.findByPk(id);
+      if (!user) throw ({ name: "UserNotFound" });
+      if (user.token !== token) throw { name: "Unauthorized" };
+
+      user.status = "verified";
+      await user.save();
+
+      res
+        .status(200)
+        .json({ message: `Successfully verified User with id ${id}` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "UserController: verifyEmail";
       next(err);
     }
   }

@@ -136,6 +136,18 @@ module.exports = (sequelize, DataTypes) => {
     warningCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Token is required"
+        },
+        notEmpty: {
+          msg: "Token is required"
+        }
+      }
     }
   }, {
     sequelize,

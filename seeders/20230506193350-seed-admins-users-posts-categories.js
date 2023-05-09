@@ -1,4 +1,5 @@
 'use strict';
+const crypto = require('crypto');
 const { hashPassword } = require('../helpers');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -17,6 +18,7 @@ module.exports = {
 
     const users = data.users.map(el => {
       el.createdAt = el.updatedAt = currentDate;
+      el.token = crypto.randomBytes(32).toString('hex');
       return el;
     });
 

@@ -23,6 +23,10 @@ module.exports = (err, req, res, next) => {
             status = 400;
             message = `Input is required`;
             break;
+        case "InactiveEmail":
+            status = 400;
+            message = `Email is not active`;
+            break;
         case "JsonWebTokenError":
         case "InvalidToken":
         case "Unauthorized":
@@ -48,6 +52,10 @@ module.exports = (err, req, res, next) => {
         case "CategoryNotFound":
             status = 404;
             message = `Category not found`;
+            break;
+        case "NodeMailerError":
+            status = 500;
+            message = `Nodemailer error`;
             break;
     }
 
