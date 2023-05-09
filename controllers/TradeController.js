@@ -1,4 +1,4 @@
-const { Trade, User, Post } = require("../models");
+const { Trade, User, Post, Chat } = require("../models");
 const { validate: uuidValidate } = require('uuid');
 
 class TradeController {
@@ -85,8 +85,15 @@ class TradeController {
                 SenderPostId,
                 TargetPostId
             });
+            const [chat, created] = await Chat.findOrCreate({
+                where: { SenderId:SenderUserId, ReceiverId:TargetUserId },
+                defaults: {
+                    SenderId:SenderUserId,
+                    ReceiverId:TargetUserId
+                }
+            });
             res.status(201).json({
-                 message: "Review successfully created",
+                 message: "Trade successfully created",
                  SenderUserId,
                  TargetUserId
                  });
