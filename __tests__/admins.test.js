@@ -67,8 +67,8 @@ describe("POST /admins/login", () => {
             const { status, body } = await request(app)
                 .post("/admins/login")
                 .send({
-                    username: users[0].email,
-                    password: users[0].password
+                    username: admins[0].email,
+                    password: admins[0].password
                 })
             expect(status).toBe(200);
             expect(body).toEqual({
@@ -83,8 +83,8 @@ describe("POST /admins/login", () => {
             const { status, body } = await request(app)
                 .post("/users/login")
                 .send({
-                    username: users[0].username,
-                    password: users[0].password
+                    username: admins[0].username,
+                    password: admins[0].password
                 })
             expect(status).toBe(200);
             expect(body).toEqual({
