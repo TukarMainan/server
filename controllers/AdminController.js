@@ -80,8 +80,8 @@ class AdminController {
         }
       );
 
-      res.status(200)
-        .json({ message: `Successfully updated Password` })
+      res.status(201)
+        .json({ message: `Successfully updating Password` })
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "AdminController: updatePassword";
       next(err);
