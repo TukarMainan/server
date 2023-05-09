@@ -1,4 +1,4 @@
-const { Notification } = require("../models");
+const Notification = require("../models");
 
 class NotificationController {
   static async readAllByUserId(req, res, next) {

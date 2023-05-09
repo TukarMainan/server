@@ -1,5 +1,4 @@
-// const { CategoryController } = require("../controllers");
-const CategoryController = require("../controllers/CategoryController");
+const { CategoryController } = require("../controllers");
 const router = require("express").Router();
 
 router.route("/").post(CategoryController.create);

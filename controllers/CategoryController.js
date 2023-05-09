@@ -15,7 +15,7 @@ class CategoryController {
 
   static async readById(req, res, next) {
     try {
-      const { id } = req.user;
+      const { id } = req.params;
 
       const category = await Category.findByPk(id);
 
@@ -49,7 +49,7 @@ class CategoryController {
   static async updateName(req, res, next) {
     try {
       const { name } = req.body;
-      const { id } = req.user;
+      const { id } = req.params;
 
       if (!name) throw { name: "BadRequest" };
 

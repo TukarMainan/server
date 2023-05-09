@@ -1,5 +1,5 @@
-// const { MessageController } = require("../controllers");
-const MessageController = require("../controllers/MessageController");
+const { MessageController } = require("../controllers");
+
 const router = require("express").Router();
 
 router.route("/").get(MessageController.readAllByUserId);
