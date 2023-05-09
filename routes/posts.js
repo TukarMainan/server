@@ -5,7 +5,7 @@ const router = require("express").Router();
 const { authenticationUser, authorizeUserPost, authenticationAdmin } = require("../middlewares");
 
 router.route("/")
-    .post(authenticationUser, uploadImage.array('images[]', 5), PostController.create)
+    .post(authenticationUser, uploadImage.array('images', 5), PostController.create)
 
 router.route("/posts-by-average-profile-price")
     .get(authenticationUser, PostController.recommendPostBasedOnProfileItemPrice)

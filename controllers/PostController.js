@@ -3,8 +3,8 @@ const { Post, User, Category, Comment, Review } = require("../models");
 const { Sequelize } = require("sequelize");
 const { validate: uuidValidate } = require('uuid');
 const { imagekit } = require("../middlewares/imageUploadHandler");
-const path = require("path");
 const fs = require('fs');
+const fse = require('fs-extra');
 
 class PostController {
   static async getPosts(req, res, next) {
@@ -224,8 +224,10 @@ class PostController {
     }
   }
 
+  // INACTIVE
   static async updatePost(req, res, next) {
     try {
+      throw { name: "ISE" };
       const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
       const { id } = req.params;
 
@@ -267,33 +269,27 @@ class PostController {
 
   static async create(req, res, next) {
     try {
-      const files = req.files;
-
-      console.log(files);
-      for (const file of files) {
-        const readStream = fs.createReadStream(file.path);
-        const imageName = file.filename;
-
-        imagekit.upload({
-          file: readStream,
-          fileName: imageName
-        }, (err, result) => {
-          if (err) {
-            console.log('Error uploading to ImageKit:', err);
-          } else {
-            console.log('Image uploaded to ImageKit:', result);
-          }
-        })
-      }
-
-      throw { name: "BadRequest" };
-
       const { id: UserId } = req.user;
       const { title, description, condition, CategoryId, meetingPoint, price } = req.body;
 
       if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
       const category = await Category.findByPk(CategoryId);
       if (!category) throw { name: "CategoryNotFound" };
+
+      const files = req.files;
+      const images = [];
+
+      for (const file of files) {
+        const readStream = fs.createReadStream(file.path);
+        const imageName = file.filename;
+
+        const result = await imagekit.upload({
+          file: readStream,
+          fileName: imageName
+        })
+        images.push(result.url);
+        fse.removeSync(file.path);
+      }
 
       const { longitude, latitude } = JSON.parse(meetingPoint);
 
@@ -310,7 +306,7 @@ class PostController {
             Sequelize.literal(`'POINT(${longitude} ${latitude})'`),
             '4326'
           ) : null,
-          images: JSON.parse(images),
+          images,
           price: price || null
         }
       );
