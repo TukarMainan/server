@@ -78,9 +78,6 @@ beforeAll(async () => {
                 username: admins[0].username,
                 password: admins[0].password
             })
-        console.log(status);
-        console.log(body);
-        console.log("<<<<<<<<<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>>>>>>>...");
         state.access_token = body.access_token;
     } catch (err) {
         console.log(err)
