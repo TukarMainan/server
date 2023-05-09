@@ -76,5 +76,11 @@ module.exports = (sequelize, DataTypes) => {
     admin.password = await hashPassword(admin.password);
   })
 
+  Admin.beforeBulkCreate(async (admins) => {
+    for (let i = 0; i < admins.length; i++) {
+      admins[i].password = await hashPassword(admins[i].password);
+    }
+  })
+
   return Admin;
 };

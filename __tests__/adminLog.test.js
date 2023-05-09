@@ -1,8 +1,7 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
 const app = require("../app");
-const { sequelize, AdminLog,Admin} = require("../models");
-const { queryInterface } = sequelize;
+const { AdminLog, Admin } = require("../models");
 
 const state = {
     access_token: "",
@@ -33,8 +32,8 @@ const admins = [
         createdAt: new Date(),
         updatedAt: new Date(),
     },
-  ]
-const adminLogs=[
+]
+const adminLogs = [
     {
         "id": "51cc75fe-b3eb-42ab-a458-6fc6c6f2e532",
         "name": "login",
@@ -67,26 +66,29 @@ const adminLogs=[
         createdAt: new Date(),
         updatedAt: new Date(),
     }
-  ]
+]
+
 beforeAll(async () => {
     try {
-       await  queryInterface
-      .bulkInsert("Admins", admins)
-      await queryInterface.bulkInsert("AdminLogs",adminLogs)
-      const { status, body } = await request(app)
+        await Admin.bulkCreate(admins);
+        await AdminLog.bulkCreate(adminLogs);
+        const { status, body } = await request(app)
             .post("/admins/login")
             .send({
                 username: admins[0].username,
                 password: admins[0].password
             })
+        console.log(status);
+        console.log(body);
+        console.log("<<<<<<<<<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>>>>>>>...");
         state.access_token = body.access_token;
     } catch (err) {
         console.log(err)
         process.exit(1);
     }
-  });
-  
-  afterAll(async() => {
+});
+
+afterAll(async () => {
     try {
         await Admin.destroy({ truncate: true, cascade: true, restartIdentity: true })
         await AdminLog.destroy({ truncate: true, cascade: true, restartIdentity: true })
@@ -94,9 +96,9 @@ beforeAll(async () => {
         console.log(error);
         process.exit(1);
     }
-  });
+});
 
-  describe("GET /adminlogs", () => {
+describe("GET /adminlogs", () => {
     describe("Success", () => {
         it("should response with http status 200 and array of users if success", async () => {
             const { status, body } = await request(app)
@@ -114,7 +116,7 @@ beforeAll(async () => {
                 .set("access_token", state.invalid_access_token)
             expect(status).toBe(401);
             expect(body).toEqual({
-                message:"Unauthorized"
+                message: "Unauthorized"
             });
         })
     })
