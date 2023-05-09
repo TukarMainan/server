@@ -1,11 +1,15 @@
 const { UserController } = require("../controllers");
 const router = require("express").Router();
 
-const { authenticationUser, authenticationAdmin } = require("../middlewares");
+const { authenticationUser, authenticationAdmin, uploadImage } = require("../middlewares");
 
 router.route("/")
     .get(authenticationAdmin, UserController.getAllUser)
-    .put(authenticationUser, UserController.userUpdateProfile)
+    .put(authenticationUser,
+        uploadImage.fields([
+            { name: "profileImg", maxCount: 1 },
+            { name: "backgroundImg", maxCount: 1 },
+        ]), UserController.userUpdateProfile)
 
 router.route("/login")
     .post(UserController.login)

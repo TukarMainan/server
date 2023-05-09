@@ -3,7 +3,6 @@ const { Post, User, Category, Comment, Review } = require("../models");
 const { Sequelize } = require("sequelize");
 const { validate: uuidValidate } = require('uuid');
 const { imagekit } = require("../middlewares/imageUploadHandler");
-const path = require("path");
 const fs = require('fs');
 const fse = require('fs-extra');
 
@@ -225,8 +224,10 @@ class PostController {
     }
   }
 
+  // INACTIVE
   static async updatePost(req, res, next) {
     try {
+      throw { name: "ISE" };
       const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
       const { id } = req.params;
 
@@ -268,6 +269,13 @@ class PostController {
 
   static async create(req, res, next) {
     try {
+      const { id: UserId } = req.user;
+      const { title, description, condition, CategoryId, meetingPoint, price } = req.body;
+
+      if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
+      const category = await Category.findByPk(CategoryId);
+      if (!category) throw { name: "CategoryNotFound" };
+
       const files = req.files;
       const images = [];
 
@@ -282,13 +290,6 @@ class PostController {
         images.push(result.url);
         fse.removeSync(file.path);
       }
-
-      const { id: UserId } = req.user;
-      const { title, description, condition, CategoryId, meetingPoint, price } = req.body;
-
-      if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
-      const category = await Category.findByPk(CategoryId);
-      if (!category) throw { name: "CategoryNotFound" };
 
       const { longitude, latitude } = JSON.parse(meetingPoint);
 
