@@ -1,8 +1,8 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
 const app = require("../app");
-const { sequelize, AdminLog,Admin,User,Notification} = require("../models");
-const { queryInterface } = sequelize;
+const { User, Notification } = require("../models");
+const crypto = require('crypto');
 
 const state = {
     access_token: "",
@@ -20,10 +20,11 @@ const users = [
         "phoneNumber": "082110981550",
         "status": "verified",
         "city": "Jakarta",
-        "ratings": [0]
+        "ratings": [0],
+        "token": crypto.randomBytes(32).toString('hex')
     }
-  ]
-const notifications=[
+]
+const notifications = [
     {
         "id": "d4e31eb5-27bd-4d10-99e6-8c75af9231db",
         "message": "notifikasi 1",
@@ -45,12 +46,12 @@ const notifications=[
         createdAt: new Date(),
         updatedAt: new Date(),
     }
-  ]
+]
 beforeAll(async () => {
     try {
         await User.bulkCreate(users)
         await Notification.bulkCreate(notifications)
-      const { status, body } = await request(app)
+        const { status, body } = await request(app)
             .post("/users/login")
             .send({
                 username: users[0].username,
@@ -61,9 +62,9 @@ beforeAll(async () => {
         console.log(err)
         process.exit(1);
     }
-  });
-  
-  afterAll(async() => {
+});
+
+afterAll(async () => {
     try {
         await User.truncate({
             cascade: true
@@ -75,14 +76,15 @@ beforeAll(async () => {
         console.log(error);
         process.exit(1);
     }
-  });
+});
 
-  describe("GET /notifications", () => {
+describe("GET /notifications", () => {
     describe("Success", () => {
         it("should response with http status 200 and array of notifications if success", async () => {
             const { status, body } = await request(app)
                 .get("/notifications")
                 .set("access_token", state.access_token)
+            console.log(body, status);
             expect(status).toBe(200);
             expect(body).toEqual(expect.any(Array));
         })
@@ -94,7 +96,7 @@ beforeAll(async () => {
                 .set("access_token", state.invalid_access_token)
             expect(status).toBe(401);
             expect(body).toEqual({
-                message:"Unauthorized"
+                message: "Unauthorized"
             });
         })
     })
