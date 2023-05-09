@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Post, {
         foreignKey: "UserId"
       });
+      this.hasMany(models.Trade, {
+        foreignKey: "SenderUserId",
+        as: "SenderUser"
+      })
     }
   }
   User.init({

@@ -9,4 +9,5 @@ module.exports = {
     ChatController: require("./ChatController"),
     ReportController: require("./ReportController"),
     ReviewController: require("./ReviewController"),
+    TradeController:require("./TradeController"),
 }

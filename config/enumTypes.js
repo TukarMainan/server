@@ -5,9 +5,11 @@ const statusItemPostEnum = ["active", "inactive", "complete", "archived"];
 
 const statusReportEnum = ["open", "close"];
 
+const statusTradeEnum = ["requesting","on going","rejected","complete"];
 module.exports = {
     statusUserEnum,
     conditionItemPostEnum,
     statusItemPostEnum,
-    statusReportEnum
+    statusReportEnum,
+    statusTradeEnum
 }

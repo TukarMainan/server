@@ -49,6 +49,10 @@ module.exports = (err, req, res, next) => {
             status = 404;
             message = `User not found`;
             break;
+        case "TradeNotFound":
+            status = 404;
+            message = `Trade not found`;
+            break;
         case "CategoryNotFound":
             status = 404;
             message = `Category not found`;
