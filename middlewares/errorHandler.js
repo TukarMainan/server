@@ -23,6 +23,16 @@ module.exports = (err, req, res, next) => {
             status = 400;
             message = `Input is required`;
             break;
+        case "MulterError":
+            if (err.code === "LIMIT_UNEXPECTED_FILE") {
+                status = 400;
+                message = `Maximum 5 images upload`;
+            }
+            break;
+        case "ImageLimitExceed":
+            status = 400;
+            message = `Maximum 5 images upload`;
+            break;
         case "InactiveEmail":
             status = 400;
             message = `Email is not active`;
@@ -56,6 +66,10 @@ module.exports = (err, req, res, next) => {
         case "NodeMailerError":
             status = 500;
             message = `Nodemailer error`;
+            break;
+        case "ImageKitServerError":
+            status = 500;
+            message = `Imagekit error`;
             break;
     }
 

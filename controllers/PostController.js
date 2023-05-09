@@ -5,6 +5,7 @@ const { validate: uuidValidate } = require('uuid');
 const { imagekit } = require("../middlewares/imageUploadHandler");
 const path = require("path");
 const fs = require('fs');
+const fse = require('fs-extra');
 
 class PostController {
   static async getPosts(req, res, next) {
@@ -268,25 +269,19 @@ class PostController {
   static async create(req, res, next) {
     try {
       const files = req.files;
+      const images = [];
 
-      console.log(files);
       for (const file of files) {
         const readStream = fs.createReadStream(file.path);
         const imageName = file.filename;
 
-        imagekit.upload({
+        const result = await imagekit.upload({
           file: readStream,
           fileName: imageName
-        }, (err, result) => {
-          if (err) {
-            console.log('Error uploading to ImageKit:', err);
-          } else {
-            console.log('Image uploaded to ImageKit:', result);
-          }
         })
+        images.push(result.url);
+        fse.removeSync(file.path);
       }
-
-      throw { name: "BadRequest" };
 
       const { id: UserId } = req.user;
       const { title, description, condition, CategoryId, meetingPoint, price } = req.body;
@@ -310,7 +305,7 @@ class PostController {
             Sequelize.literal(`'POINT(${longitude} ${latitude})'`),
             '4326'
           ) : null,
-          images: JSON.parse(images),
+          images,
           price: price || null
         }
       );
