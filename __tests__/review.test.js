@@ -1,7 +1,7 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
 const app = require("../app");
-const { Comment,User,Post} = require("../models");
+const { Review,User,Post} = require("../models");
 const crypto = require('crypto');
 
 const state = {
@@ -15,18 +15,13 @@ const users = require("../config/database.json").users
         el.token = crypto.randomBytes(32).toString('hex');
         return el;
     })
-const comments=[
+const reviews=[
     {
         "id": "d4e31eb5-27bd-4d10-99e6-8c75af9231db",
         "PostId": "b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
         "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    },
-    {
-        "id": "d4e31eb5-27bd-4d10-99e6-8c75af9231db",
-        "PostId": "b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
-        "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
+        "SenderId":"3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+        "message":"just a dummy",
         createdAt: new Date(),
         updatedAt: new Date(),
     }
@@ -75,7 +70,7 @@ beforeAll(async () => {
     try {
         await User.bulkCreate(users)
         await Post.bulkCreate(posts)
-        await Comment.bulkCreate(comments)
+        await Review.bulkCreate(reviews)
       const { status, body } = await request(app)
             .post("/users/login")
             .send({
@@ -97,7 +92,7 @@ beforeAll(async () => {
         await Post.truncate({
             cascade: true
         })
-        await Comment.truncate({
+        await Review.truncate({
             cascade: true
         })
     } catch (error) {
@@ -106,31 +101,35 @@ beforeAll(async () => {
     }
   });
 
-  describe("POST /comments", () => {
+  describe("POST /reviews", () => {
     describe("Success", () => {
-        it("should response with http status 201 and message Success creating comment if success", async () => {
+        it("should response with http status 201 and message Review successfully created if success", async () => {
             const payload={
-                message:"waw mantap",
+                UserId:"3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+                message:"test review",
+                rating:5,
                 PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b7187"
             }
             const { status, body } = await request(app)
-                .post("/comments")
+                .post("/reviews")
                 .set("access_token", state.access_token)
                 .send(payload)
             expect(status).toBe(201);
             expect(body).toEqual({
-                message:"Success creating comment"
+                message:"Review successfully created"
             });
         })
     })
     describe("Fails", () => {
         it("should response with http status 401 and message Unauthorized if success", async () => {
             const payload={
-                message:"waw mantap",
+                UserId:"3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+                message:"test review",
+                rating:5,
                 PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b7187"
             }
             const { status, body } = await request(app)
-                .post("/comments")
+                .post("/reviews")
                 .set("access_token", state.invalid_access_token)
                 .send(payload)
             expect(status).toBe(401);
@@ -140,10 +139,12 @@ beforeAll(async () => {
         })
         it("should response with http status 400 and message Input is required if success", async () => {
             const payload={
-                message:"waw mantap",
+                UserId:"3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+                message:"test review",
+                PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b7187"
             }
             const { status, body } = await request(app)
-                .post("/comments")
+                .post("/reviews")
                 .set("access_token", state.access_token)
                 .send(payload)
             expect(status).toBe(400);
@@ -153,10 +154,12 @@ beforeAll(async () => {
         })
         it("should response with http status 400 and message Input is required if success", async () => {
             const payload={
-                PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b7187",
+                message:"test review",
+                rating:5,
+                PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b7187"
             }
             const { status, body } = await request(app)
-                .post("/comments")
+                .post("/reviews")
                 .set("access_token", state.access_token)
                 .send(payload)
             expect(status).toBe(400);
@@ -167,7 +170,7 @@ beforeAll(async () => {
         it("should response with http status 400 and message Input is required if success", async () => {
             const payload={}
             const { status, body } = await request(app)
-                .post("/comments")
+                .post("/reviews")
                 .set("access_token", state.access_token)
                 .send(payload)
             expect(status).toBe(400);
@@ -177,16 +180,34 @@ beforeAll(async () => {
         })
         it("should response with http status 404 and message Post not found if success", async () => {
             const payload={
-                PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b187",
-                message:"waw mantap"
+                UserId:"3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+                message:"test review",
+                rating:5,
+                PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b77"
             }
             const { status, body } = await request(app)
-                .post("/comments")
+                .post("/reviews")
                 .set("access_token", state.access_token)
                 .send(payload)
             expect(status).toBe(404);
             expect(body).toEqual({
                 message:"Post not found"
+            });
+        })
+        it("should response with http status 404 and message User not found if success", async () => {
+            const payload={
+                UserId:"3d131ee0-6f16-4fc7-a033-fa06acd172",
+                message:"test review",
+                rating:5,
+                PostId:"9a7dc419-730f-4a7a-a741-e7ad2d2b7187"
+            }
+            const { status, body } = await request(app)
+                .post("/reviews")
+                .set("access_token", state.access_token)
+                .send(payload)
+            expect(status).toBe(404);
+            expect(body).toEqual({
+                message:"User not found"
             });
         })
     })
