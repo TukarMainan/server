@@ -10,6 +10,6 @@ router.route("/register")
     .post(authenticationAdmin, AdminController.register)
 
 router.route("/update-password")
-    .patch(AdminController.updatePassword)
+    .patch(authenticationAdmin, AdminController.updatePassword)
 
 module.exports = router;

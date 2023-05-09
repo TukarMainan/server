@@ -1,5 +1,6 @@
 const { verifyToken } = require("../helpers");
 const { User, Admin, Post } = require("../models");
+const { validate: uuidValidate } = require('uuid');
 
 const authenticationUser = async (req, res, next) => {
     try {
@@ -26,7 +27,6 @@ const authenticationAdmin = async (req, res, next) => {
         const { access_token } = req.headers;
         if (!access_token) throw { name: "Unauthorized" };
 
-        console.log(access_token);
         const { id: AdminId } = verifyToken(access_token);
         const admin = await Admin.findByPk(AdminId);
         if (!admin) throw { name: "Unauthorized" };
@@ -48,6 +48,7 @@ const authorizeUserPost = async (req, res, next) => {
         const { id: PostId } = req.params;
         if (!UserId) throw { name: "Unauthorized" };
         if (!PostId) throw { name: "BadRequest" };
+        if (!uuidValidate(PostId)) throw { name: "PostNotFound" };
 
         const user = await User.findByPk(UserId);
         if (!user) throw { name: "Unauthorized" };
@@ -64,25 +65,8 @@ const authorizeUserPost = async (req, res, next) => {
     }
 }
 
-const authorizeUser = async (req, res, next) => {
-    try {
-        const { id: UserIdToken } = req.user;
-        const { id: UserIdParams } = req.params;
-        if (!UserIdToken) throw { name: "Unauthorized" };
-        if (!UserIdParams) throw { name: "BadRequest" };
-
-        if (UserIdToken !== UserIdParams) throw { name: "Forbidden" };
-
-        next();
-    } catch (error) {
-        error.ERROR_FROM_FUNCTION = "Middlewares: authorizeUser";
-        next(error);
-    }
-}
-
 module.exports = {
     authenticationAdmin,
     authenticationUser,
     authorizeUserPost,
-    authorizeUser,
 }

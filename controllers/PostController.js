@@ -1,23 +1,38 @@
 const { Op } = require("sequelize");
-const { Post, User, Category } = require("../models");
+const { Post, User, Category, Comment, Review } = require("../models");
 const { Sequelize } = require("sequelize");
 const { validate: uuidValidate } = require('uuid');
 
 class PostController {
   static async getPosts(req, res, next) {
     try {
-      const { CategoryId, sortby, search, city } = req.query
+      const { CategoryId, sortby, search, city, condition } = req.query;
       const options = {
-        order: [],
-        where: {}
+        where: {},
+        include: [
+          {
+            model: User,
+            where: {}
+          },
+          {
+            model: Category
+          }
+        ],
+        order: []
+      }
+      if (sortby) {
+        options.order = [['createdAt', sortby]]
       }
       if (CategoryId) {
         options.where = {
           ...options.where,
           CategoryId
         }
-        if (sortby) {
-          options.order = [['createdAt', sortby]]
+      }
+      if (condition) {
+        options.where = {
+          ...options.where,
+          condition
         }
       }
       if (search) {
@@ -27,10 +42,7 @@ class PostController {
         }
       }
       if (city) {
-        options.where = {
-          ...options.where,
-          city
-        }
+        options.include[0].where = { city }
       }
       const posts = await Post.findAll(options);
       res.status(200).json(posts);
@@ -59,6 +71,9 @@ class PostController {
           ),
           {
             [Op.lte]: 5000
+          },
+          {
+            status: "active"
           }
         ),
         order: [
@@ -78,12 +93,63 @@ class PostController {
     }
   }
 
+  static async recommendPostBasedOnProfileItemPrice(req, res, next) {
+    try {
+      const { id: UserId } = req.user;
+
+      const posts = await Post.findAll({
+        where: { UserId }
+      });
+
+      const validPrices = posts.map(el => {
+        if (el.price !== null) return el.price;
+      })
+      if (!validPrices.length) throw { name: "PostNotFound" };
+
+      const sum = validPrices.reduce((acc, val) => acc + val, 0);
+      const average = sum / validPrices.length;
+
+      const recommendedPost = await Post.findAll({
+        where: {
+          price: {
+            [Op.and]: {
+              [Op.between]: [average - 100000, average + 100000]
+            }
+          },
+          status: "active"
+        }
+      });
+
+      res.status(200).json(recommendedPost);
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "PostController: recommendPostBasedOnProfileItemPrice";
+      next(err);
+    }
+  }
+
   static async getPostById(req, res, next) {
     try {
       const { id } = req.params;
       if (!uuidValidate(id)) throw { name: "PostNotFound" };
       const postById = await Post.findByPk(id, {
-        include: [User, Category]
+        include: [
+          {
+            model: User
+          },
+          {
+            model: Category
+          },
+          {
+            model: Comment
+          },
+          {
+            model: Review,
+            include: {
+              model: User,
+              as: "SenderReview"
+            }
+          }
+        ]
       });
       if (!postById) throw ({ name: "PostNotFound" });
       res.status(200).json(postById);
@@ -132,7 +198,15 @@ class PostController {
 
       user.warningCount = user.warningCount + 1;
       if (user.warningCount > 5) {
-        user.status = "suspend"
+        user.status = "suspend";
+        await Post.update(
+          {
+            status: "archived"
+          },
+          {
+            where: { UserId: user.id }
+          }
+        )
       }
       await user.save();
 

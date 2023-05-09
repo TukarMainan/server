@@ -1,4 +1,4 @@
-const { Chat } = require("../models");
+const { Chat, User } = require("../models");
 const { validate: uuidValidate } = require('uuid');
 
 class ChatController {
@@ -7,7 +7,11 @@ class ChatController {
             const { id: UserId } = req.user;
 
             const chats = await Chat.findAll({
-                where: { SenderId: UserId }
+                where: { SenderId: UserId },
+                include: {
+                    model: User,
+                    as: "SenderUser"
+                }
             });
 
             res.status(200).json(chats);

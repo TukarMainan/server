@@ -6,10 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   class Review extends Model {
     static associate(models) {
       this.belongsTo(models.User, {
-        foreignKey: "UserId"
+        foreignKey: "UserId",
+        as: "UserReviewer"
       });
       this.belongsTo(models.User, {
-        foreignKey: "SenderId"
+        foreignKey: "SenderId",
+        as: "SenderReviewer"
       });
       this.belongsTo(models.Post, {
         foreignKey: "PostId"
@@ -76,7 +78,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: "Rating is required"
-        }
+        },
+        min: 0,
+        max: 5
       }
     },
     PostId: {
