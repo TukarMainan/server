@@ -20,6 +20,8 @@ class ReportController {
             const { PostId, message } = req.body;
 
             if (!uuidValidate(PostId)) throw { name: "PostNotFound" };
+            const post = await Post.findByPk(PostId);
+            if (!post) throw { name: "PostNotFound" };
 
             const newReports = await Report.create({
                 UserId,

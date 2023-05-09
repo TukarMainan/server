@@ -1,7 +1,7 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
-const app = require("../app");
-const { sequelize, AdminLog} = require("../models");
+const app = require("../../app");
+const { sequelize, AdminLog} = require("../../models");
 const { queryInterface } = sequelize;
 
 

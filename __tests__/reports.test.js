@@ -1,12 +1,12 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
 const app = require("../app");
-const { sequelize, Report,Post,Admin,User,Notification} = require("../models");
-const { queryInterface } = sequelize;
+const { Sequelize, Report, Post, Admin, User, Category } = require("../models");
+const crypto = require('crypto');
 
 const state = {
     access_token: "",
-    admin_access_token:"",
+    admin_access_token: "",
     invalid_access_token: "sufef82n4428rn8rqn0qr9nar9nanuafnanr387n3r2r7",
 }
 const users = [
@@ -21,11 +21,12 @@ const users = [
         "phoneNumber": "082110981550",
         "status": "verified",
         "city": "Jakarta",
-        "ratings": [0]
+        "ratings": [0],
+        "token": crypto.randomBytes(32).toString('hex')
     }
-  ]
+]
 
-const admins=[
+const admins = [
     {
         "id": "05ef6fb8-be74-4904-99b8-8fd0c84ddf78",
         "email": "admin1@gmail.com",
@@ -36,12 +37,33 @@ const admins=[
     }
 ]
 
-const reports=[
+const categories = [
+    {
+        "id": "e759b264-980a-4d0a-90a4-cd484beffe49",
+        "name": "Boys",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        "id": "8741881b-59ce-4d9e-b8e0-07d037511022",
+        "name": "Girls",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        "id": "a7bb0fc2-c23f-4602-9e3c-318476e41e4b",
+        "name": "Neutral",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+]
+
+const reports = [
     {
         "id": "d4e31eb5-27bd-4d10-99e6-8c75af9231db",
         "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
         "PostId": "b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
-        "message":"barang aneh",
+        "message": "barang aneh",
         "status": "open",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -50,15 +72,15 @@ const reports=[
         "id": "ac0ccc1b-90ed-431a-8fee-03423aa051df",
         "UserId": "c4131dfc-799c-4a35-9eec-6560cdd363b3",
         "PostId": "9a7dc419-730f-4a7a-a741-e7ad2d2b7187",
-        "message":"barang makin aneh",
+        "message": "barang makin aneh",
         "status": "open",
         createdAt: new Date(),
         updatedAt: new Date(),
     }
-    
-  ]
 
-const posts=[
+]
+
+const posts = [
     {
         "id": "b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
         "title": "Figure Avengers ZD Toys Iron Man",
@@ -97,14 +119,23 @@ const posts=[
         ],
         "price": 150000
     }
-]
+].map(el => {
+    el.meetingPoint = Sequelize.fn(
+        'ST_GeomFromText',
+        Sequelize.literal(`'POINT(${el.meetingPoint.longitude} ${el.meetingPoint.latitude})'`),
+        '4326'
+    );
+    return el;
+})
+
 beforeAll(async () => {
     try {
         await User.bulkCreate(users)
         await Admin.bulkCreate(admins)
-        await Report.bulkCreate(reports)
+        await Category.bulkCreate(categories)
         await Post.bulkCreate(posts)
-      const { status, body } = await request(app)
+        await Report.bulkCreate(reports)
+        const { status, body } = await request(app)
             .post("/users/login")
             .send({
                 username: users[0].username,
@@ -112,19 +143,19 @@ beforeAll(async () => {
             })
         state.access_token = body.access_token;
         const res = await request(app)
-        .post("/admins/login")
-        .send({
-            username: admins[0].username,
-            password: admins[0].password
-        })
-    state.admin_access_token = res.body.access_token;
+            .post("/admins/login")
+            .send({
+                username: admins[0].username,
+                password: admins[0].password
+            })
+        state.admin_access_token = res.body.access_token;
     } catch (err) {
         console.log(err)
         process.exit(1);
     }
-  });
-  
-  afterAll(async() => {
+});
+
+afterAll(async () => {
     try {
         await User.truncate({
             cascade: true
@@ -138,11 +169,14 @@ beforeAll(async () => {
         await Post.truncate({
             cascade: true
         })
+        await Category.truncate({
+            cascade: true
+        })
     } catch (error) {
         console.log(error);
         process.exit(1);
     }
-  });
+});
 
 describe("GET /reports", () => {
     describe("Success", () => {
@@ -161,7 +195,7 @@ describe("GET /reports", () => {
                 .set("access_token", state.invalid_access_token)
             expect(status).toBe(401);
             expect(body).toEqual({
-                message:"Unauthorized"
+                message: "Unauthorized"
             });
         })
     })
@@ -171,72 +205,73 @@ describe("POST /reports", () => {
     describe("Success", () => {
         it("should response with http status 201 and message Report successfully created if success", async () => {
             const payload = {
-                PostId:"b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
-                message:"barang gajelas" 
-                };
+                PostId: "b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
+                message: "barang gajelas"
+            };
+            console.log(state);
             const { status, body } = await request(app)
-                .get("/reports")
+                .post("/reports")
                 .set("access_token", state.access_token)
                 .send(payload)
             expect(status).toBe(201);
             expect(body).toEqual({
-                message:"Report successfully created"
+                message: "Report successfully created"
             });
         })
     })
     describe("Fails", () => {
-        it("should response with http status 404 and message Post not found if success", async () => {
+        it("should response with http status 400 and message 'Message is required' if success", async () => {
             const payload = {
-                PostId:"b6f2c698-7eeb-470c-8f73-ec2451d5adb",
-                message:"barang gajelas" 
-                };
+                PostId: "b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
+            };
             const { status, body } = await request(app)
-                .get("/reports")
+                .post("/reports")
                 .set("access_token", state.access_token)
                 .send(payload)
-            expect(status).toBe(404);
+            expect(status).toBe(400);
             expect(body).toEqual({
-                message:"Post not found"
+                message: "Message is required"
             });
         })
         it("should response with http status 401 and message Unauthorized if success", async () => {
             const payload = {
-                PostId:"b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
-                message:"barang gajelas" 
-                };
+                PostId: "b6f2c698-7eeb-470c-8f73-ec2451d5adb2",
+                message: "barang gajelas"
+            };
             const { status, body } = await request(app)
-                .get("/reports")
+                .post("/reports")
                 .set("access_token", state.invalid_access_token)
+                .send(payload)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 404 and message 'Post not found' if success", async () => {
+            const payload = {
+                PostId: "b6f2c698-7eeb-470c-8f73-ec2451d5adb",
+                message: "barang gajelas"
+            };
+            const { status, body } = await request(app)
+                .post("/reports")
+                .set("access_token", state.access_token)
                 .send(payload)
             expect(status).toBe(404);
             expect(body).toEqual({
-                message:"Unauthorized"
+                message: "Post not found"
             });
         })
-        it("should response with http status 400 and message Input is required if success", async () => {
+        it("should response with http status 404 and message 'Post not found' if success", async () => {
             const payload = {
-                PostId:"b6f2c698-7eeb-470c-8f73-ec2451d5adb",
-                };
+                message: "barang gajelas",
+            };
             const { status, body } = await request(app)
-                .get("/reports")
+                .post("/reports")
                 .set("access_token", state.access_token)
                 .send(payload)
-            expect(status).toBe(400);
+            expect(status).toBe(404);
             expect(body).toEqual({
-                message:"Input is required"
-            });
-        })
-        it("should response with http status 400 and message Input is required if success", async () => {
-            const payload = {
-                message:"barang gajelas",
-                };
-            const { status, body } = await request(app)
-                .get("/reports")
-                .set("access_token", state.access_token)
-                .send(payload)
-            expect(status).toBe(400);
-            expect(body).toEqual({
-                message:"Input is required"
+                message: "Post not found"
             });
         })
     })
