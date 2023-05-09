@@ -38,7 +38,7 @@ class CategoryController {
 
       await Category.create(category);
 
-      res.status(201).json({ message: " Success creating new category" });
+      res.status(201).json({ message: "Success creating new category" });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "CategoryController: create";
       next(err);
