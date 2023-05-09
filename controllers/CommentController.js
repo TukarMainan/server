@@ -16,7 +16,7 @@ class CommentController {
         message,
       });
 
-      res.status(201).json({ message: " Success creating comment" });
+      res.status(201).json({ message: "Success creating comment" });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "CommentController: createByUserId";
       next(err);
