@@ -199,7 +199,7 @@ class PostController {
       const findPost = await Post.findByPk(id);
       if (!findPost) throw ({ name: "PostNotFound" });
 
-      if (findPost.status === "archived") throw { name: "Forbidden" };
+      // if (findPost.status === "archived") throw { name: "Forbidden" };
 
       const updatedPost = await Post.update(
         {
@@ -252,47 +252,47 @@ class PostController {
   }
 
   // INACTIVE
-  static async updatePost(req, res, next) {
-    try {
-      throw { name: "ISE" };
-      const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
-      const { id } = req.params;
+  // static async updatePost(req, res, next) {
+  //   try {
+  //     throw { name: "ISE" };
+  //     const { title, description, condition, CategoryId, meetingPoint, images, price } = req.body;
+  //     const { id } = req.params;
 
-      if (!uuidValidate(id)) throw { name: "PostNotFound" };
-      if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
-      const category = await Category.findByPk(CategoryId);
-      if (!category) throw { name: "CategoryNotFound" };
+  //     if (!uuidValidate(id)) throw { name: "PostNotFound" };
+  //     if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
+  //     const category = await Category.findByPk(CategoryId);
+  //     if (!category) throw { name: "CategoryNotFound" };
 
-      const foundPost = await Post.findByPk(id);
-      if (!foundPost) throw ({ name: "PostNotFound" });
+  //     const foundPost = await Post.findByPk(id);
+  //     if (!foundPost) throw ({ name: "PostNotFound" });
 
-      const { longitude, latitude } = JSON.parse(meetingPoint);
-      const updatedPost = await Post.update(
-        {
-          title,
-          description,
-          condition,
-          CategoryId,
-          meetingPoint: longitude && latitude ? Sequelize.fn(
-            'ST_GeomFromText',
-            Sequelize.literal(`'POINT(${longitude} ${latitude})'`),
-            '4326'
-          ) : null,
-          images: JSON.parse(images),
-          price: price || null
-        },
-        {
-          where: { id },
-        }
-      );
-      res
-        .status(200)
-        .json({ message: `Successfully updated post` });
-    } catch (err) {
-      err.ERROR_FROM_CONTROLLER = "PostController: updatePost";
-      next(err);
-    }
-  }
+  //     const { longitude, latitude } = JSON.parse(meetingPoint);
+  //     const updatedPost = await Post.update(
+  //       {
+  //         title,
+  //         description,
+  //         condition,
+  //         CategoryId,
+  //         meetingPoint: longitude && latitude ? Sequelize.fn(
+  //           'ST_GeomFromText',
+  //           Sequelize.literal(`'POINT(${longitude} ${latitude})'`),
+  //           '4326'
+  //         ) : null,
+  //         images: JSON.parse(images),
+  //         price: price || null
+  //       },
+  //       {
+  //         where: { id },
+  //       }
+  //     );
+  //     res
+  //       .status(200)
+  //       .json({ message: `Successfully updated post` });
+  //   } catch (err) {
+  //     err.ERROR_FROM_CONTROLLER = "PostController: updatePost";
+  //     next(err);
+  //   }
+  // }
 
   static async create(req, res, next) {
     try {
@@ -343,6 +343,21 @@ class PostController {
         .json({ message: `Successfully create post` });
     } catch (err) {
       err.ERROR_FROM_CONTROLLER = "PostController: create";
+      next(err);
+    }
+  }
+  static async deletePost(req,res,next){
+    try {
+      const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "PostNotFound" };
+      const deletedPost = await Post.destroy({
+        where:id
+      })
+      res
+        .status(201)
+        .json({ message: `Successfully delete post` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "PostController: detelePost";
       next(err);
     }
   }

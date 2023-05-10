@@ -262,5 +262,50 @@ describe("POST /reviews", () => {
                 message: "User not found"
             });
         })
+        it("should response with http status 401 and message Unauthorized if success", async () => {
+            const payload = {
+                UserId: users[2].id,
+                message: "test review",
+                rating: 5,
+                PostId: "9a7dc419-730f-4a7a-a741-e7ad2d2b7187"
+            }
+            const { status, body } = await request(app)
+                .post("/reviews")
+                .send(payload)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 401 and message Unauthorized if success", async () => {
+            const payload = {
+                UserId: users[0].id,
+                message: "test review",
+                rating: 5,
+                PostId: "9a7dc419-730f-4a7a-a741-e7ad2d2b7187"
+            }
+            const { status, body } = await request(app)
+                .post("/reviews")
+                .send(payload)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 401 and message Unauthorized if success", async () => {
+            const payload = {
+                UserId: users[0].id,
+                message: "test review",
+                rating: 5,
+                PostId: posts[2].id
+            }
+            const { status, body } = await request(app)
+                .post("/reviews")
+                .send(payload)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
     })
 })
