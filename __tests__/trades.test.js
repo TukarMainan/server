@@ -114,7 +114,7 @@ describe("POST /trades", () => {
         it("should response with http status 401 and messages unauthorized if fails", async () => {
             const { status, body } = await request(app)
                 .post("/trades")
-                .set("access_token", state.invalid.access_token)
+                .set("access_token", state.invalid_access_token)
                 .send({
                     TargetUserId: "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
                     SenderPostId: "941dd6be-f907-40f7-992a-f5ad52ecb505",

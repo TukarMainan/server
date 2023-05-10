@@ -156,8 +156,8 @@ _409 - Conflict_
 -   Body
     ```json
     {
-        "newPassword": String,
-        "oldPassword": String
+        "newpassword": String,
+        "oldpassword": String
     }
     ```
 
@@ -316,8 +316,8 @@ _409 - Conflict_
 -   Body
     ```json
     {
-        "newPassword": String,
-        "oldPassword": String
+        "newpassword": String,
+        "oldpassword": String
     }
     ```
 

@@ -59,18 +59,18 @@ class AdminController {
     try {
 
       const { id } = req.admin;
-      const { oldPassword, NewPassword } = req.body;
+      const { oldpassword, newpassword } = req.body;
 
-      if (!oldPassword || !NewPassword) throw { name: "BadRequest" };
+      if (!oldpassword || !newpassword) throw { name: "BadRequest" };
 
       const admin = await Admin.findByPk(id);
 
       if (!admin) throw { name: "Unauthorized" };
 
-      const isValid = await verifyPassword(admin.password, oldPassword);
+      const isValid = await verifyPassword(admin.password, oldpassword);
       if (!isValid) throw { name: "Unauthorized" };
 
-      const hashedNewPassword = await hashPassword(NewPassword);
+      const hashedNewPassword = await hashPassword(newpassword);
       const updatedAdmin = await Admin.update(
         {
           password: hashedNewPassword
