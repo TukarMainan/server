@@ -65,6 +65,44 @@ describe("GET /public/posts", () => {
             expect(body).toEqual(expect.any(Array));
             expect(body.length).toBe(posts.length);
         })
+        it("should response with http status 200 and array of posts if success", async () => {
+            const { status, body } = await request(app)
+                .get("/public/posts?sortby=DESC")
+            expect(status).toBe(200);
+            expect(body).toEqual(expect.any(Array));
+        })
+        it("should response with http status 200 and array of posts if success", async () => {
+            const { status, body } = await request(app)
+                .get(`/public/posts?CategoryId=${categories[0].id}`)
+            expect(status).toBe(200);
+            expect(body).toEqual(expect.any(Array));
+        })
+        it("should response with http status 200 and array of posts if success", async () => {
+            const { status, body } = await request(app)
+                .get(`/public/posts?condition=like new`)
+            expect(status).toBe(200);
+            expect(body).toEqual(expect.any(Array));
+        })
+        it("should response with http status 200 and array of posts if success", async () => {
+            const { status, body } = await request(app)
+                .get(`/public/posts?search=aa`)
+            expect(status).toBe(200);
+            expect(body).toEqual(expect.any(Array));
+        })
+        it("should response with http status 200 and array of posts if success", async () => {
+            const { status, body } = await request(app)
+                .get(`/public/posts?city=Jakarta`)
+            expect(status).toBe(200);
+            expect(body).toEqual(expect.any(Array));
+        })
+    })
+    describe("Fails",()=>{
+        it("should response with http status 400 and message if success", async () => {
+            const { status, body } = await request(app)
+                .get(`/public/posts?CategoryId=asda`)
+            expect(status).toBe(400);
+            expect(body).toEqual(expect.any(Object));
+        })
     })
 })
 

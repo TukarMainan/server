@@ -3,6 +3,7 @@ const request = require("supertest");
 const app = require("../app");
 const { User, Post, Sequelize, Category,Admin } = require("../models");
 const crypto = require('crypto');
+const fs = require ("fs")
 
 const state = {
     access_token: "",
@@ -37,6 +38,9 @@ const admins = require("../config/database.json").admins
     el.createdAt = el.updatedAt = currentDate;
     return el;
 })
+const profileImg ='./__tests__/assets/profile.jpg'
+const backgroundImg ='./__tests__/assets/background.jpg'
+
 beforeAll(async () => {
     try {
         await User.bulkCreate(users)
@@ -199,6 +203,18 @@ describe("POST /users/login", () => {
                 message: "Unauthorized"
             })
         })
+        it("should response with http status 200, access_token, id, username and email if login success with email", async () => {
+          const { status, body } = await request(app)
+              .post("/users/login")
+              .send({
+                  username: users[2].email,
+                  password: users[2].password
+              })
+          expect(status).toBe(401);
+          expect(body).toEqual({
+              message:"Your account is Suspended"
+          })
+      })
     })
 })
 
@@ -439,3 +455,62 @@ describe("POST /users/register", () => {
       });
     });
   })
+
+// describe("PUT /users", () => {
+//     describe("Success", () => {
+//       it("should response with http status 201, and return message Success updating profile", async () => {
+        
+//         const formData = new FormData();
+//         formData.append("name",'test new');
+//         formData.append("notes",'test notes');
+//         formData.append("phoneNumber",'085487511215');
+//         formData.append("city",'Jakarta');
+//         // formData.append("data", JSON.stringify(payload));
+//         formData.append('profileImg', fs.createReadStream(profileImg));
+//         formData.append('backgroundImg', fs.createReadStream(backgroundImg));
+
+//         const { status, body } = await request(app)
+//         .put("/users")
+//         .set("access_token",state.access_token)
+//         .set('Content-Type', 'multipart/form-data')
+//         .field("name",'test new')
+//         .field("notes",'test notes')
+//         .field("phoneNumber",'085487511215')
+//         .field("city",'Jakarta')
+//         .attach("profileImg",profileImg)
+//         .attach("backgroundImg",backgroundImg)
+//         expect(status).toBe(200);
+//         expect(body).toEqual({
+//           message:"test"
+//         });
+//       });
+//     });
+//     describe("Fails", () => {
+//       it("should response with http status 201, and return message Success updating profile", async () => {
+        
+//         const formData = new FormData();
+//         formData.append("name",'test new');
+//         formData.append("notes",'test notes');
+//         formData.append("phoneNumber",'085487511215');
+//         formData.append("city",'Jakarta');
+//         // formData.append("data", JSON.stringify(payload));
+//         formData.append('profileImg', fs.createReadStream(profileImg));
+//         formData.append('backgroundImg', fs.createReadStream(backgroundImg));
+
+//         const { status, body } = await request(app)
+//         .put("/users")
+//         .set("access_token",state.access_token)
+//         .set('Content-Type', 'multipart/form-data')
+//         .field("name",'test new')
+//         .field("notes",'test notes')
+//         .field("phoneNumber",'085487511215')
+//         .field("city",'Jakarta')
+//         .attach("profileImg",profileImg)
+//         .attach("backgroundImg",backgroundImg)
+//         expect(status).toBe(404);
+//         expect(body).toEqual({
+//           message:"test"
+//         });
+//       });
+//     });
+// })

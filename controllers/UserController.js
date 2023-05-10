@@ -193,29 +193,29 @@ Salam hormat,
     }
   }
 
-  static async userUpdateStatus(req, res, next) {
-    try {
-      const { status } = req.body;
-      const { id } = req.params;
-      if (!uuidValidate(id)) throw { name: "UserNotFound" };
-      const findUser = await User.findByPk(id);
-      if (!findUser) throw ({ name: "UserNotFound" });
-      const updatedUser = await User.update(
-        {
-          status
-        },
-        {
-          where: { id },
-        }
-      );
-      res
-        .status(200)
-        .json({ message: `Successfully updated status User with id ${id}` });
-    } catch (err) {
-      err.ERROR_FROM_CONTROLLER = "UserController: userUpdateStatus";
-      next(err);
-    }
-  }
+  // static async userUpdateStatus(req, res, next) {
+  //   try {
+  //     const { status } = req.body;
+  //     const { id } = req.params;
+  //     if (!uuidValidate(id)) throw { name: "UserNotFound" };
+  //     const findUser = await User.findByPk(id);
+  //     if (!findUser) throw ({ name: "UserNotFound" });
+  //     const updatedUser = await User.update(
+  //       {
+  //         status
+  //       },
+  //       {
+  //         where: { id },
+  //       }
+  //     );
+  //     res
+  //       .status(200)
+  //       .json({ message: `Successfully updated status User with id ${id}` });
+  //   } catch (err) {
+  //     err.ERROR_FROM_CONTROLLER = "UserController: userUpdateStatus";
+  //     next(err);
+  //   }
+  // }
 
   static async verifyEmail(req, res, next) {
     try {
@@ -270,6 +270,7 @@ Salam hormat,
   static async userUpdateProfile(req, res, next) {
     try {
       const { name, notes, phoneNumber, city } = req.body;
+      // console.log(req.body,req.files,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
       if (!city) throw { name: "BadRequest" };
 
       const { id } = req.user;

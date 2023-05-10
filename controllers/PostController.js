@@ -349,9 +349,8 @@ class PostController {
   static async deletePost(req,res,next){
     try {
       const { id } = req.params;
-      if (!uuidValidate(id)) throw { name: "PostNotFound" };
       const deletedPost = await Post.destroy({
-        where:id
+        where:{id}
       })
       res
         .status(201)
