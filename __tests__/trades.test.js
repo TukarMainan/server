@@ -225,7 +225,7 @@ describe("GET /trades/target", () => {
     })
 })
 
-describe("GET /trades/:id", () => {
+describe("PATCH /trades/:id", () => {
     describe("Success", () => {
         it("should response with http status 200 and message Successfully updated status Trade with id if success", async () => {
             const { status, body } = await request(app)

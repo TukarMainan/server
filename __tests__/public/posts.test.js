@@ -1,21 +1,18 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
-const app = require("../app");
-const { Trade, User, Post, Sequelize, Category } = require("../models");
+const app = require("../../app");
+const { User, Post, Sequelize, Category } = require("../../models");
 const crypto = require('crypto');
 
-const state = {
-    access_token: "",
-    invalid_access_token: "sufef82n4428rn8rqn0qr9nar9nanuafnanr387n3r2r7",
-}
+
 const currentDate = new Date();
-const users = require("../config/database.json").users
+const users = require("../../config/database.json").users
     .map(el => {
         el.createdAt = el.updatedAt = currentDate;
         el.token = crypto.randomBytes(32).toString('hex');
         return el;
     })
-const posts = require("../config/database.json").posts
+const posts = require("../../config/database.json").posts
     .map(el => {
         el.createdAt = el.updatedAt = currentDate;
         el.meetingPoint = Sequelize.fn(
@@ -25,12 +22,39 @@ const posts = require("../config/database.json").posts
         );
         return el;
     })
-const categories = require("../config/database.json").categories
+const categories = require("../../config/database.json").categories
     .map(el => {
         el.createdAt = el.updatedAt = currentDate;
         return el;
     })
 
+beforeAll(async () => {
+    try {
+        await User.bulkCreate(users)
+        await Category.bulkCreate(categories)
+        await Post.bulkCreate(posts)
+    } catch (err) {
+        console.log(err)
+        process.exit(1);
+    }
+});
+
+afterAll(async () => {
+    try {
+        await User.truncate({
+            cascade: true
+        })
+        await Category.truncate({
+            cascade: true
+        })
+        await Post.truncate({
+            cascade: true
+        })
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
+});
 
 describe("GET /public/posts", () => {
     describe("Success", () => {
