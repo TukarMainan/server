@@ -346,6 +346,21 @@ class PostController {
       next(err);
     }
   }
+  static async deletePost(req,res,next){
+    try {
+      const { id } = req.params;
+      if (!uuidValidate(id)) throw { name: "PostNotFound" };
+      const deletedPost = await Post.destroy({
+        where:id
+      })
+      res
+        .status(201)
+        .json({ message: `Successfully delete post` });
+    } catch (err) {
+      err.ERROR_FROM_CONTROLLER = "PostController: detelePost";
+      next(err);
+    }
+  }
 }
 
 module.exports = PostController;

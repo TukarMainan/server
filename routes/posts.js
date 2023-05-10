@@ -14,6 +14,7 @@ router.route("/:id/archive")
     .patch(authenticationAdmin, PostController.postArchive)
 
 router.route("/:id")
+    .delete(authenticationUser,authorizeUserPost,PostController.deletePost)
     // .put(authenticationUser, authorizeUserPost, PostController.updatePost)
     .patch(authenticationUser, authorizeUserPost, PostController.postUpdateStatus)
 
