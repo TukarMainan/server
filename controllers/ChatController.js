@@ -10,7 +10,10 @@ class ChatController {
                 where: { SenderId: UserId },
                 include: {
                     model: User,
-                    as: "SenderUser"
+                    as: "SenderUser",
+                    attributes: {
+                        exclude: ["password"]
+                    }
                 }
             });
 

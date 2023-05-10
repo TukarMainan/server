@@ -5,7 +5,16 @@ class ReportController {
     static async getReports(req, res, next) {
         try {
             const reports = await Report.findAll({
-                include: [User, Post],
+                include: [
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["password"]
+                        }
+                    },
+                    {
+                        model: Post
+                    }],
             });
             res.status(200).json(reports);
         } catch (err) {

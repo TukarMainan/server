@@ -10,7 +10,10 @@ class TradeController {
                 include: [
                     {
                         model: User,
-                        as: "SenderUser"
+                        as: "SenderUser",
+                        attributes: {
+                            exclude: ["password"]
+                        }
                     },
                     {
                         model: Post,
@@ -37,7 +40,10 @@ class TradeController {
                 include: [
                     {
                         model: User,
-                        as: "SenderUser"
+                        as: "SenderUser",
+                        attributes: {
+                            exclude: ["password"]
+                        }
                     },
                     {
                         model: Post,

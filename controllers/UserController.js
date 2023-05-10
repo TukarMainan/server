@@ -169,7 +169,10 @@ Salam hormat,
             include: [
               {
                 model: User,
-                as: "SenderReviewer"
+                as: "SenderReviewer",
+                attributes: {
+                  exclude: ["password"]
+                }
               },
               {
                 model: Post
