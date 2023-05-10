@@ -144,17 +144,17 @@ class PostController {
             attributes: {
               exclude: ["password"]
             },
-            include: {
-              model: Review,
-              as: "UserReviews",
-              include: {
-                model: User,
-                as: "SenderReviewer",
-                attributes: {
-                  exclude: ["password"]
-                }
-              }
-            }
+            // include: {
+            //   model: Review,
+            //   as: "UserReviews",
+            //   include: {
+            //     model: User,
+            //     as: "SenderReviewer",
+            //     attributes: {
+            //       exclude: ["password"]
+            //     }
+            //   }
+            // }
           },
           {
             model: Category
@@ -166,17 +166,17 @@ class PostController {
               attributes: {
                 exclude: ["password"]
               },
-              include: {
-                model: Review,
-                as: "UserReviews",
-                include: {
-                  model: User,
-                  as: "SenderReviewer",
-                  attributes: {
-                    exclude: ["password"]
-                  }
-                }
-              }
+              // include: {
+              //   model: Review,
+              //   as: "UserReviews",
+              //   include: {
+              //     model: User,
+              //     as: "SenderReviewer",
+              //     attributes: {
+              //       exclude: ["password"]
+              //     }
+              //   }
+              // }
             }
           }
         ]
