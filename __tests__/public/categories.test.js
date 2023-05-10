@@ -1,8 +1,7 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
 const app = require("../../app");
-const { sequelize, AdminLog} = require("../../models");
-const { queryInterface } = sequelize;
+const { Category } = require("../../models");
 
 
 const categories = [
@@ -24,28 +23,26 @@ const categories = [
         createdAt: new Date(),
         updatedAt: new Date(),
     },
-  ]
+]
 beforeAll(async () => {
     try {
-       await  queryInterface
-      .bulkInsert("Categories",categories )
+        await Category.bulkCreate(categories)
     } catch (err) {
         console.log(err)
         process.exit(1);
     }
-  });
-  
-  afterAll(async() => {
+});
+
+afterAll(async () => {
     try {
-        await Admin.destroy({ truncate: true, cascade: true, restartIdentity: true })
-        await AdminLog.destroy({ truncate: true, cascade: true, restartIdentity: true })
+        await Category.destroy({ truncate: true, cascade: true, restartIdentity: true })
     } catch (error) {
         console.log(error);
         process.exit(1);
     }
-  });
+});
 
-  describe("GET /public/categories", () => {
+describe("GET /public/categories", () => {
     describe("Success", () => {
         it("should response with http status 200 and array of users if success", async () => {
             const { status, body } = await request(app)
@@ -59,21 +56,23 @@ beforeAll(async () => {
 
 describe("Get /public/categories/:id", () => {
     describe("Success", () => {
-        it("should response with http status 200, access_token, id, username and email if login success with email", async () => {
+        it("should response with http status 200, id, name, createdAt, and updatedAt if fetch success", async () => {
             const { status, body } = await request(app)
                 .get("/public/categories/e759b264-980a-4d0a-90a4-cd484beffe49")
             expect(status).toBe(200);
             expect(body).toEqual({
                 id: expect.any(String),
                 name: expect.any(String),
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String),
             })
         })
     })
 
     describe("Fails", () => {
-        it("should response with http status 404 and message 'Input is required' if username not sent", async () => {
+        it("should response with http status 404 and message 'Category not found' if category not found", async () => {
             const { status, body } = await request(app)
-                .post("/public/categories/e759b264-980a-4d0a-90a4-cd484beffe49")
+                .get("/public/categories/ad4ac49f-d1ce-4a70-8d87-3c958700d7f3")
             expect(status).toBe(404);
             expect(body).toEqual({
                 message: "Category not found"

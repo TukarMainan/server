@@ -19,6 +19,7 @@ class CategoryController {
       if (!uuidValidate(id)) throw { name: "CategoryNotFound" };
 
       const category = await Category.findByPk(id);
+      if (!category) throw { name: "CategoryNotFound" };
 
       res.status(200).json(category);
     } catch (err) {
