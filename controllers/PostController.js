@@ -15,7 +15,10 @@ class PostController {
         include: [
           {
             model: User,
-            where: {}
+            where: {},
+            attributes: {
+              exclude: ["password"]
+            }
           },
           {
             model: Category
@@ -138,12 +141,18 @@ class PostController {
         include: [
           {
             model: User,
+            attributes: {
+              exclude: ["password"]
+            },
             include: {
               model: Review,
               as: "UserReviews",
               include: {
                 model: User,
-                as: "SenderReviewer"
+                as: "SenderReviewer",
+                attributes: {
+                  exclude: ["password"]
+                }
               }
             }
           },
@@ -154,12 +163,18 @@ class PostController {
             model: Comment,
             include: {
               model: User,
+              attributes: {
+                exclude: ["password"]
+              },
               include: {
                 model: Review,
                 as: "UserReviews",
                 include: {
                   model: User,
-                  as: "SenderReviewer"
+                  as: "SenderReviewer",
+                  attributes: {
+                    exclude: ["password"]
+                  }
                 }
               }
             }
