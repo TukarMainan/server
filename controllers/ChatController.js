@@ -1,55 +1,55 @@
-const { Chat, User } = require("../models");
-const { validate: uuidValidate } = require('uuid');
+// const { Chat, User } = require("../models");
+// const { validate: uuidValidate } = require('uuid');
 
-class ChatController {
-    static async readAllByUserId(req, res, next) {
-        try {
-            const { id: UserId } = req.user;
+// class ChatController {
+//     static async readAllByUserId(req, res, next) {
+//         try {
+//             const { id: UserId } = req.user;
 
-            const chats = await Chat.findAll({
-                where: { SenderId: UserId },
-                include: {
-                    model: User,
-                    as: "SenderUser",
-                    attributes: {
-                        exclude: ["password"]
-                    }
-                }
-            });
+//             const chats = await Chat.findAll({
+//                 where: { SenderId: UserId },
+//                 include: {
+//                     model: User,
+//                     as: "SenderUser",
+//                     attributes: {
+//                         exclude: ["password"]
+//                     }
+//                 }
+//             });
 
-            res.status(200).json(chats);
-        } catch (err) {
-            console.log("err :", err);
-            err.ERROR_FROM_CONTROLLER = "ChatController: readAll";
-            next(err);
-        }
-    }
+//             res.status(200).json(chats);
+//         } catch (err) {
+//             console.log("err :", err);
+//             err.ERROR_FROM_CONTROLLER = "ChatController: readAll";
+//             next(err);
+//         }
+//     }
 
-    static async createByUserId(req, res, next) {
-        try {
-            const { id: SenderId } = req.user;
-            const { ReceiverId } = req.body;
-            if (!SenderId || !ReceiverId) throw { name: "BadRequest" };
+//     static async createByUserId(req, res, next) {
+//         try {
+//             const { id: SenderId } = req.user;
+//             const { ReceiverId } = req.body;
+//             if (!SenderId || !ReceiverId) throw { name: "BadRequest" };
 
-            const [chat, created] = await Chat.findOrCreate({
-                where: { SenderId, ReceiverId },
-                defaults: {
-                    SenderId,
-                    ReceiverId
-                }
-            });
+//             const [chat, created] = await Chat.findOrCreate({
+//                 where: { SenderId, ReceiverId },
+//                 defaults: {
+//                     SenderId,
+//                     ReceiverId
+//                 }
+//             });
 
-            if (created) {
-                res.status(201).json({ message: "Success creating new chat" });
-            } else {
-                res.status(204).json({ message: "Chat already exists" })
-            }
-        } catch (err) {
-            console.log("err :", err);
-            err.ERROR_FROM_CONTROLLER = "ChatController: createByUserId";
-            next(err);
-        }
-    }
-}
+//             if (created) {
+//                 res.status(201).json({ message: "Success creating new chat" });
+//             } else {
+//                 res.status(204).json({ message: "Chat already exists" })
+//             }
+//         } catch (err) {
+//             console.log("err :", err);
+//             err.ERROR_FROM_CONTROLLER = "ChatController: createByUserId";
+//             next(err);
+//         }
+//     }
+// }
 
-module.exports = ChatController;
+// module.exports = ChatController;

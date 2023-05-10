@@ -5,6 +5,7 @@ class TradeController {
     static async readBySender(req, res, next) {
         try {
             const { id } = req.user
+            if (!uuidValidate(id)) throw { name: "UserNotFound" }
             const trades = await Trade.findAll({
                 where: { SenderUserId: id },
                 include: [
@@ -35,6 +36,7 @@ class TradeController {
     static async readByTarget(req, res, next) {
         try {
             const { id } = req.user
+            if (!uuidValidate(id)) throw { name: "UserNotFound" };
             const trades = await Trade.findAll({
                 where: { TargetUserId: id },
                 include: [

@@ -14,7 +14,7 @@ router.route("/:id/archive")
     .patch(authenticationAdmin, PostController.postArchive)
 
 router.route("/:id")
-    .put(authenticationUser, authorizeUserPost, PostController.updatePost)
+    // .put(authenticationUser, authorizeUserPost, PostController.updatePost)
     .patch(authenticationUser, authorizeUserPost, PostController.postUpdateStatus)
 
 module.exports = router;

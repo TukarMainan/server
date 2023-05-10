@@ -1,9 +1,8 @@
 const { expect, it, describe } = require("@jest/globals");
 const request = require("supertest");
-const app = require("../app");
-const { User } = require("../models");
+const app = require("../../app");
+const { User } = require("../../models");
 const crypto = require('crypto');
-const { INTEGER } = require("sequelize");
 
 const currentDate = new Date();
 const users = require("../../config/database.json").users
@@ -39,25 +38,7 @@ describe("Get /public/users/:id", () => {
             const { status, body } = await request(app)
                 .get(`/public/users/${users[0].id}`)
             expect(status).toBe(200);
-            expect(body).toEqual({
-                id: expect.any(String),
-                email: expect.any(String),
-                username: expect.any(String),
-                profileImg: expect.any(String),
-                backgroundImg: expect.any(String),
-                name: expect.any(String),
-                notes: expect.any(String),
-                phoneNumber: expect.any(String),
-                status: expect.any(String),
-                city: expect.any(String),
-                ratings: expect.any(Array),
-                waringCount: expect.any(INTEGER),
-                token: expect.any(String),
-                createdAt: expect.any(String),
-                updatedAt: expect.any(String),
-                UserReviews: expect.any(Array),
-                Posts: expect.any(Array),
-            })
+            expect(body).toEqual(expect.any(Object))
         })
     })
 

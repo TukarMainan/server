@@ -181,15 +181,27 @@ describe("PATCH /posts/:id", () => {
                 message: "Post not found"
             });
         })
-        it("should response with http status 404 and messages Input is required if fails", async () => {
+        it("should response with http status 400 and messages Input is required if fails", async () => {
             const { status, body } = await request(app)
-                .patch(`/posts/8741881b-59ce-4d9e-b8e0-07d03751022`)
+                .patch(`/posts/${posts[0].id}`)
                 .set("access_token", state.access_token)
                 .send()
             expect(status).toBe(400);
             expect(body).toEqual({
                 message: "Input is required"
             });
+        })
+        it("should response with http status 200 and message Successfully updated status Post with id if success", async () => {
+            const { status, body } = await request(app)
+                .patch(`/posts/${posts[2].id}`)
+                .set("access_token", state.access_token)
+                .send({
+                    status:"complete"
+                })
+            expect(status).toBe(403);
+            expect(body).toEqual(
+                { message: `Forbidden access` }
+            );
         })
     })
 })

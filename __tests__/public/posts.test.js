@@ -60,7 +60,7 @@ describe("GET /public/posts", () => {
     describe("Success", () => {
         it("should response with http status 200 and array of posts if success", async () => {
             const { status, body } = await request(app)
-                .get("/posts")
+                .get("/public/posts")
             expect(status).toBe(200);
             expect(body).toEqual(expect.any(Array));
             expect(body.length).toBe(posts.length);
@@ -74,7 +74,7 @@ describe("Get /public/posts/:id", () => {
             const { status, body } = await request(app)
                 .get(`/public/posts/${posts[0].id}`)
             expect(status).toBe(200);
-            expect(body).toEqual(expect.any(Array))
+            expect(body).toEqual(expect.any(Object))
         })
     })
 

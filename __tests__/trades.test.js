@@ -105,8 +105,8 @@ describe("POST /trades", () => {
             expect(status).toBe(201);
             expect(body).toEqual({
                 message: "Trade successfully created",
-                SenderUserId,
-                TargetUserId
+                SenderUserId:users[0].id,
+                TargetUserId:"8a023fb1-7d88-4921-ae6a-16350ac8b2b0"
             });
         })
     })
@@ -115,6 +115,19 @@ describe("POST /trades", () => {
             const { status, body } = await request(app)
                 .post("/trades")
                 .set("access_token", state.invalid_access_token)
+                .send({
+                    TargetUserId: "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
+                    SenderPostId: "941dd6be-f907-40f7-992a-f5ad52ecb505",
+                    TargetPostId: "86c8b025-6e30-4f0d-9d6a-ee106f62fa11",
+                })
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .post("/trades")
                 .send({
                     TargetUserId: "8a023fb1-7d88-4921-ae6a-16350ac8b2b0",
                     SenderPostId: "941dd6be-f907-40f7-992a-f5ad52ecb505",
@@ -199,6 +212,14 @@ describe("GET /trades/sender", () => {
                 message: "Unauthorized"
             });
         })
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .get("/trades/sender")
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
     })
 })
 
@@ -217,6 +238,14 @@ describe("GET /trades/target", () => {
             const { status, body } = await request(app)
                 .get("/trades/target")
                 .set("access_token", state.invalid_access_token)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .get("/trades/target");
             expect(status).toBe(401);
             expect(body).toEqual({
                 message: "Unauthorized"
@@ -253,7 +282,18 @@ describe("PATCH /trades/:id", () => {
                 message: "Unauthorized"
             });
         })
-        it("should response with http status 404 and messages Post not found if fails", async () => {
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .patch(`/trades/${trades[0].id}`)
+                .send({
+                    status:"complete"
+                })
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 404 and messages Trade not found if fails", async () => {
             const { status, body } = await request(app)
                 .patch(`/trades/8741881b-59ce-4d9e-b8e0-07d03751022`)
                 .set("access_token", state.access_token)
@@ -262,7 +302,7 @@ describe("PATCH /trades/:id", () => {
                 })
             expect(status).toBe(404);
             expect(body).toEqual({
-                message: "Post not found"
+                message: "Trade not found"
             });
         })
         it("should response with http status 400 and messages Input is required if fails", async () => {
