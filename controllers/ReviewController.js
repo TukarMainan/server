@@ -12,6 +12,8 @@ class ReviewController {
             if (!uuidValidate(UserId)) throw { name: "UserNotFound" };
             if (!uuidValidate(PostId)) throw { name: "PostNotFound" };
 
+            if (UserId === SenderId) throw { name: "BadRequest" };
+
             const user = await User.findByPk(UserId);
             if (!user) throw { name: "UserNotFound" };
             if (user.status === "suspend") throw { name: "Forbidden" };
