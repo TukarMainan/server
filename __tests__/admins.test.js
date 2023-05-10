@@ -280,8 +280,8 @@ describe("PATCH /admins/update-password", () => {
   describe("Success", () => {
     it("should response with http status 201, and return message Successfully updating Password", async () => {
       const payload = {
-        oldPassword: admins[0].password,
-        NewPassword: "newpassword"
+        oldpassword: admins[0].password,
+        newpassword: "newpassword"
       };
       const { status, body } = await request(app)
         .patch("/admins/update-password")
@@ -296,7 +296,7 @@ describe("PATCH /admins/update-password", () => {
   describe("Fails", () => {
     it("should response with http status 400, and return message Input is required", async () => {
       const payload = {
-        oldPassword: admins[0].password
+        oldpassword: admins[0].password
       };
       const { status, body } = await request(app)
         .patch("/admins/update-password")
@@ -309,7 +309,7 @@ describe("PATCH /admins/update-password", () => {
     });
     it("should response with http status 400, and return message Input is required", async () => {
       const payload = {
-        NewPassword: "newpassword"
+        newpassword: "newpassword"
       };
       const { status, body } = await request(app)
         .patch("/admins/update-password")
@@ -333,8 +333,8 @@ describe("PATCH /admins/update-password", () => {
     });
     it("should response with http status 400, and return message Input is required", async () => {
       const payload = {
-        oldPassword: admins[0].password,
-        NewPassword: "newpassword"
+        oldpassword: admins[0].password,
+        newpassword: "newpassword"
       };
       const { status, body } = await request(app)
         .patch("/admins/update-password")
@@ -347,8 +347,8 @@ describe("PATCH /admins/update-password", () => {
     });
     it("should response with http status 400, and return message Input is required", async () => {
       const payload = {
-        oldPassword: "wrongpassword",
-        NewPassword: "newpassword"
+        oldpassword: "wrongpassword",
+        newpassword: "newpassword"
       };
       const { status, body } = await request(app)
         .patch("/admins/update-password")

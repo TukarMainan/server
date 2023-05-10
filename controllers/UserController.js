@@ -331,18 +331,18 @@ Salam hormat,
     try {
 
       const { id } = req.user;
-      const { oldPassword, NewPassword } = req.body;
+      const { oldpassword, newpassword } = req.body;
 
-      if (!oldPassword || !NewPassword) throw { name: "BadRequest" };
+      if (!oldpassword || !newpassword) throw { name: "BadRequest" };
 
       const user = await User.findByPk(id);
 
       if (!user) throw { name: "Unauthorized" };
 
-      const isValid = await verifyPassword(user.password, oldPassword);
+      const isValid = await verifyPassword(user.password, oldpassword);
       if (!isValid) throw { name: "Unauthorized" };
 
-      const hashedNewPassword = await hashPassword(NewPassword);
+      const hashedNewPassword = await hashPassword(newpassword);
       const updatedUser = await User.update(
         {
           password: hashedNewPassword
