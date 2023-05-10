@@ -24,7 +24,7 @@ class PostController {
             model: Category
           }
         ],
-        order: []
+        order: [['createdAt', "DESC"]]
       }
       if (sortby) {
         options.order = [['createdAt', sortby]]
@@ -346,11 +346,11 @@ class PostController {
       next(err);
     }
   }
-  static async deletePost(req,res,next){
+  static async deletePost(req, res, next) {
     try {
       const { id } = req.params;
       const deletedPost = await Post.destroy({
-        where:{id}
+        where: { id }
       })
       res
         .status(201)
