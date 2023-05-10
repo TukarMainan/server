@@ -3,6 +3,7 @@ const request = require("supertest");
 const app = require("../app");
 const { User, Post, Sequelize, Category,Admin } = require("../models");
 const crypto = require('crypto');
+const fs = require('fs')
 
 const state = {
     access_token: "",
@@ -205,3 +206,68 @@ describe("PATCH /posts/:id", () => {
         })
     })
 })
+
+
+describe("DELETE /posts/:id", () => {
+    describe("Success", () => {
+        it("should response with http status 200 and message Successfully delete post if success", async () => {
+            const { status, body } = await request(app)
+                .delete(`/posts/${posts[0].id}`)
+                .set("access_token", state.access_token)
+            expect(status).toBe(201);
+            expect(body).toEqual(
+                { message: `Successfully delete post` }
+            );
+        })
+    })
+    describe("Fails", () => {
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .delete(`/posts/${posts[0].id}`)
+                .set("access_token", state.invalid_access_token)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .delete(`/posts/${posts[0].id}`)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .delete(`/posts/${posts[2].id}`)
+                .set("access_token", state.access_token)
+            expect(status).toBe(403);
+            expect(body).toEqual({
+                message: "Forbidden access"
+            });
+        })
+    })
+})
+
+// describe("POST /posts", () => {
+//     describe("Success", () => {
+//         it("should response with http status 200 and array of posts if success", async () => {            
+//             const { status, body } = await request(app)
+//                 .post("/posts")
+//                 .set("access_token", state.access_token)
+//                 .set('Content-Type', 'multipart/form-data')
+//                 .field("title",'new post')
+//                 .field("description",'test post description')
+//                 .field("condition",'like new')
+//                 .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+//                 .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+//                 .field("price",200000)
+//                 .attach("images",'./__test__/assest/post1.jpg')
+//                 .attach("images",'./__test__/assest/post2.jpg')
+//             // console.log(body, status);
+//             expect(status).toBe(201);
+//             expect(body).toEqual(expect.any(Array));
+//         })
+//     })
+// })

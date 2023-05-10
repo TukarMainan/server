@@ -273,6 +273,28 @@ describe("POST /admins/register", () => {
         message: "Email is required"
       });
     });
+    it("should response with http status 400, and return message if fails", async () => {
+      const payload = {
+        username: "admin4",
+        email: "admin1@mail.com",
+        password: "admin123"
+      };
+      const res = await request(app).post("/admins/register").send(payload).set("access_token", state.access_token);
+      expect(res.status).toBe(400);
+      expect(res.body).toBeInstanceOf(Object);
+      expect(res.body).toHaveProperty("message", expect.any(String));
+    });
+    it("should response with http status 201, and return message Success creating new admin", async () => {
+      const payload = {
+        username: "admin4",
+        email: 1231,
+        password: 1231
+      };
+      const res = await request(app).post("/admins/register").send(payload).set("access_token", state.access_token);
+      expect(res.status).toBe(400);
+      expect(res.body).toBeInstanceOf(Object);
+      expect(res.body).toHaveProperty("message");
+    });
   });
 })
 
