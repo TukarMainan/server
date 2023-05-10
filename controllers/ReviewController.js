@@ -7,6 +7,8 @@ class ReviewController {
             const { id: SenderId } = req.user;
             const { UserId, message, rating, PostId } = req.body;
 
+            if (!UserId || !PostId || !message || !rating) throw { name: "BadRequest" };
+
             if (!uuidValidate(UserId)) throw { name: "UserNotFound" };
             if (!uuidValidate(PostId)) throw { name: "PostNotFound" };
 
