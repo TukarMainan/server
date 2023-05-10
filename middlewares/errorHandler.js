@@ -29,10 +29,10 @@ module.exports = (err, req, res, next) => {
                 message = `Maximum 5 images upload`;
             }
             break;
-        case "ImageLimitExceed":
-            status = 400;
-            message = `Maximum 5 images upload`;
-            break;
+        // case "ImageLimitExceed":
+        //     status = 400;
+        //     message = `Maximum 5 images upload`;
+        //     break;
         case "InactiveEmail":
             status = 400;
             message = `Email is not active`;
@@ -64,7 +64,6 @@ module.exports = (err, req, res, next) => {
             message = `Trade not found`;
             break;
         case "CategoryNotFound":
-            console.log("MAAAAAAAAAAASUUUUUUUUUUUUUUUUUUUKKKKKKKKKKKKKKKKK");
             status = 404;
             message = `Category not found`;
             break;
