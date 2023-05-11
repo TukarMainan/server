@@ -138,7 +138,7 @@ class TradeController {
             }
             const updatedTrade = await Trade.update(
                 {
-                    status
+                    Status:status
                 },
                 {
                     where: { id },
