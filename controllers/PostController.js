@@ -69,19 +69,23 @@ class PostController {
       const userLocation = Sequelize.literal(`ST_GeomFromText('POINT(${longitude} ${latitude})')`);
 
       const posts = await Post.findAll({
-        where: Sequelize.where(
-          Sequelize.fn(
-            'ST_DistanceSphere',
-            Sequelize.col('meetingPoint'),
-            userLocation,
-          ),
-          {
-            [Op.lte]: 5000
-          },
-          {
-            status: "active"
-          }
-        ),
+        where: {
+          [Op.and]: [
+            Sequelize.where(
+              Sequelize.fn(
+                'ST_DistanceSphere',
+                Sequelize.col('meetingPoint'),
+                userLocation,
+              ),
+              {
+                [Op.lte]: 5000
+              }
+            ),
+            {
+              status: "active"
+            }
+          ]
+        },
         order: [
           [Sequelize.fn(
             'ST_DistanceSphere',
