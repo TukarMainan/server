@@ -250,24 +250,235 @@ describe("DELETE /posts/:id", () => {
     })
 })
 
-// describe("POST /posts", () => {
-//     describe("Success", () => {
-//         it("should response with http status 200 and array of posts if success", async () => {            
-//             const { status, body } = await request(app)
-//                 .post("/posts")
-//                 .set("access_token", state.access_token)
-//                 .set('Content-Type', 'multipart/form-data')
-//                 .field("title",'new post')
-//                 .field("description",'test post description')
-//                 .field("condition",'like new')
-//                 .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
-//                 .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
-//                 .field("price",200000)
-//                 .attach("images",'./__test__/assest/post1.jpg')
-//                 .attach("images",'./__test__/assest/post2.jpg')
-//             // console.log(body, status);
-//             expect(status).toBe(201);
-//             expect(body).toEqual(expect.any(Array));
-//         })
-//     })
-// })
+describe("POST /posts", () => {
+    describe("Success", () => {
+        it("should response with http status 200 and message Successfully create post if success", async () => {            
+            const { status, body } = await request(app)
+                .post("/posts")
+                .set("access_token", state.access_token)
+                .set('Content-Type', 'multipart/form-data')
+                .field("title",'new post')
+                .field("description",'test post description')
+                .field("condition",'like new')
+                .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                .field("price",200000)
+                .attach("images",'./__tests__/assets/post1.jpg')
+                .attach("images",'./__tests__/assets/post1.jpg')
+                .attach("images",'./__tests__/assets/post1.jpg')
+                .attach("images",'./__tests__/assets/post1.jpg')
+                .attach("images",'./__tests__/assets/post1.jpg')
+            expect(status).toBe(201);
+            expect(body).toEqual({
+                message:"Successfully create post"
+            });
+        },25000)
+        it("should response with http status 200 and message Successfully create post if success", async () => {            
+            const { status, body } = await request(app)
+                .post("/posts")
+                .set("access_token", state.access_token)
+                .set('Content-Type', 'multipart/form-data')
+                .field("title",'new post 2')
+                .field("description",'test post description 2')
+                .field("condition",'like new')
+                .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                .field("price",150000)
+                .attach("images",'./__tests__/assets/post1.jpg')
+                .attach("images",'./__tests__/assets/post1.jpg')
+                .attach("images",'./__tests__/assets/post1.jpg')
+            expect(status).toBe(201);
+            expect(body).toEqual({
+                message:"Successfully create post"
+            });
+        },25000)
+    })
+    describe("Fails",()=>{
+            it("should response with http status 400 and maessage Images is required if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price",200000)
+                expect(status).toBe(400);
+                expect(body).toEqual({
+                    message:"Images is required"
+                });
+            },25000)
+            it("should response with http status 400 and maessage Maximum 5 images upload if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(400);
+                expect(body).toEqual({
+                    message:"Maximum 5 images upload"
+                });
+            },25000)
+            it("should response with http status 400 and maessage title is required if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(400);
+                expect(body).toEqual({
+                    message:"Title is required"
+                });
+            },25000)
+            it("should response with http status 404 and maessage Category not found if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(404);
+                expect(body).toEqual({
+                    message:"Category not found"
+                });
+            },25000)
+            it("should response with http status 400 and maessage Description is required if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(400);
+                expect(body).toEqual({
+                    message:"Description is required"
+                });
+            },25000)
+            it("should response with http status 400 and maessage Maximum 5 images upload if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition", "like")
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(400);
+                expect(body).toEqual({
+                    message:`invalid input value for enum \"enum_Posts_condition\": \"like\"`
+                });
+            },25000)
+            it("should response with http status 400 and maessage Category not found if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(404);
+                expect(body).toEqual({
+                    message:"Category not found"
+                });
+            },25000)
+            it("should response with http status 400 and maessage Internal Server Error if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field('meetingPoint', "test")
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(500);
+                expect(body).toEqual({
+                    message:"Internal Server Error"
+                });
+            },25000)
+            it("should response with http status 400 and maessage Input is required if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field("price",200000)
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(400);
+                expect(body).toEqual({
+                    message:"Input is required"
+                });
+            },25000)
+            it("should response with http status 400 and maessage Maximum 5 images upload if fails", async () => {            
+                const { status, body } = await request(app)
+                    .post("/posts")
+                    .set("access_token", state.access_token)
+                    .set('Content-Type', 'multipart/form-data')
+                    .field("title",'new post')
+                    .field("description",'test post description')
+                    .field("condition",'like new')
+                    .field("CategoryId",'e759b264-980a-4d0a-90a4-cd484beffe49')
+                    .field('meetingPoint', JSON.stringify({ longitude: 1.23456, latitude: 7.89012 }))
+                    .field("price","test")
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                    .attach("images",'./__tests__/assets/post1.jpg')
+                expect(status).toBe(400);
+                expect(body).toEqual({
+                    message:"invalid input syntax for type integer: \"test\""
+                });
+            },25000)
+    })
+})

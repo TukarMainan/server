@@ -110,7 +110,15 @@ describe("GET /adminlogs", () => {
         it("should response with http status 401 and messages unauthorized if fails", async () => {
             const { status, body } = await request(app)
                 .get("/adminlogs")
-                .set("access_token", state.invalid_access_token)
+            expect(status).toBe(401);
+            expect(body).toEqual({
+                message: "Unauthorized"
+            });
+        })
+        it("should response with http status 401 and messages unauthorized if fails", async () => {
+            const { status, body } = await request(app)
+                .get("/adminlogs")
+                .set("access_token",state.invalid_access_token)
             expect(status).toBe(401);
             expect(body).toEqual({
                 message: "Unauthorized"

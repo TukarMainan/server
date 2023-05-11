@@ -302,6 +302,7 @@ class PostController {
       if (!uuidValidate(CategoryId)) throw { name: "CategoryNotFound" };
       const category = await Category.findByPk(CategoryId);
       if (!category) throw { name: "CategoryNotFound" };
+      if (!meetingPoint) throw {name : "BadRequest" };
 
       const files = req.files;
       const images = [];

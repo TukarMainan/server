@@ -14,8 +14,8 @@ router.route("/")
 router.route("/login")
     .post(UserController.login)
 
-router.route("/login/google")
-    .post(UserController.googleLogin)
+// router.route("/login/google")
+//     .post(UserController.googleLogin)
 
 router.route("/register")
     .post(UserController.register)

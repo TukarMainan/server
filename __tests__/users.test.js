@@ -370,7 +370,7 @@ describe("PATCH /users/update-password", () => {
 
 describe("POST /users/register", () => {
     describe("Success", () => {
-      it("should response with http status 201, and return message Success creating new admin", async () => {
+      it("should response with http status 201, and return message Success creating new Account", async () => {
         const payload = {
           username: "user4",
           email: "user4@gmail.com",
@@ -382,7 +382,7 @@ describe("POST /users/register", () => {
         expect(res.body).toBeInstanceOf(Object);
         expect(res.body).toHaveProperty("message", expect.any(String));
       });
-      it("should response with http status 201, and return message Success creating new admin", async () => {
+      it("should response with http status 201, and return message Success creating new Account", async () => {
         const payload = {
           username: "user5",
           email: "user511@gmail.com",
@@ -397,7 +397,7 @@ describe("POST /users/register", () => {
     });
   
     describe("Fails", () => {
-      it("should response with http status 400 and messages 'Password is required' if fails", async () => {
+      it("should response with http status 400 and messages 'Input is required' if fails", async () => {
         const payload = {
             username: "user5",
             email: "user15@gmail.com",
@@ -408,7 +408,7 @@ describe("POST /users/register", () => {
           .send(payload)
         expect(status).toBe(400);
         expect(body).toEqual({
-          message: "Password is required"
+          message: "Input is required"
         });
       });
       it("should response with http status 400 and messages 'Email is required' if fails", async () => {
@@ -425,7 +425,7 @@ describe("POST /users/register", () => {
           message: "Email is not active"
         });
       });
-      it("should response with http status 400 and messages 'Username is required' if fails", async () => {
+      it("should response with http status 400 and messages 'Input is required' if fails", async () => {
         const payload = {
             email: "user52@gmail.com",
             password: "user12345",
@@ -436,7 +436,7 @@ describe("POST /users/register", () => {
           .send(payload)
         expect(status).toBe(400);
         expect(body).toEqual({
-          message: "Username is required"
+          message: "Input is required"
         });
       });
       it("should response with http status 400 and messages input is required if fails", async () => {
@@ -450,67 +450,97 @@ describe("POST /users/register", () => {
           .send(payload)
         expect(status).toBe(400);
         expect(body).toEqual({
-          message: "City is required"
+          message: "Input is required"
         });
       });
     });
   })
 
-// describe("PUT /users", () => {
-//     describe("Success", () => {
-//       it("should response with http status 201, and return message Success updating profile", async () => {
-        
-//         const formData = new FormData();
-//         formData.append("name",'test new');
-//         formData.append("notes",'test notes');
-//         formData.append("phoneNumber",'085487511215');
-//         formData.append("city",'Jakarta');
-//         // formData.append("data", JSON.stringify(payload));
-//         formData.append('profileImg', fs.createReadStream(profileImg));
-//         formData.append('backgroundImg', fs.createReadStream(backgroundImg));
+describe("PUT /users", () => {
+    describe("Success", () => {
+      it("should response with http status 201, and return message Success updating profile", async () => {
+        const { status, body } = await request(app)
+        .put("/users")
+        .set("access_token",state.access_token)
+        .set('Content-Type', 'multipart/form-data')
+        .field("name",'test new')
+        .field("notes",'test notes')
+        .field("phoneNumber",'085487511215')
+        .field("city",'Jakarta')
+        .attach("profileImg",profileImg)
+        .attach("backgroundImg",backgroundImg)
+        expect(status).toBe(200);
+        expect(body).toEqual({
+          message:"Successfully updated profile"
+        });
+      },50000);
+      it("should response with http status 201, and return message Success updating profile", async () => {
+        const { status, body } = await request(app)
+        .put("/users")
+        .set("access_token",state.access_token)
+        .set('Content-Type', 'multipart/form-data')
+        .field("name",'test new 2')
+        .field("notes",'test notes 2')
+        .field("phoneNumber",'085487511211')
+        .field("city",'Surabaya')
+        .attach("profileImg",profileImg)
+        .attach("backgroundImg",backgroundImg)
+        expect(status).toBe(200);
+        expect(body).toEqual({
+          message:"Successfully updated profile"
+        });
+      },50000);
+    });
+    describe("Fails", () => {
+      it("should response with http status 400, and return message Maximum 5 images upload if fails", async () => {
 
-//         const { status, body } = await request(app)
-//         .put("/users")
-//         .set("access_token",state.access_token)
-//         .set('Content-Type', 'multipart/form-data')
-//         .field("name",'test new')
-//         .field("notes",'test notes')
-//         .field("phoneNumber",'085487511215')
-//         .field("city",'Jakarta')
-//         .attach("profileImg",profileImg)
-//         .attach("backgroundImg",backgroundImg)
-//         expect(status).toBe(200);
-//         expect(body).toEqual({
-//           message:"test"
-//         });
-//       });
-//     });
-//     describe("Fails", () => {
-//       it("should response with http status 201, and return message Success updating profile", async () => {
-        
-//         const formData = new FormData();
-//         formData.append("name",'test new');
-//         formData.append("notes",'test notes');
-//         formData.append("phoneNumber",'085487511215');
-//         formData.append("city",'Jakarta');
-//         // formData.append("data", JSON.stringify(payload));
-//         formData.append('profileImg', fs.createReadStream(profileImg));
-//         formData.append('backgroundImg', fs.createReadStream(backgroundImg));
+        const { status, body } = await request(app)
+        .put("/users")
+        .set("access_token",state.access_token)
+        .set('Content-Type', 'multipart/form-data')
+        .field("name",'test new')
+        .field("notes",'test notes')
+        .field("phoneNumber",'085487511215')
+        .field("city",'Jakarta')
+        .attach("profileImg",profileImg)
+        .attach("backgroundImg",backgroundImg)
+        .attach("backgroundImg",backgroundImg)
+        expect(status).toBe(400);
+        expect(body).toEqual({
+          message:"Maximum 5 images upload"
+        });
+      },20000);
+      it("should response with http status 201, and return message Input is required if fails", async () => {
 
-//         const { status, body } = await request(app)
-//         .put("/users")
-//         .set("access_token",state.access_token)
-//         .set('Content-Type', 'multipart/form-data')
-//         .field("name",'test new')
-//         .field("notes",'test notes')
-//         .field("phoneNumber",'085487511215')
-//         .field("city",'Jakarta')
-//         .attach("profileImg",profileImg)
-//         .attach("backgroundImg",backgroundImg)
-//         expect(status).toBe(404);
-//         expect(body).toEqual({
-//           message:"test"
-//         });
-//       });
-//     });
-// })
+        const { status, body } = await request(app)
+        .put("/users")
+        .set("access_token",state.access_token)
+        .set('Content-Type', 'multipart/form-data')
+        .field("name",'test new')
+        .field("notes",'test notes')
+        .field("phoneNumber",'085487511215')
+        .attach("profileImg",profileImg)
+        .attach("backgroundImg",backgroundImg)
+        expect(status).toBe(400);
+        expect(body).toEqual({
+          message:"Input is required"
+        });
+      },20000);
+      it("should response with http status 201, and return message Maximum 5 images upload if fails", async () => {
+
+        const { status, body } = await request(app)
+        .put("/users")
+        .set("access_token",state.access_token)
+        .set('Content-Type', 'multipart/form-data')
+        .field("name",'test new')
+        .field("notes",'test notes')
+        .field("phoneNumber",'085487511215')
+        .field("city",'Jakarta')
+        .attach("profileImg",profileImg)
+        expect(status).toBe(500);
+        expect(body).toEqual({
+          message:"Internal Server Error"
+        });
+      },20000);
+    });
+})

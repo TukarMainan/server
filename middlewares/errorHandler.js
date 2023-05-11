@@ -31,7 +31,7 @@ module.exports = (err, req, res, next) => {
             break;
         case "ImageLimitExceed":
             status = 400;
-            message = `Maximum 5 images upload`;
+            message = `Exceeded the image upload limit`;
             break;
         case "InactiveEmail":
             status = 400;
@@ -50,6 +50,10 @@ module.exports = (err, req, res, next) => {
         case "Forbidden":
             status = 403;
             message = `Forbidden access`;
+            break;
+        case "MeetingPointNotFound":
+            status = 404;
+            message = `Meeting point not found`;
             break;
         case "PostNotFound":
             status = 404;
