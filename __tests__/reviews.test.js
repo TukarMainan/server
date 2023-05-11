@@ -307,5 +307,21 @@ describe("POST /reviews", () => {
                 message: "Unauthorized"
             });
         })
+        it("should response with http status 201 and message Review successfully created if success", async () => {
+            const payload = {
+                UserId: "3d131ee0-6f16-4fc7-a033-fa8e06acd172",
+                message: 1511,
+                rating: 5,
+                PostId: "1590e5ca-bbca-46ff-be71-a7ec95e6379f"
+            }
+            const { status, body } = await request(app)
+                .post("/reviews")
+                .set("access_token", state.access_token)
+                .send(payload)
+            expect(status).toBe(201);
+            expect(body).toEqual({
+                message: "Review successfully created"
+            });
+        })
     })
 })
