@@ -22,7 +22,8 @@ class TradeController {
                     },
                     {
                         model: Post,
-                        as: "TargetPost"
+                        as: "TargetPost",
+                        include: User
                     }
                 ]
             });
@@ -53,7 +54,8 @@ class TradeController {
                     },
                     {
                         model: Post,
-                        as: "TargetPost"
+                        as: "TargetPost",
+                        include: User
                     }
                 ]
             });
@@ -126,19 +128,19 @@ class TradeController {
             const findTrade = await Trade.findByPk(id);
             if (!findTrade) throw ({ name: "TradeNotFound" });
             if (findTrade.Status === "complete") throw ({ name: "Forbidden" });
-            if(status === "complete"){
+            if (status === "complete") {
                 const senderPost = await Post.update(
-                    {status : "complete"},
-                    {where : {id:findTrade.SenderPostId}}
+                    { status: "complete" },
+                    { where: { id: findTrade.SenderPostId } }
                 )
                 const targetPost = await Post.update(
-                    {status : "complete"},
-                    {where : {id:findTrade.TargetPostId}}
+                    { status: "complete" },
+                    { where: { id: findTrade.TargetPostId } }
                 )
             }
             const updatedTrade = await Trade.update(
                 {
-                    Status:status
+                    Status: status
                 },
                 {
                     where: { id },
