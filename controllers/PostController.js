@@ -58,42 +58,79 @@ class PostController {
     }
   }
 
+  // static async nearbyPost(req, res, next) {
+  //   try {
+  //     const { location } = req.headers;
+  //     if (!location) throw { name: "BadRequest" };
+
+  //     const { latitude, longitude } = JSON.parse(location);
+  //     if (!latitude || !longitude) throw { name: "BadRequest" };
+
+  //     const userLocation = Sequelize.literal(`ST_GeomFromText('POINT(${longitude} ${latitude})')`);
+
+  //     const posts = await Post.findAll({
+  //       where: {
+  //         [Op.and]: [
+  //           Sequelize.where(
+  //             Sequelize.fn(
+  //               'ST_DistanceSphere',
+  //               Sequelize.col('meetingPoint'),
+  //               userLocation,
+  //             ),
+  //             {
+  //               [Op.lte]: 5000
+  //             }
+  //           ),
+  //           {
+  //             status: "active"
+  //           }
+  //         ]
+  //       },
+  //       order: [
+  //         [Sequelize.fn(
+  //           'ST_DistanceSphere',
+  //           Sequelize.col('meetingPoint'),
+  //           userLocation,
+  //         ), 'ASC'],
+  //       ],
+  //       limit: 10
+  //     });
+
+  //     res.status(200).json(posts);
+  //   } catch (err) {
+  //     err.ERROR_FROM_CONTROLLER = "PostController: nearbyPost";
+  //     next(err);
+  //   }
+  // }
+
   static async nearbyPost(req, res, next) {
     try {
-      const { location } = req.headers;
-      if (!location) throw { name: "BadRequest" };
-
-      const { latitude, longitude } = JSON.parse(location);
-      if (!latitude || !longitude) throw { name: "BadRequest" };
-
-      const userLocation = Sequelize.literal(`ST_GeomFromText('POINT(${longitude} ${latitude})')`);
+      const { id } = req.user;
+      console.log(req.user)
+      const user = await User.findByPk(id)
 
       const posts = await Post.findAll({
         where: {
-          [Op.and]: [
-            Sequelize.where(
-              Sequelize.fn(
-                'ST_DistanceSphere',
-                Sequelize.col('meetingPoint'),
-                userLocation,
-              ),
-              {
-                [Op.lte]: 5000
-              }
-            ),
-            {
-              status: "active"
-            }
-          ]
+          UserId:{
+            [Op.ne]:user.id
+          },
+          status:{
+            [Op.ne]:"complete",
+            [Op.ne]:"inactive",
+            
+          }
         },
-        order: [
-          [Sequelize.fn(
-            'ST_DistanceSphere',
-            Sequelize.col('meetingPoint'),
-            userLocation,
-          ), 'ASC'],
-        ],
-        limit: 10
+        include: [
+          {
+            model: User,
+            where: {
+              city:user.city
+            },
+            attributes: {
+              exclude: ["password"]
+            }
+          }
+        ]
       });
 
       res.status(200).json(posts);
