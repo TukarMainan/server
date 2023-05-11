@@ -125,7 +125,7 @@ class TradeController {
 
             const findTrade = await Trade.findByPk(id);
             if (!findTrade) throw ({ name: "TradeNotFound" });
-            if (findTrade.status === "complete") throw ({ name: "Forbidden" });
+            if (findTrade.Status === "complete") throw ({ name: "Forbidden" });
             if(status === "complete"){
                 const senderPost = await Post.update(
                     {status : "complete"},
