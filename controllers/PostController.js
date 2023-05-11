@@ -129,6 +129,9 @@ class PostController {
             attributes: {
               exclude: ["password"]
             }
+          },
+          {
+            model: Category
           }
         ]
       });
