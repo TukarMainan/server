@@ -397,7 +397,7 @@ describe("POST /users/register", () => {
     });
   
     describe("Fails", () => {
-      it("should response with http status 400 and messages 'Input is required' if fails", async () => {
+      it("should response with http status 400 and messages 'Password is required' if fails", async () => {
         const payload = {
             username: "user5",
             email: "user15@gmail.com",
@@ -408,7 +408,7 @@ describe("POST /users/register", () => {
           .send(payload)
         expect(status).toBe(400);
         expect(body).toEqual({
-          message: "Input is required"
+          message: "Password is required"
         });
       });
       it("should response with http status 400 and messages 'Email is required' if fails", async () => {
@@ -422,10 +422,10 @@ describe("POST /users/register", () => {
           .send(payload)
         expect(status).toBe(400);
         expect(body).toEqual({
-          message: "Email is not active"
+          message: "Email is required"
         });
       });
-      it("should response with http status 400 and messages 'Input is required' if fails", async () => {
+      it("should response with http status 400 and messages 'Username is required' if fails", async () => {
         const payload = {
             email: "user52@gmail.com",
             password: "user12345",
@@ -436,10 +436,10 @@ describe("POST /users/register", () => {
           .send(payload)
         expect(status).toBe(400);
         expect(body).toEqual({
-          message: "Input is required"
+          message: "Username is required"
         });
       });
-      it("should response with http status 400 and messages input is required if fails", async () => {
+      it("should response with http status 400 and messages 'City is required' if fails", async () => {
         const payload = {
             username: "user5",
             email: "user5@gmail.com",
@@ -450,7 +450,7 @@ describe("POST /users/register", () => {
           .send(payload)
         expect(status).toBe(400);
         expect(body).toEqual({
-          message: "Input is required"
+          message: "City is required"
         });
       });
     });

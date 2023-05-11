@@ -18,14 +18,14 @@ class UserController {
     try {
       const { username, email, password, city } = req.body;
 
-      const isValid = await axios({
-        url: `https://emailvalidation.abstractapi.com/v1/?api_key=${api_key}&email=${email}`,
-        method: "GET",
-      });
+      // const isValid = await axios({
+      //   url: `https://emailvalidation.abstractapi.com/v1/?api_key=${api_key}&email=${email}`,
+      //   method: "GET",
+      // });
 
-      if (isValid.data.deliverability != "DELIVERABLE") {
-        throw { name: "InactiveEmail" };
-      }
+      // if (isValid.data.deliverability != "DELIVERABLE") {
+      //   throw { name: "InactiveEmail" };
+      // }
 
       const token = crypto.randomBytes(32).toString('hex');
       console.log(token);

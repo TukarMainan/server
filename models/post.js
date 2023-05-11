@@ -121,25 +121,25 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: "Images is required"
         },
-        isValidArray(value) {
-          if (!Array.isArray(value)) {
-            throw new Error('Invalid images data structure');
-          }
+        // isValidArray(value) {
+        //   if (!Array.isArray(value)) {
+        //     throw new Error('Invalid images data structure');
+        //   }
 
-          if (value.length < 1 && value.length > 5) {
-            throw new Error('Images must contain 1 to 5 image url');
-          }
-        },
-        isValidUrlArray(value) {
-          console.log(value);
-          const isValid = value.every((url) => {
-            const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
-            return urlRegex.test(url);
-          });
-          if (!isValid) {
-            throw new Error('Invalid image url format');
-          }
-        },
+        //   if (value.length < 1 && value.length > 5) {
+        //     throw new Error('Images must contain 1 to 5 image url');
+        //   }
+        // },
+        // isValidUrlArray(value) {
+        //   console.log(value);
+        //   const isValid = value.every((url) => {
+        //     const urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
+        //     return urlRegex.test(url);
+        //   });
+        //   if (!isValid) {
+        //     throw new Error('Invalid image url format');
+        //   }
+        // },
       }
     },
     price: DataTypes.INTEGER

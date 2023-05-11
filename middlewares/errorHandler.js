@@ -68,7 +68,7 @@ module.exports = (err, req, res, next) => {
             message = `Trade not found`;
             break;
         case "CategoryNotFound":
-            // console.log("MAAAAAAAAAAASUUUUUUUUUUUUUUUUUUUKKKKKKKKKKKKKKKKK");
+            console.log("MAAAAAAAAAAASUUUUUUUUUUUUUUUUUUUKKKKKKKKKKKKKKKKK");
             status = 404;
             message = `Category not found`;
             break;
