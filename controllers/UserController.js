@@ -34,7 +34,9 @@ class UserController {
         email,
         password,
         city,
-        token
+        token,
+        backgroundImg:"https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-kindergarten-daily-outdoor-activities-cartoon-banner-image_171310.jpg",
+        profileImg:"https://png.pngtree.com/png-vector/20210414/ourlarge/pngtree-cartoon-cute-run-purple-small-dinosaur-png-image_3208688.jpg"
       });
 
       const transporter = nodemailer.createTransport({
